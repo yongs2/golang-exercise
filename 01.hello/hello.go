@@ -17,4 +17,10 @@ func main() {
 
 	s1 = "Hello world ~ Wonderful"
 	fmt.Println(s1)
+
+	s1 = "Hello"
+	s2 = "Hello"
+	s3 = "World"
+	fmt.Println(s1 == s2)
+	fmt.Println(s1+s3)
 }
