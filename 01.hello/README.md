@@ -14,6 +14,6 @@ docker run --rm --privileged \
 - go 소스를 하나씩 빌드하면 파일명으로 실행 파일 생성
 
 ```sh
-go build hello
+go build hello.go
 ./hello
 ```
