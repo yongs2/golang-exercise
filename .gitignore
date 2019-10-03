@@ -13,3 +13,4 @@
 *.out
 
 golang.org/
+github.com/
