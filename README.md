@@ -12,7 +12,7 @@
   - [Methods and interfaces](https://tour.golang.org/methods/1) 은 1~26
   - [Concurrency](https://tour.golang.org/concurrency/1) 은 1~11
 - [한글 버전](https://go-tour-kr.appspot.com)
-  - [#50](https://go-tour-kr.appspot.com/#50)
+  - [#60](https://go-tour-kr.appspot.com/#60)
 
 ## 01.Hello : Hello world
 
