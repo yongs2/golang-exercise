@@ -4,12 +4,12 @@ import "fmt"
 
 func fibonacci(n int, c chan int) {
 	x, y := 0, 1
-
+	fmt.Println("fibonacci.for, n=", n, cap(c))
 	for i := 0; i < n; i++ {
 		c <- x
 		x, y = y, x+y
 	}
-	fmt.Println("close(c), n=", n)
+	fmt.Println("fibonacci.close(c), n=", n)
 	close(c)
 }
 
