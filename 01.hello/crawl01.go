@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+// Refer to https://www.morcavon.com/1178440502
+var chChange = make(chan int)
+var fetchedUrls = make(map[string]bool, 10)
+
 type Fetcher interface {
 	// Fetch returns the body of URL and
     // a slice of URLs found on that page.
@@ -21,20 +25,37 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 		return
 	}
 
-	body, urls, err := fetcher.Fetch(url)
-	if err != nil {
-		fmt.Println("[", depth, "]", err)
-		return
+	fmt.Printf("[ %d ] url[%s], fetchedUrls[%g]\n", depth, url, fetchedUrls[url])
+	if ok := fetchedUrls[url]; !ok {
+		fetchedUrls[url] = true
+		body, urls, err := fetcher.Fetch(url)
+		if err != nil {
+			fmt.Println("[", depth, "]", err)
+		} else {
+			fmt.Printf("[ %d ] Crawl.found: %s %q\n", depth, url, body)
+			chChange <- len(urls)
+			for _, u := range urls {
+				go Crawl(u, depth-1, fetcher)
+			}
+		}
 	}
-	fmt.Printf("[ %d ] Crawl.found: %s %q\n", depth, url, body)
-	for _, u := range urls {
-		Crawl(u, depth-1, fetcher)
-	}
+	chChange <- -1
 	return
 }
 
 func main() {
-	Crawl("http://golang.org/", 4, fetcher)
+	go Crawl("http://golang.org/", 4, fetcher)
+
+	for remain := 0; ; {
+		select {
+		case diff := <- chChange :
+			fmt.Println("remain=", remain, ", diff=", diff)
+			remain += diff
+			if diff == -1 && remain < 0 {
+				return
+			}
+		}
+	}
 }
 
 // fakeFetcher is Fetcher that returns canned results.
