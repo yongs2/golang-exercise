@@ -14,7 +14,7 @@
 - [한글 버전](https://go-tour-kr.appspot.com)
   - [#70](https://go-tour-kr.appspot.com/#70)
 - [Go Bootcamp](http://www.golangbootcamp.com/book/)
-- [Go Example](https://gobyexample.com/) : [한글번역](https://mingrammer.com/gobyexample) (https://github.com/mingrammer/gobyexample)
+- [Go by Example](https://gobyexample.com/) : ([한글번역](https://mingrammer.com/gobyexample), [github](https://github.com/mingrammer/gobyexample))
 - [Awsome go](https://awesome-go.com/)
 
 ## 01.Hello : Hello world
