@@ -3,12 +3,12 @@ package main
 import "fmt"
 
 func ping(pings chan<- string, msg string) {
-	pings <- msg
+	pings <- msg // sends (chan <-)
 }
 
 func pong(pings <-chan string, pongs chan<- string) {
-	msg := <-pings
-	pongs <- msg
+	msg := <-pings // receive (<- chan)
+	pongs <- msg   // sends (chan <-)
 }
 
 func main() {
@@ -17,5 +17,5 @@ func main() {
 
 	ping(pings, "passed message")
 	pong(pings, pongs)
-	fmt.Println(<-pongs)
+	fmt.Println(<-pongs) // receive (<- chan)
 }
