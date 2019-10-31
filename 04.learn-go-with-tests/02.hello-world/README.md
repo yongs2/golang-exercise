@@ -2,8 +2,14 @@
 
 ## 02.hello-world
 
-### how to test
+### how to run
 
 ```sh
 go run hello.go
+```
+
+### how to test
+
+```sh
+go test
 ```
