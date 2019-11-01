@@ -1,6 +1,9 @@
 package interation
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestRepeat(t *testing.T) {
 	assertCorrect := func(t *testing.T, repeated, expected string) {
@@ -15,7 +18,7 @@ func TestRepeat(t *testing.T) {
 		expected := "aaaaa"
 		assertCorrect(t, repeated, expected)
 	})
-	
+
 	t.Run("repeat 0", func(t *testing.T) {
 		repeated := Repeat("a", 0)
 		expected := "a"
@@ -34,4 +37,10 @@ func BenchmarkRepeat(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		Repeat("a", 5)
 	}
+}
+
+func ExampleRepeat() {
+	repeated := Repeat("a", 2)
+	fmt.Println(repeated)
+	// Output: aa
 }
