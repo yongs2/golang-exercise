@@ -1,5 +1,10 @@
 package interation
 
 func Repeat(character string) string {
-	return "aaaaa"
+	var repeated string
+
+	for i := 0; i < 5; i++ {
+		repeated = repeated + character
+	}
+	return repeated
 }
