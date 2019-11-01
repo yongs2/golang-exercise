@@ -8,7 +8,7 @@ func Hello(name string) string {
 	if name != "" {
 		return englishHelloPrefix + name
 	}
-	return englishHelloPrefix + "world"
+	return englishHelloPrefix + "World"
 }
 
 func main() {
