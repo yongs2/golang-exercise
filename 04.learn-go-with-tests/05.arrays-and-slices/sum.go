@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func Sum(numbers []int) int {
 	sum := 0
 	for _, number := range numbers {
@@ -9,11 +11,11 @@ func Sum(numbers []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) ([]int) {
-	lengthOfNumbers := len(numbersToSum)
-	sums := make([]int, lengthOfNumbers)
+	var sums []int
 	
 	for i, numbers := range numbersToSum {
-		sums[i] = Sum(numbers)
+		fmt.Println("Idx=", i, "numbers=", numbers)
+		sums = append(sums, Sum(numbers))
 	}
 	return sums
 }
