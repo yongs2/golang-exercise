@@ -35,3 +35,11 @@ docker run --rm --privileged \
 go build hello.go
 ./hello
 ```
+
+## 99. [VScode 설정](https://ux.stories.pe.kr/111)
+
+- Remote Containers 에 접속할 때의 설정 정보는 아래 폴더에 기록됨
+
+```sh
+/Users/<user>/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/imageConfigs/
+```
