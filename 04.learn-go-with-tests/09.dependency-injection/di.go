@@ -2,14 +2,19 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"io"
+	"net/http"
 )
 
 func Greet(writer io.Writer, name string) {
 	fmt.Fprintf(writer, "Hello, %s", name)
 }
 
+func MyGreeterHandler(w http.ResponseWriter, r *http.Request) {
+	Greet(w, "World")
+}
+
+// curl http://localhost:5000
 func main() {
-	Greet(os.Stdout, "Elodie")
+	http.ListenAndServe(":5000", http.HandlerFunc(MyGreeterHandler))
 }
