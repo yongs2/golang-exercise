@@ -5,6 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 	"time"
+	"fmt"
 )
 
 func TestRacer(t *testing.T) {
@@ -16,6 +17,7 @@ func TestRacer(t *testing.T) {
 
 	slowURL := slowServer.URL
 	fastURL := fastServer.URL
+	fmt.Println("slowURL=", slowURL, ",fastURL=", fastURL)
 
 	want := fastURL
 	got := Racer(slowURL, fastURL)

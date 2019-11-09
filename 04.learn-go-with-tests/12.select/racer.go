@@ -7,18 +7,22 @@ import (
 )
 
 func Racer(a, b string) (winner string) {
-	aDuration := measureResponseTime(a)
-	bDuration := measureResponseTime(b)
-
-	fmt.Println("Racer: ", a, "=", aDuration, ",", b, "=", bDuration)
-	if aDuration < bDuration {
+	select {
+	case <-ping(a) :
+		fmt.Println("Racer:", a, time.Now())
 		return a
+	case <-ping(b) :
+		fmt.Println("Racer:", b, time.Now())
+		return b
 	}
-	return b
 }
 
-func measureResponseTime(url string) time.Duration {
-	start := time.Now()
-	http.Get(url)
-	return time.Since(start)
+func ping(url string) chan struct{}  {
+	ch := make(chan struct{})
+	go func() {
+		http.Get(url)
+		close(ch)
+	}()
+	fmt.Println("Ping:", url, time.Now())
+	return ch
 }
