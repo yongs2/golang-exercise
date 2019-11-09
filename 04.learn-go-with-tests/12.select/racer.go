@@ -1,9 +1,9 @@
 package racer
 
 import (
-	"time"
-	"net/http"
 	"fmt"
+	"net/http"
+	"time"
 )
 
 func Racer(a, b string) (winner string) {
