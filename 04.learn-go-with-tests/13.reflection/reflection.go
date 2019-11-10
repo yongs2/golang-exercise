@@ -8,27 +8,30 @@ import (
 func walk(x interface{}, fn func(input string)) {
 	val := getValue(x)
 
-	numberOfValues := 0
-	var getField func(int) reflect.Value
-
+	walkValue := func(value reflect.Value) {
+		walk(value.Interface(), fn)
+	}
+	
 	switch val.Kind() {
 	case reflect.String:
 		fn(val.String())
 	case reflect.Struct:
-		numberOfValues = val.NumField()
-		getField = val.Field
-	case reflect.Slice, reflect.Array:
-		numberOfValues = val.Len()
-		getField = val.Index
-	case reflect.Map:
-		for _, key := range val.MapKeys() {
-			walk(val.MapIndex(key).Interface(), fn)
+		for i := 0; i < val.NumField(); i++ {
+			walkValue(val.Field(i))
+			fmt.Println("walk:", i, ":", val.Field(i), val.Field(i).Kind())
 		}
-	}
-
-	for i := 0; i < numberOfValues; i++ {
-		walk(getField(i).Interface(), fn)
-		fmt.Println("walk:", i, ":", getField(i), getField(i).Kind())
+	case reflect.Slice, reflect.Array:
+		for i := 0; i < val.Len(); i++ {
+			walkValue(val.Index(i))
+			fmt.Println("walk:", i, ":", val.Index(i), val.Index(i).Kind())
+		}
+	case reflect.Map:
+		i := 0
+		for _, key := range val.MapKeys() {
+			walkValue(val.MapIndex(key))
+			fmt.Println("walk:", i, ":", val.MapIndex(key), val.MapIndex(key).Kind())
+			i += 1
+		}
 	}
 }
 
