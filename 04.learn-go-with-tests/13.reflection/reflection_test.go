@@ -2,6 +2,7 @@ package reflection
 
 import (
 	"testing"
+	"fmt"
 )
 
 func TestWalk(t *testing.T) {
@@ -16,7 +17,9 @@ func TestWalk(t *testing.T) {
 		got = append(got, input)
 	})
 
-	if len(got) != 1 {
-		t.Errorf("wrong number of function calls, got %d want %d", len(got), 1)
+	fmt.Println("got=", got[0])
+	fmt.Println("expected=", expected)
+	if got[0] != expected {
+		t.Errorf("got %q want %q", got[0], expected)
 	}
 }

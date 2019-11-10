@@ -1,8 +1,14 @@
 package reflection
 
 import (
+	"reflect"
+	"fmt"
 )
 
 func walk(x interface{}, fn func(input string)) {
-	fn("I still can't believe South Korea beat Germany 2-0 to put them last in their group")
+	val := reflect.ValueOf(x)
+	fmt.Println("walk:", val)
+	field := val.Field(0)
+	fmt.Println("walk:", field)
+	fn(field.String())
 }
