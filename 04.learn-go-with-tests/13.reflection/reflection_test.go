@@ -7,12 +7,12 @@ import (
 )
 
 type Person struct {
-	Name string
+	Name    string
 	Profile Profile
 }
 
 type Profile struct {
-	Age int
+	Age  int
 	City string
 }
 
@@ -47,8 +47,8 @@ func TestWalk(t *testing.T) {
 		},
 		{
 			"Nested fields",
-			Person {
-				"Chris", 
+			Person{
+				"Chris",
 				Profile{33, "London"},
 			},
 			[]string{"Chris", "London"},
