@@ -29,7 +29,7 @@ func walk(x interface{}, fn func(input string)) {
 		i := 0
 		for _, key := range val.MapKeys() {
 			walkValue(val.MapIndex(key))
-			fmt.Println("walk:", i, ":", val.MapIndex(key), val.MapIndex(key).Kind())
+			//fmt.Println("walk:", i, ":", val.MapIndex(key), val.MapIndex(key).Kind())
 			i += 1
 		}
 	}
@@ -37,7 +37,7 @@ func walk(x interface{}, fn func(input string)) {
 
 func getValue(x interface{}) reflect.Value {
 	val := reflect.ValueOf(x)
-	fmt.Println("walk:getValue:", val)
+	//fmt.Println("walk:getValue:", val)
 	if val.Kind() == reflect.Ptr {
 		val = val.Elem()
 	}
