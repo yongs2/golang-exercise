@@ -1,22 +1,22 @@
 package reflection
 
 import (
-	"testing"
-	"reflect"
 	"fmt"
+	"reflect"
+	"testing"
 )
 
 func TestWalk(t *testing.T) {
 	cases := []struct {
-		Name string
-		Input interface{}
+		Name          string
+		Input         interface{}
 		ExpectedCalls []string
-	} {
+	}{
 		{
 			"Struct with one string field",
 			struct {
 				Name string
-			} { "Chris" },
+			}{"Chris"},
 			[]string{"Chris"},
 		},
 		{
@@ -24,8 +24,16 @@ func TestWalk(t *testing.T) {
 			struct {
 				Name string
 				City string
-			} { "Chris", "London" },
+			}{"Chris", "London"},
 			[]string{"Chris", "London"},
+		},
+		{
+			"Struct with non string field",
+			struct {
+				Name string
+				Age  int
+			}{"Chris", 33},
+			[]string{"Chris"},
 		},
 	}
 
