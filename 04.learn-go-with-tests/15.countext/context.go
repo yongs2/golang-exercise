@@ -7,10 +7,14 @@ import (
 
 type Store interface {
 	Fetch() string
+	Cancel()
 }
 
 func Server(store Store) http.HandlerFunc {
+	fetch := store.Fetch()
+	fmt.Println("Server:", fetch)
 	return func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, store.Fetch())
+		store.Cancel()
+		fmt.Fprintf(w, fetch)
 	}
 }
