@@ -5,13 +5,13 @@ import (
 )
 
 type Counter struct {
-	mu sync.Mutex
+	sync.Mutex
 	value int
 }
 
 func (c *Counter) Inc() {
-	c.mu.Lock()
-	defer c.mu.Unlock()
+	c.Lock()
+	defer c.Unlock()
 	c.value++
 }
 
