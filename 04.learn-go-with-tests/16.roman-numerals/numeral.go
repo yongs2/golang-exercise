@@ -2,6 +2,7 @@ package numeral
 
 import (
 	"strings"
+	//"fmt"
 )
 
 type RomanNumeral struct {
@@ -31,9 +32,11 @@ func (r RomanNumerals) ValueOf(symbols ...byte) int {
 	symbol := string(symbols)
 	for _, s := range r {
 		if s.Symbol == symbol {
+			//fmt.Println("ValueOf:", symbols, "=", symbol, "=", s.Value)
 			return s.Value
 		}
 	}
+	//fmt.Println("ValueOf:", symbols, "=", 0)
 	return 0
 }
 
@@ -60,6 +63,7 @@ func ConvertToRoman(arabic int) string {
 }
 
 func ConvertToArabic(roman string) (total int) {
+	//fmt.Println("ConvertToArabic:", roman)
 	for _, symbols := range windowedRoman(roman).Symbols() {
 		total += allRomanNumerals.ValueOf(symbols...)
 	}
