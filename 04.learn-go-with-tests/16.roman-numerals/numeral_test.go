@@ -4,7 +4,7 @@ import (
 	"testing"
 	"fmt"
 	"testing/quick"
-	"log"
+	//"log"
 )
 
 var cases = []struct {
@@ -66,16 +66,19 @@ func TestConvertingToArabic(t *testing.T) {
 }
 
 func TestPropertiesOfConversition(t *testing.T) {
-	assertion := func(arabic int) bool {
-		if arabic < 0 || arabic > 3999 {
-			log.Println(arabic)
+	assertion := func(arabic uint16) bool {
+		if arabic > 3999 {
+			//log.Println(arabic)
 			return true
 		}
-		roman := ConvertToRoman(arabic)
+		t.Log("testing", arabic)
+		roman := ConvertToRoman(int(arabic))
 		fromRoman := ConvertToArabic(roman)
-		return fromRoman == arabic
+		return fromRoman == int(arabic)
 	}
-	if err := quick.Check(assertion, nil); err != nil {
+	if err := quick.Check(assertion, &quick.Config{
+		MaxCount:1000,
+	}); err != nil {
 		t.Error("failed check", err)
 	}
 }
