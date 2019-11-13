@@ -38,6 +38,10 @@ func secondsHandPoint(t time.Time) Point {
 	return Point{x, y}
 }
 
+func minutesInRadians(t time.Time) float64 {
+	return math.Pi
+}
+
 func SVGWriter(w io.Writer, t time.Time) {
 	io.WriteString(w, svgStart)
 	io.WriteString(w, bezel)
