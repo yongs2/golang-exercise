@@ -21,13 +21,22 @@ const (
 	clockCenterY     = 150
 )
 
+const (
+	secondsInHalfClock = 30
+	secondsInClock = 2 * secondsInHalfClock
+	minutesInHalfClock = 30
+	minutesInClock = 2 * minutesInHalfClock
+	hoursInHalfClock = 6
+	hoursInClock = 2 * hoursInHalfClock
+)
+
 func SecondHand(t time.Time) Point {
 	p := makeHand(secondsHandPoint(t), secondHandLength)
 	return p
 }
 
 func secondsInRadians(t time.Time) float64 {
-	return (math.Pi / (30 / (float64(t.Second()))))
+	return (math.Pi / (secondsInHalfClock / (float64(t.Second()))))
 }
 
 func secondsHandPoint(t time.Time) Point {
@@ -35,8 +44,8 @@ func secondsHandPoint(t time.Time) Point {
 }
 
 func minutesInRadians(t time.Time) float64 {
-	return (secondsInRadians(t) / 60) +
-		(math.Pi / (30 / float64(t.Minute())))
+	return (secondsInRadians(t) / minutesInClock) +
+		(math.Pi / (minutesInHalfClock / float64(t.Minute())))
 }
 
 func minuteHandPoint(t time.Time) Point {
@@ -44,8 +53,8 @@ func minuteHandPoint(t time.Time) Point {
 }
 
 func hoursInRadians(t time.Time) float64 {
-	return (minutesInRadians(t) / 12) +
-		(math.Pi / (6 / float64(t.Hour() % 12)))
+	return (minutesInRadians(t) / hoursInClock) +
+		(math.Pi / (6 / float64(t.Hour() % hoursInClock)))
 }
 
 func hourHandPoint(t time.Time) Point {
