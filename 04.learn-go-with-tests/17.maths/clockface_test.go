@@ -1,11 +1,11 @@
 package clockface
 
 import (
-	"testing"
-	"time"
-	"math"
 	"bytes"
 	"encoding/xml"
+	"math"
+	"testing"
+	"time"
 )
 
 func TestSecondHandAtMidnight(t *testing.T) {
@@ -30,7 +30,7 @@ func TestSecondHandAt30Second(t *testing.T) {
 
 func TestSecondsInRadians(t *testing.T) {
 	cases := []struct {
-		time time.Time
+		time  time.Time
 		angle float64
 	}{
 		{simpleTime(0, 0, 30), math.Pi},
@@ -49,7 +49,7 @@ func TestSecondsInRadians(t *testing.T) {
 }
 
 func simpleTime(hours, minutes, seconds int) time.Time {
-	return time.Date(312, time.October, 28, hours, minutes, seconds, 0, time.UTC)	
+	return time.Date(312, time.October, 28, hours, minutes, seconds, 0, time.UTC)
 }
 
 func testName(t time.Time) string {
@@ -58,7 +58,7 @@ func testName(t time.Time) string {
 
 func TestSecondsHandVector(t *testing.T) {
 	cases := []struct {
-		time time.Time
+		time  time.Time
 		point Point
 	}{
 		{simpleTime(0, 0, 30), Point{0, -1}},
@@ -81,24 +81,23 @@ func roughlyEqualFloat64(a, b float64) bool {
 
 func roughlyEqualPoint(a, b Point) bool {
 	return roughlyEqualFloat64(a.X, b.X) &&
-			roughlyEqualFloat64(a.Y, b.Y)
+		roughlyEqualFloat64(a.Y, b.Y)
 }
 
 func TestSVGWriterAtMidnight(t *testing.T) {
 	tm := time.Date(1337, time.January, 1, 0, 0, 0, 0, time.UTC)
-
 	b := bytes.Buffer{}
+
 	SVGWriter(&b, tm)
 
 	svg := Svg{}
 	xml.Unmarshal(b.Bytes(), &svg)
 
-	x2 := "150.000"
-	y2 := "60.000"
+	want := Line{150, 150, 150, 60}
 	for _, line := range svg.Line {
-		if line.X2 == x2 && line.Y2 == y2 {
+		if line == want {
 			return
 		}
 	}
-	t.Errorf("Expected to find the second hand with x2 of %+v and y2 of %+v, in the SVG output %v", x2, y2, b.String())
+	t.Errorf("Expected to find the second hand line %+v, in the SVG output %+v", want, svg.Line)
 }

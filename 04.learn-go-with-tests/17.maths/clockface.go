@@ -1,11 +1,11 @@
 package clockface
 
 import (
-	"time"
-	"math"
-	"io"
-	"fmt"
 	"encoding/xml"
+	"fmt"
+	"io"
+	"math"
+	"time"
 )
 
 type Point struct {
@@ -15,15 +15,15 @@ type Point struct {
 
 const (
 	secondHandLength = 90
-	clockCenterX = 150
-	clockCenterY = 150
+	clockCenterX     = 150
+	clockCenterY     = 150
 )
 
 func SecondHand(t time.Time) Point {
 	p := secondsHandPoint(t)
-	p = Point{p.X * secondHandLength, p.Y * secondHandLength}	// scale
-	p = Point{p.X, -p.Y}	// flip
-	p = Point{p.X + clockCenterX, p.Y + clockCenterY}	// translate
+	p = Point{p.X * secondHandLength, p.Y * secondHandLength} // scale
+	p = Point{p.X, -p.Y}                                      // flip
+	p = Point{p.X + clockCenterX, p.Y + clockCenterY}         // translate
 	return p
 }
 
@@ -70,19 +70,19 @@ type Svg struct {
 	Height  string   `xml:"height,attr"`
 	ViewBox string   `xml:"viewBox,attr"`
 	Version string   `xml:"version,attr"`
-	Circle  struct {
-		Text  string `xml:",chardata"`
-		Cx    string `xml:"cx,attr"`
-		Cy    string `xml:"cy,attr"`
-		R     string `xml:"r,attr"`
-		Style string `xml:"style,attr"`
-	} `xml:"circle"`
-	Line []struct {
-		Text  string `xml:",chardata"`
-		X1    string `xml:"x1,attr"`
-		Y1    string `xml:"y1,attr"`
-		X2    string `xml:"x2,attr"`
-		Y2    string `xml:"y2,attr"`
-		Style string `xml:"style,attr"`
-	} `xml:"line"`
+	Circle  Circle   `xml:"circle"`
+	Line    []Line   `xml:"line"`
+}
+
+type Circle struct {
+	Cx float64 `xml:"cx,attr"`
+	Cy float64 `xml:"cy,attr"`
+	R  float64 `xml:"r,attr"`
+}
+
+type Line struct {
+	X1 float64 `xml:"x1,attr"`
+	Y1 float64 `xml:"y1,attr"`
+	X2 float64 `xml:"x2,attr"`
+	Y2 float64 `xml:"y2,attr"`
 }
