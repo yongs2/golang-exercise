@@ -240,6 +240,25 @@ func TestHoursInRadians(t *testing.T) {
 	}
 }
 
+func TestHourHandPoint(t *testing.T) {
+	cases := []struct {
+		time time.Time
+		point Point
+	}{
+		{simpleTime(6, 0, 0), Point{0, -1}},
+		{simpleTime(21, 0, 0), Point{-1, 0}},
+	}
+
+	for _, c := range cases {
+		t.Run(testName(c.time), func(t *testing.T) {
+			got := hourHandPoint(c.time)
+			if !roughlyEqualPoint(got, c.point) {
+				t.Fatalf("Wanted %v Point, but got %v", c.point, got)
+			}
+		})
+	}
+}
+
 func containsLine(l Line, ls []Line) bool {
 	for _, line := range ls {
 		if line == l {
