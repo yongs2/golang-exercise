@@ -11,6 +11,10 @@ func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 	return 123
 }
 
+func (i *InMemoryPlayerStore) RecordWin(name string) {
+	
+}
+
 // curl http://localhost:5000/players/Pepper
 func main() {
 	server := &PlayerServer{&InMemoryPlayerStore{}}
