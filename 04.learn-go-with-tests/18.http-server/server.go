@@ -19,15 +19,3 @@ func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	
 	fmt.Fprint(w, p.store.GetPlayerScore(player))
 }
-
-func GetPlayerScore(name string) int {
-	if name == "Pepper" {
-		return 20
-	}
-
-	if name == "Floyd" {
-		return 10
-	}
-
-	return 0
-}
