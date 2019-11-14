@@ -69,6 +69,7 @@ func TestStoreWins(t *testing.T) {
 	server := &PlayerServer{&store}
 
 	t.Run("it returns accepted on POST", func(t *testing.T) {
+		store.winCalls = nil
 		request := newPostWinRequest("Pepper")
 		response := httptest.NewRecorder()
 
@@ -81,6 +82,7 @@ func TestStoreWins(t *testing.T) {
 	})
 
 	t.Run("it records wins on POST", func(t *testing.T) {
+		store.winCalls = nil
 		player := "Pepper"
 
 		request := newPostWinRequest(player)
