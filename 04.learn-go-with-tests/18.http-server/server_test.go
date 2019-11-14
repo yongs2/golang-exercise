@@ -1,14 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"fmt"
 )
 
 type StubPlayerStore struct {
-	scores map[string]int
+	scores   map[string]int
 	winCalls []string
 }
 
@@ -23,9 +23,9 @@ func (s *StubPlayerStore) RecordWin(name string) {
 
 func TestGETPlayers(t *testing.T) {
 	store := StubPlayerStore{
-		map[string]int {
+		map[string]int{
 			"Pepper": 20,
-			"Floyd": 10,
+			"Floyd":  10,
 		},
 		nil,
 	}
@@ -40,7 +40,7 @@ func TestGETPlayers(t *testing.T) {
 		assertStatus(t, response.Code, http.StatusOK)
 		assertResponseBody(t, response.Body.String(), "20")
 	})
-	
+
 	t.Run("returns Floyd's score", func(t *testing.T) {
 		request := newGetScoreRequest("Floyd")
 		response := httptest.NewRecorder()
@@ -56,7 +56,7 @@ func TestGETPlayers(t *testing.T) {
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
-		
+
 		assertStatus(t, response.Code, http.StatusNotFound)
 	})
 }
