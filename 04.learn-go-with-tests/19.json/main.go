@@ -21,6 +21,10 @@ func (i *InMemoryPlayerStore) RecordWin(name string) {
 	i.store[name]++
 }
 
+func (i *InMemoryPlayerStore) GetLeague() []Player {
+	return nil
+}
+
 // curl -X POST http://localhost:5000/players/Pepper
 // curl http://localhost:5000/players/Pepper
 func main() {
