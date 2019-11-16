@@ -7,7 +7,7 @@ import (
 
 type FileSystemPlayerStore struct {
 	database io.ReadWriteSeeker
-	league League
+	league   League
 }
 
 func NewFileSystemPlayerStore(database io.ReadWriteSeeker) *FileSystemPlayerStore {
@@ -15,7 +15,7 @@ func NewFileSystemPlayerStore(database io.ReadWriteSeeker) *FileSystemPlayerStor
 	league, _ := NewLeague(database)
 	return &FileSystemPlayerStore{
 		database: database,
-		league: league,
+		league:   league,
 	}
 }
 
