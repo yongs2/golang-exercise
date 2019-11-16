@@ -1,10 +1,10 @@
 package main
 
 import (
-	"testing"
 	"io"
 	"io/ioutil"
 	"os"
+	"testing"
 )
 
 func TestFileSystemStore(t *testing.T) {
