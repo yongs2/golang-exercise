@@ -81,6 +81,14 @@ func TestFileSystemStore(t *testing.T) {
 		want := 1
 		assertScoreEquals(t, got, want)
 	})
+
+	t.Run("works with an empty file", func(t *testing.T) {
+		database, cleanDatabase := createTempFile(t, "")
+		defer cleanDatabase()
+
+		_, err := NewFileSystemPlayerStore(database)
+		assertNoError(t, err)
+	})
 }
 
 func assertScoreEquals(t *testing.T, got, want int) {
@@ -106,4 +114,11 @@ func createTempFile(t *testing.T, initialData string) (*os.File, func()) {
 		os.Remove(tmpfile.Name())
 	}
 	return tmpfile, removeFile
+}
+
+func assertNoError(t *testing.T, err error) {
+	t.Helper()
+	if err != nil {
+		t.Fatalf("didn't expect an error but got one, %v", err)
+	}
 }
