@@ -1,33 +1,29 @@
-package poker
+package poker_test
 
 import (
 	"strings"
 	"testing"
-	"fmt"
+	"04.learn-go-with-tests/21.command-line"
 )
 
 func TestCLI(t *testing.T) {
 	t.Run("record chris wn from user input", func(t *testing.T) {
 		in := strings.NewReader("Chris wins\n")
-		playerStore := &StubPlayerStore{}
+		playerStore := &poker.StubPlayerStore{}
 
-		cli := &CLI{playerStore, in}
+		cli := poker.NewCLI(playerStore, in)
 		cli.PlayPoker()
 
-		fmt.Println("playerStore.chris.winCalls=", playerStore.winCalls)
-
-		assertPlayerWin(t, playerStore, "Chris")
+		poker.AssertPlayerWin(t, playerStore, "Chris")
 	})
 
 	t.Run("record cleo wn from user input", func(t *testing.T) {
 		in := strings.NewReader("Cleo wins\n")
-		playerStore := &StubPlayerStore{}
+		playerStore := &poker.StubPlayerStore{}
 
-		cli := &CLI{playerStore, in}
+		cli := poker.NewCLI(playerStore, in)
 		cli.PlayPoker()
 
-		fmt.Println("playerStore.cleo.winCalls=", playerStore.winCalls)
-
-		assertPlayerWin(t, playerStore, "Cleo")
+		poker.AssertPlayerWin(t, playerStore, "Cleo")
 	})
 }
