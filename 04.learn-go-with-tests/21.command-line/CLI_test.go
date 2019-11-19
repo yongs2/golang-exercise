@@ -1,20 +1,33 @@
 package poker
 
 import (
-	"testing"
 	"strings"
+	"testing"
+	"fmt"
 )
 
 func TestCLI(t *testing.T) {
-	in := strings.NewReader("Chris wins\n")
-	playerStore := &StubPlayerStore{}
+	t.Run("record chris wn from user input", func(t *testing.T) {
+		in := strings.NewReader("Chris wins\n")
+		playerStore := &StubPlayerStore{}
 
-	cli := &CLI{playerStore, in}
-	cli.PlayPoker()
+		cli := &CLI{playerStore, in}
+		cli.PlayPoker()
 
-	if len(playerStore.winCalls) < 1 {
-		t.Fatal("expected a win call but didn't get any")
-	}
+		fmt.Println("playerStore.chris.winCalls=", playerStore.winCalls)
 
-	assertPlayerWin(t, playerStore, "Chris")
+		assertPlayerWin(t, playerStore, "Chris")
+	})
+
+	t.Run("record cleo wn from user input", func(t *testing.T) {
+		in := strings.NewReader("Cleo wins\n")
+		playerStore := &StubPlayerStore{}
+
+		cli := &CLI{playerStore, in}
+		cli.PlayPoker()
+
+		fmt.Println("playerStore.cleo.winCalls=", playerStore.winCalls)
+
+		assertPlayerWin(t, playerStore, "Cleo")
+	})
 }

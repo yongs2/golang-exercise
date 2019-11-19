@@ -102,7 +102,7 @@ func TestFileSystemStore(t *testing.T) {
 		}
 
 		got := store.GetLeagueSort()
-		want := []Player {
+		want := []Player{
 			{"Chris", 33},
 			{"Cleo", 10},
 		}

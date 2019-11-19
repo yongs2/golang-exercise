@@ -2,8 +2,8 @@ package poker
 
 import (
 	"encoding/json"
-	"os"
 	"fmt"
+	"os"
 	"sort"
 )
 
