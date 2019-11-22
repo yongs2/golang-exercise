@@ -35,7 +35,7 @@ var dummyStdOut = &bytes.Buffer{}
 
 func TestCLI(t *testing.T) {
 	t.Run("record chris wn from user input", func(t *testing.T) {
-		in := strings.NewReader("Chris wins\n")
+		in := strings.NewReader("1\nChris wins\n")
 		playerStore := &poker.StubPlayerStore{}
 
 		cli := poker.NewCLI(playerStore, in, dummyStdOut, dummySpyAlerter)
@@ -45,7 +45,7 @@ func TestCLI(t *testing.T) {
 	})
 
 	t.Run("record cleo wn from user input", func(t *testing.T) {
-		in := strings.NewReader("Cleo wins\n")
+		in := strings.NewReader("1\nCleo wins\n")
 		playerStore := &poker.StubPlayerStore{}
 
 		cli := poker.NewCLI(playerStore, in, dummyStdOut, dummySpyAlerter)
@@ -55,7 +55,7 @@ func TestCLI(t *testing.T) {
 	})
 
 	t.Run("it schedules printing of blind values", func(t *testing.T) {
-		in := strings.NewReader("Chris wins\n")
+		in := strings.NewReader("5\nChris wins\n")
 		playerStore := &poker.StubPlayerStore{}
 		blindAlerter := &SpyBlindAlerter{}
 
@@ -85,7 +85,6 @@ func TestCLI(t *testing.T) {
 				got := blindAlerter.alerts[i]
 
 				assertScheduledAlert(t, got, want)
-				
 			})
 		}
 	})
@@ -107,9 +106,9 @@ func TestCLI(t *testing.T) {
 
 		cases := []scheduledAlert{
 			{0 * time.Second, 100},
-			{10 * time.Minute, 200},
-			{20 * time.Minute, 300},
-			{30 * time.Minute, 400},
+			{12 * time.Minute, 200},
+			{24 * time.Minute, 300},
+			{36 * time.Minute, 400},
 		}
 
 		for i, want := range cases {
