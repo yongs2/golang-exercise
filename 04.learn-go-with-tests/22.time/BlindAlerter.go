@@ -1,9 +1,9 @@
 package poker
 
 import (
-	"time"
 	"fmt"
 	"os"
+	"time"
 )
 
 type BlindAlerter interface {

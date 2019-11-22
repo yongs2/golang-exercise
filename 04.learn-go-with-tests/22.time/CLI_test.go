@@ -1,16 +1,16 @@
 package poker_test
 
 import (
+	"04.learn-go-with-tests/22.time"
+	"bytes"
+	"fmt"
 	"strings"
 	"testing"
-	"04.learn-go-with-tests/22.time"
 	"time"
-	"fmt"
-	"bytes"
 )
 
 type scheduledAlert struct {
-	at time.Duration
+	at     time.Duration
 	amount int
 }
 
@@ -41,7 +41,7 @@ func TestCLI(t *testing.T) {
 		cli := poker.NewCLI(playerStore, in, dummyStdOut, dummySpyAlerter)
 		cli.PlayPoker()
 
-		poker.AssertPlayerWin(t, playerStore, "Chris")
+		poker.AssertPlayerWin(t, playerStore, "Chris wins")
 	})
 
 	t.Run("record cleo wn from user input", func(t *testing.T) {
@@ -51,7 +51,7 @@ func TestCLI(t *testing.T) {
 		cli := poker.NewCLI(playerStore, in, dummyStdOut, dummySpyAlerter)
 		cli.PlayPoker()
 
-		poker.AssertPlayerWin(t, playerStore, "Cleo")
+		poker.AssertPlayerWin(t, playerStore, "Cleo wins")
 	})
 
 	t.Run("it schedules printing of blind values", func(t *testing.T) {
