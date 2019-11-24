@@ -60,19 +60,6 @@ func TestCLI(t *testing.T) {
 		assertFinishCalledWith(t, game, "Cleo")
 	})
 
-	t.Run("it prompts the user to enter the number of players and start the game", func(t *testing.T) {
-		game := &GameSpy{}
-		stdout := &bytes.Buffer{}
-
-		in := userSends("7")
-		cli := poker.NewCLI(in, stdout, game)
-
-		cli.PlayPoker()
-
-		assertMessagesSendToUser(t, stdout, poker.PlayerPrompt)
-		assertGameStartedWith(t, game, 7)
-	})
-
 	t.Run("it prints an error when a non numeric value is entered and does not start the game", func(t *testing.T) {
 		game := &GameSpy{}
 		stdout := &bytes.Buffer{}
@@ -85,12 +72,32 @@ func TestCLI(t *testing.T) {
 		assertGameNotStarted(t, game)
 		assertMessagesSendToUser(t, stdout, poker.PlayerPrompt, poker.BadPlayerInputErrMsg)
 	})
+
+	t.Run("it prints an error when the winner is declared incorrectly", func(t *testing.T) {
+		game := &GameSpy{}
+		stdout := &bytes.Buffer{}
+
+		in := userSends("8", "Lloyd is a killer")
+		cli := poker.NewCLI(in, stdout, game)
+
+		cli.PlayPoker()
+
+		assertGameNotFinished(t, game)
+		assertMessagesSendToUser(t, stdout, poker.PlayerPrompt, poker.BadWinnerInputMsg)
+	})
 }
 
 func assertGameStartedWith(t *testing.T, game *GameSpy, numberOfPlayersWanted int) {
 	t.Helper()
 	if game.StartCalledWith != numberOfPlayersWanted {
 		t.Errorf("wanted Start called with %d but got %d", numberOfPlayersWanted, game.StartCalledWith)
+	}
+}
+
+func assertGameNotFinished(t *testing.T, game *GameSpy) {
+	t.Helper()
+	if game.FinishedCalled {
+		t.Errorf("game shold not have finished")
 	}
 }
 

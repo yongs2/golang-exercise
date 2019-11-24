@@ -6,6 +6,7 @@ import (
 	"io"
 	"strconv"
 	"strings"
+	"errors"
 )
 
 type CLI struct {
@@ -16,6 +17,7 @@ type CLI struct {
 
 const PlayerPrompt = "Please enter the number of players: "
 const BadPlayerInputErrMsg = "Bad value received for number of players, please try again with a number"
+const BadWinnerInputMsg = "invalid winner input, expect format of 'Playername wins'"
 
 func NewCLI(in io.Reader, out io.Writer, game Game) *CLI {
 	return &CLI{
@@ -37,14 +39,21 @@ func (cli *CLI) PlayPoker() {
 	cli.game.Start(numberOfPlayers)
 
 	winnerInput := cli.readLine()
-	winner := extractWinner(winnerInput)
+	winner, err := extractWinner(winnerInput)
+	if err != nil {
+		fmt.Fprint(cli.out, BadWinnerInputMsg)
+		return
+	}
 
 	cli.game.Finish(winner)
 }
 
-func extractWinner(userInput string) string {
+func extractWinner(userInput string) (string, error) {
 	fmt.Println("extractWinner.userInput=", userInput)
-	return strings.Replace(userInput, " wins", "", 1)
+	if !strings.Contains(userInput, "wins") {
+		return "", errors.New(BadPlayerInputErrMsg)
+	}
+	return strings.Replace(userInput, " wins", "", 1), nil
 }
 
 func (cli *CLI) readLine() string {
