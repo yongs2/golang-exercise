@@ -15,7 +15,7 @@ type CLI struct {
 }
 
 const PlayerPrompt = "Please enter the number of players: "
-const BadPlayerInputErrMsg = "you're so silly"
+const BadPlayerInputErrMsg = "Bad value received for number of players, please try again with a number"
 
 func NewCLI(in io.Reader, out io.Writer, game Game) *CLI {
 	return &CLI{
@@ -44,7 +44,7 @@ func (cli *CLI) PlayPoker() {
 
 func extractWinner(userInput string) string {
 	fmt.Println("extractWinner.userInput=", userInput)
-	return strings.Replace(userInput, " wins\n", "", 1)
+	return strings.Replace(userInput, " wins", "", 1)
 }
 
 func (cli *CLI) readLine() string {
