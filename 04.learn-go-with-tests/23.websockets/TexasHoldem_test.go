@@ -2,7 +2,7 @@ package poker_test
 
 import (
 	"testing"
-	"04.learn-go-with-tests/22.time"
+	"04.learn-go-with-tests/23.websockets"
 	"time"
 	"fmt"
 )
