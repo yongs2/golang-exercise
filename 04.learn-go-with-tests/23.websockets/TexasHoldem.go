@@ -3,6 +3,7 @@ package poker
 import (
 	"fmt"
 	"time"
+	"io/ioutil"
 )
 
 type TexasHoldem struct {
@@ -25,7 +26,7 @@ func (p *TexasHoldem) Start(numberOfPlayers int) {
 
 	fmt.Println("TexasHoldem.Start(", numberOfPlayers, ")")
 	for _, blind := range blinds {
-		p.alerter.ScheduleAlertAt(blindTime, blind)
+		p.alerter.ScheduleAlertAt(blindTime, blind, ioutil.Discard)
 		blindTime = blindTime + blindIncrement
 	}
 }
