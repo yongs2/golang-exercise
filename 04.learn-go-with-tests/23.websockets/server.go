@@ -95,12 +95,12 @@ var wsUpgrader = websocket.Upgrader {
 }
 
 func (p *PlayerServer) webSocket(w http.ResponseWriter, r *http.Request) {
-	ws := NewPlayerServer(w, r)
+	ws := newPlayerServerWS(w, r)
 
-	_, numberOfPlayerMsg, _ := ws.WaitForMsg()
+	numberOfPlayerMsg := ws.WaitForMsg()
 	numberOfPlayers, _ := strconv.Atoi(string(numberOfPlayerMsg))
 	p.game.Start(numberOfPlayers, ioutil.Discard) //todo: Don't discard the blinds messages!
 
-	_, winner, _ := ws.WaitForMsg()
+	winner := ws.WaitForMsg()
 	p.game.Finish(string(winner))
 }
