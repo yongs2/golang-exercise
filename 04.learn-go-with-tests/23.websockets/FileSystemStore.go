@@ -25,7 +25,7 @@ func NewFileSystemPlayerStore(file *os.File) (*FileSystemPlayerStore, error) {
 	}
 
 	return &FileSystemPlayerStore{
-		database: json.NewEncoder(&tape{file}),
+		database: json.NewEncoder(&Tape{file}),
 		league:   league,
 	}, nil
 }
@@ -64,7 +64,7 @@ func initialisePlayerDBFile(file *os.File) error {
 	return nil
 }
 
-func (f *FileSystemPlayerStore) GetLeague() League {
+func (f *FileSystemPlayerStore) GetLeague() []Player {
 	return f.league
 }
 

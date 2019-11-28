@@ -6,12 +6,14 @@ import (
 	"net/http"
 	"html/template"
 	"github.com/gorilla/websocket"
+	"strconv"
+	"io/ioutil"
 )
 
 type PlayerStore interface {
 	GetPlayerScore(name string) int
 	RecordWin(name string)
-	GetLeague() League
+	GetLeague() []Player
 }
 
 type Player struct {
@@ -23,27 +25,29 @@ type PlayerServer struct {
 	store PlayerStore
 	http.Handler
 	template *template.Template
+	game Game
 }
 
-const jsonContentType = "application/json"
+const JsonContentType = "application/json"
 
-const htmlTemplatePath = "game.html"
+const HtmlTemplatePath = "game.html"
 
-func NewPlayerServer(store PlayerStore) (*PlayerServer, error) {
+func NewPlayerServer(store PlayerStore, game Game) (*PlayerServer, error) {
 	p := new(PlayerServer)
 
-	tmpl, err := template.ParseFiles(htmlTemplatePath)
+	tmpl, err := template.ParseFiles(HtmlTemplatePath)
 	if err != nil {
-		return nil, fmt.Errorf("problem loading template %s %v", htmlTemplatePath, err)
+		return nil, fmt.Errorf("problem loading template %s %v", HtmlTemplatePath, err)
 	}
 
+	p.game = game
 	p.template = tmpl
 	p.store = store
 
 	router := http.NewServeMux()
 	router.Handle("/league", http.HandlerFunc(p.leagueHandler))
 	router.Handle("/players/", http.HandlerFunc(p.playersHandler))
-	router.Handle("/game", http.HandlerFunc(p.game))
+	router.Handle("/game", http.HandlerFunc(p.playGame))
 	router.Handle("/ws", http.HandlerFunc(p.webSocket))
 	p.Handler = router
 
@@ -81,7 +85,7 @@ func (p *PlayerServer) processWin(w http.ResponseWriter, player string) {
 	w.WriteHeader(http.StatusAccepted)
 }
 
-func (p *PlayerServer) game(w http.ResponseWriter, r *http.Request) {
+func (p *PlayerServer) playGame(w http.ResponseWriter, r *http.Request) {
 	p.template.Execute(w, nil)
 }
 
@@ -92,6 +96,11 @@ var wsUpgrader = websocket.Upgrader {
 
 func (p *PlayerServer) webSocket(w http.ResponseWriter, r *http.Request) {
 	conn, _ := wsUpgrader.Upgrade(w, r, nil)
-	_, winnerMsg, _ := conn.ReadMessage()
-	p.store.RecordWin(string(winnerMsg))
+
+	_, numberOfPlayerMsg, _ := conn.ReadMessage()
+	numberOfPlayers, _ := strconv.Atoi(string(numberOfPlayerMsg))
+	p.game.Start(numberOfPlayers, ioutil.Discard) //todo: Don't discard the blinds messages!
+
+	_, winner, _ := conn.ReadMessage()
+	p.game.Finish(string(winner))
 }
