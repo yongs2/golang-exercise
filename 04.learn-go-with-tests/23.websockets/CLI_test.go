@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http/httptest"
 	"time"
+	"github.com/gorilla/websocket"
 )
 
 var dummySpyAlerter = &poker.SpyBlindAlerter{}
@@ -36,6 +37,8 @@ func (g *GameSpy) Finish(winner string) {
 	g.FinishedCalled = true
 	g.FinishCalledWith = winner
 }
+
+const tenMS = 10 * time.Millisecond
 
 func TestCLI(t *testing.T) {
 	t.Run("start game with 3 players and finish game with 'Chris' as winner", func(t *testing.T) {
@@ -102,15 +105,14 @@ func TestCLI(t *testing.T) {
 
 		writeWSMessage(t, ws, "3")
 		writeWSMessage(t, ws, winner)
-		time.Sleep(10 * time.Millisecond)
+
+		time.Sleep(tenMS)
+
 		assertGameStartedWith(t, game, 3)
 		assertFinishCalledWith(t, game, winner)
-
-		_, gotBlindAlert, _ := ws.ReadMessage()
-
-		if string(gotBlindAlert) != wantedBlindAlert {
-			t.Errorf("got blind alert %q, but %q", string(gotBlindAlert), wantedBlindAlert)
-		}
+		within(t, tenMS, func() {
+			assertWebsocketGotMsg(t, ws, wantedBlindAlert)
+		})
 	})
 }
 
@@ -160,4 +162,28 @@ func assertMessagesSendToUser(t *testing.T, stdout *bytes.Buffer, messages ...st
 
 func userSends(messages ...string) io.Reader {
 	return strings.NewReader(strings.Join(messages, "\n"))
+}
+
+func within(t *testing.T, d time.Duration, assert func()) {
+	t.Helper()
+
+	done := make(chan struct{}, 1)
+
+	go func() {
+		assert()
+		done <- struct{}{}
+	}()
+
+	select {
+	case <- time.After(d) :
+		t.Error("timed out")
+	case <- done:
+	}
+}
+
+func assertWebsocketGotMsg(t *testing.T, ws *websocket.Conn, want string) {
+	_, msg, _ := ws.ReadMessage()
+	if string(msg) != want {
+		t.Errorf(`got "%s", want "%s"`, string(msg), want)
+	}
 }
