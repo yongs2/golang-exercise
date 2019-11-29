@@ -6,6 +6,8 @@ import (
 	"strings"
 	"testing"
 	"io"
+	"net/http/httptest"
+	"time"
 )
 
 var dummySpyAlerter = &poker.SpyBlindAlerter{}
@@ -18,6 +20,7 @@ var dummyStdOut = &bytes.Buffer{}
 type GameSpy struct {
 	StartCalled bool
 	StartCalledWith int
+	BlindAlert 	[]byte
 
 	FinishedCalled bool
 	FinishCalledWith string
@@ -26,6 +29,7 @@ type GameSpy struct {
 func (g *GameSpy) Start(numberOfPlayer int, out io.Writer) {
 	g.StartCalled = true
 	g.StartCalledWith = numberOfPlayer
+	out.Write(g.BlindAlert)
 }
 
 func (g *GameSpy) Finish(winner string) {
@@ -83,6 +87,30 @@ func TestCLI(t *testing.T) {
 
 		assertGameNotFinished(t, game)
 		assertMessagesSendToUser(t, stdout, poker.PlayerPrompt, poker.BadWinnerInputMsg)
+	})
+
+	t.Run("start a game with 3 players, send some blind alerts down WS and declare Ruth the winner", func(t *testing.T) {
+		wantedBlindAlert := "Blind is 100"
+		winner := "Ruth"
+
+		game := &GameSpy{BlindAlert: []byte(wantedBlindAlert)}
+		server := httptest.NewServer(mustMakePlayerServer(t, dummyPlayerStore, game))
+		ws := mustDialWS(t, "ws" + strings.TrimPrefix(server.URL, "http") + "/ws")
+
+		defer server.Close()
+		defer ws.Close()
+
+		writeWSMessage(t, ws, "3")
+		writeWSMessage(t, ws, winner)
+		time.Sleep(10 * time.Millisecond)
+		assertGameStartedWith(t, game, 3)
+		assertFinishCalledWith(t, game, winner)
+
+		_, gotBlindAlert, _ := ws.ReadMessage()
+
+		if string(gotBlindAlert) != wantedBlindAlert {
+			t.Errorf("got blind alert %q, but %q", string(gotBlindAlert), wantedBlindAlert)
+		}
 	})
 }
 
