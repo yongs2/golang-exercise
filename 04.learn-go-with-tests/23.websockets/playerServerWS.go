@@ -25,3 +25,11 @@ func (w *playerServerWS) WaitForMsg() string {
 	}
 	return string(msg)
 }
+
+func (w *playerServerWS) Write(p []byte) (n int, err error) {
+	err = w.WriteMessage(1, p)
+	if err != nil {
+		return 0, err
+	}
+	return len(p), nil
+}

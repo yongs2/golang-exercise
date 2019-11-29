@@ -7,7 +7,6 @@ import (
 	"html/template"
 	"github.com/gorilla/websocket"
 	"strconv"
-	"io/ioutil"
 )
 
 type PlayerStore interface {
@@ -99,7 +98,7 @@ func (p *PlayerServer) webSocket(w http.ResponseWriter, r *http.Request) {
 
 	numberOfPlayerMsg := ws.WaitForMsg()
 	numberOfPlayers, _ := strconv.Atoi(string(numberOfPlayerMsg))
-	p.game.Start(numberOfPlayers, ioutil.Discard) //todo: Don't discard the blinds messages!
+	p.game.Start(numberOfPlayers, ws)
 
 	winner := ws.WaitForMsg()
 	p.game.Finish(string(winner))
