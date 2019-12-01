@@ -30,3 +30,40 @@ cd /go/src/06.go-rpc/01.helloworld
 mkdir -p mock_helloworld
 mockgen -destination=mock_helloworld/hw_mock.go -package=mock_helloworld -source=helloworld/helloworld.pb.go
 ```
+
+### 4. generate cpp code
+
+- grpc 다운로드 
+
+```sh
+cd ~/;
+git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+cd ~/grpc;
+git submodule update --init
+make;
+make install;
+ls -la /usr/local/include
+```
+
+- make 에러 발생시 Makefile 에서 -Werror 를 -Wno-tautological-compare -Wno-class-memaccess -Wno-ignored-qualifiers 으로 변경
+
+- protobuf 설치
+
+```sh
+cd third-party/protobuf;
+make; make install;
+```
+
+- greeter_client 빌드
+
+```sh
+cd cpp_helloworld;
+make greeter_client
+```
+
+- proto 변환 시험
+
+```sh
+cd /go/src/06.go-rpc/01.helloworld/
+protoc -I helloworld helloworld/helloworld.proto --cpp_out=./helloworld
+```
