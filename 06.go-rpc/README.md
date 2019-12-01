@@ -21,3 +21,12 @@ ls -al $GOPATH/bin/
 cd /go/src/06.go-rpc/01.helloworld
 protoc -I helloworld helloworld/helloworld.proto --go_out=plugins=grpc:helloworld
 ```
+
+### 3. [gomock](https://github.com/golang/mock)
+
+```sh
+go get github.com/golang/mock/mockgen
+cd /go/src/06.go-rpc/01.helloworld
+mkdir -p mock_helloworld
+mockgen -destination=mock_helloworld/hw_mock.go -package=mock_helloworld -source=helloworld/helloworld.pb.go
+```
