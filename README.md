@@ -17,7 +17,9 @@
 - [Go by Example](https://gobyexample.com/) : ([한글번역](https://mingrammer.com/gobyexample), [github](https://github.com/mingrammer/gobyexample))
 - [Awsome go](https://awesome-go.com/)
   - [Learn Go with TDD](https://github.com/quii/learn-go-with-tests) 
-  
+  - [gophercises.com](https://gophercises.com/)
+- [gRPC](https://github.com/grpc/grpc-go)
+
 ## 01.Hello : Hello world
 
 - go 빌드용 docker 실행
