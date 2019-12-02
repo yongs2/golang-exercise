@@ -70,4 +70,14 @@ protoc -I helloworld helloworld/helloworld.proto --cpp_out=./helloworld
 
 ## 02. [route_guide](https://github.com/grpc/grpc-go/tree/master/examples/route_guide)
 
-### 1. define route_guide.proto
+### 1. Define a service in a .proto file(route_guide.proto).
+### 2. Generate server and client code using the protocol buffer compiler.
+
+- generate go code
+
+```sh
+cd /go/src/06.go-rpc/02.routeguide
+protoc -I routeguide routeguide/route_guide.proto --go_out=plugins=grpc:routeguide
+```
+
+### 3. Use the Go gRPC API to write a simple client and server for your service
