@@ -67,3 +67,7 @@ make greeter_client
 cd /go/src/06.go-rpc/01.helloworld/
 protoc -I helloworld helloworld/helloworld.proto --cpp_out=./helloworld
 ```
+
+## 02. [route_guide](https://github.com/grpc/grpc-go/tree/master/examples/route_guide)
+
+### 1. define route_guide.proto
