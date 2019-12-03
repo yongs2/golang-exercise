@@ -81,3 +81,5 @@ protoc -I routeguide routeguide/route_guide.proto --go_out=plugins=grpc:routegui
 ```
 
 ### 3. Use the Go gRPC API to write a simple client and server for your service
+
+go generate 06.go-rpc/02.route_guide/routeguide
