@@ -50,7 +50,8 @@ func (s *routeGuideServer) ListFeatures(rect *pb.Rectangle, stream pb.RouteGuide
 				return err
 			}
 		}
-	}
+    }
+    log.Println("ListFeatures.return")
 	return nil
 }
 
@@ -61,7 +62,8 @@ func (s *routeGuideServer) RecordRoute(stream pb.RouteGuide_RecordRouteServer) e
 	for {
 		point, err := stream.Recv()
 		if err == io.EOF {
-			endTime := time.Now()
+            endTime := time.Now()
+            log.Println("RecordRoute.return = ", pointCount)
 			return stream.SendAndClose(&pb.RouteSummary{
 				PointCount:   pointCount,
 				FeatureCount: featureCount,
@@ -70,6 +72,7 @@ func (s *routeGuideServer) RecordRoute(stream pb.RouteGuide_RecordRouteServer) e
 			})
 		}
 		if err != nil {
+            log.Println("RecordRoute.err=", err)
 			return err
 		}
 		pointCount++
@@ -82,21 +85,29 @@ func (s *routeGuideServer) RecordRoute(stream pb.RouteGuide_RecordRouteServer) e
 			distance += calcDistance(lastPoint, point)
 		}
 		lastPoint = point
-	}
+    }
 }
 
 func (s *routeGuideServer) RouteChat(stream pb.RouteGuide_RouteChatServer) error {
 	for {
 		in, err := stream.Recv()
 		if err == io.EOF {
+            log.Println("RouteChat.return nil")
 			return nil
 		}
 		if err != nil {
+            log.Println("RouteChat.return err=", err)
 			return err
 		}
-		key := serialize(in.Location)
-		for _, note := range s.routeNotes[key] {
+        key := serialize(in.Location)
+        
+		s.routeNotes[key] = append(s.routeNotes[key], in)
+		rn := make([]*pb.RouteNote, len(s.routeNotes[key]))
+		copy(rn, s.routeNotes[key])
+        
+		for _, note := range rn {
 			if err := stream.Send(note); err != nil {
+                log.Println("RouteChat.return err=", err)
 				return err
 			}
 		}
