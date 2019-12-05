@@ -1,15 +1,15 @@
 package main
 
 import (
-	"time"
-	"math/rand"
+	pb "06.go-rpc/02.route_guide/routeguide"
+	"context"
+	"flag"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"io"
-	"flag"
 	"log"
-	"context"
-	"google.golang.org/grpc"
-	pb "06.go-rpc/02.route_guide/routeguide"
+	"math/rand"
+	"time"
 )
 
 var (
@@ -68,7 +68,10 @@ func randomPoint(r *rand.Rand) *pb.Point {
 
 func printFeature(client pb.RouteGuideClient, point *pb.Point) {
 	log.Printf("Getting feature for point (%d, %d)", point.Latitude, point.Longitude)
-	feature, err := client.GetFeature(context.Background(), point)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	feature, err := client.GetFeature(ctx, point)
 	if err != nil {
 		log.Fatalf("%v.GetFeature(_)=_, %v", client, err)
 	}
@@ -77,7 +80,10 @@ func printFeature(client pb.RouteGuideClient, point *pb.Point) {
 
 func printFeatures(client pb.RouteGuideClient, rect *pb.Rectangle) {
 	log.Printf("Looking for features within %v", rect)
-	stream, err := client.ListFeatures(context.Background(), rect);
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	stream, err := client.ListFeatures(ctx, rect)
 	if err != nil {
 		log.Fatalf("%v.ListFeatures(_)=_, %v", client, err)
 	}
@@ -102,7 +108,10 @@ func runRecordRoute(client pb.RouteGuideClient) {
 	}
 	log.Printf("Traversing %d points.", len(points))
 
-	stream, err := client.RecordRoute(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	stream, err := client.RecordRoute(ctx)
 	if err != nil {
 		log.Fatalf("%v.RecordRoute(_)=_, %v", client, err)
 	}
@@ -132,11 +141,15 @@ func runRouteChat(client pb.RouteGuideClient) {
 		{Location: &pb.Point{Latitude: 0, Longitude: 3}, Message: "Sixth message"},
 	}
 
-	stream, err := client.RouteChat(context.Background())
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	stream, err := client.RouteChat(ctx)
 	if err != nil {
 		log.Fatalf("%v.RouteChat(_) = _, %v", client, err)
 	}
 	log.Println("runRouteChat......RouteChat")
+
 	waitc := make(chan struct{})
 	go func() {
 		log.Println("runRouteChat......go-routine")
