@@ -5,6 +5,7 @@
 ### 1. Install protobuf compiler
 
 ```sh
+apt-get update; apt-get -y install unzip;
 cd ~/
 wget https://github.com/protocolbuffers/protobuf/releases/download/v3.11.0/protoc-3.11.0-linux-x86_64.zip
 unzip protoc-3.11.0-linux-x86_64.zip -d ~/protoc-3.11.0-linux-x86_64
@@ -83,3 +84,13 @@ protoc -I routeguide routeguide/route_guide.proto --go_out=plugins=grpc:routegui
 ### 3. Use the Go gRPC API to write a simple client and server for your service
 
 go generate 06.go-rpc/02.route_guide/routeguide
+
+### 4. go-mock
+
+```sh
+go get github.com/golang/mock/mockgen
+cd /go/src/06.go-rpc/02.route_guide
+mkdir -p mock_routeguide
+
+mockgen -destination=mock_routeguide/rg_mock.go -package=mock_routeguide -source=routeguide/route_guide.pb.go
+```
