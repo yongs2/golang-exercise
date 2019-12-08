@@ -94,3 +94,15 @@ mkdir -p mock_routeguide
 
 mockgen -destination=mock_routeguide/rg_mock.go -package=mock_routeguide -source=routeguide/route_guide.pb.go
 ```
+
+## 03. features/proto/echo
+
+### 1. Define a service in a .proto file(echo/echo.proto).
+### 2. Generate server and client code using the protocol buffer compiler.
+
+- generate go code
+
+```sh
+cd /go/src/06.go-rpc/03.features/proto
+protoc -I ./echo ./echo/echo.proto --go_out=plugins=grpc,paths=source_relative:./echo
+```
