@@ -104,5 +104,22 @@ mockgen -destination=mock_routeguide/rg_mock.go -package=mock_routeguide -source
 
 ```sh
 cd /go/src/06.go-rpc/03.features/proto
+go generate 06.go-rpc/03.features/proto
+```
+
+- or run protoc
+```sh
+cd /go/src/06.go-rpc/03.features/proto
 protoc -I ./echo ./echo/echo.proto --go_out=plugins=grpc,paths=source_relative:./echo
 ```
+
+### features/authentication
+### features/compression
+### features/deadline
+### features/encryption/TLS
+### features/errors
+### features/interceptor
+### features/load_balancing
+### features/metadata
+### features/multiplex
+### features/name_resolving
