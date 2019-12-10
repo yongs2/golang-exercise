@@ -119,6 +119,10 @@ protoc -I ./echo ./echo/echo.proto --go_out=plugins=grpc,paths=source_relative:.
 - https://github.com/golang/oauth2 를 참조하여, metadata 참조하는 부분을 cloud.google.com/go/compute/metadata 로 수정
 
 ### features/compression
+
+- UseCompressor 로 gzip 으로 전송 데이터를 압축시킴
+- res, err := c.UnaryEcho(ctx, &pb.EchoRequest{Message: msg}, grpc.UseCompressor(gzip.Name))
+
 ### features/deadline
 ### features/encryption/TLS
 ### features/errors
