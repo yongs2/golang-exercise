@@ -114,6 +114,10 @@ protoc -I ./echo ./echo/echo.proto --go_out=plugins=grpc,paths=source_relative:.
 ```
 
 ### features/authentication
+
+- golang.org/x/oauth2 를 포함시켰는데도, undefined: metadata.OnGCE 라고 표시되면, 
+- https://github.com/golang/oauth2 를 참조하여, metadata 참조하는 부분을 cloud.google.com/go/compute/metadata 로 수정
+
 ### features/compression
 ### features/deadline
 ### features/encryption/TLS
