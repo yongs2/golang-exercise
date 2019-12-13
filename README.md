@@ -19,6 +19,8 @@
   - [Learn Go with TDD](https://github.com/quii/learn-go-with-tests) 
   - [gophercises.com](https://gophercises.com/)
 - [gRPC](https://github.com/grpc/grpc-go)
+- [go-cshared-example](https://github.com/vladimirvivien/go-cshared-examples)
+  - export LD_LIBRARY_PATH=/go/src/07.go-cshared/01.goutil/libgoutil:${LD_LIBRARY_PATH}
 
 ## 01.Hello : Hello world
 
