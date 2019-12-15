@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "goutil.h"
+#include "libgoutil.h"
 
 int main(void) {
     int a = 12;
