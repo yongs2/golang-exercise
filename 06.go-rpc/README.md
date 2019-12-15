@@ -126,6 +126,21 @@ protoc -I ./echo ./echo/echo.proto --go_out=plugins=grpc,paths=source_relative:.
 ### features/deadline
 ### features/encryption/TLS
 ### features/errors
+
+- go run server/main.go
+- go run client/main.go
+
+    ```log
+    2019/12/15 10:54:48 Greeting: HelloWorld
+    ```
+
+- go run client.main.go
+
+    ```log
+    2019/12/15 10:55:01 Quato failured: violations:<subject:"name:World" description:"Limit one greeting per person" >
+    exit status 1
+    ```
+
 ### features/interceptor
 ### features/load_balancing
 ### features/metadata
