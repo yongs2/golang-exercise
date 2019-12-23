@@ -24,17 +24,29 @@ curl -XPOST -d'{"s":"hello, world"}' localhost:8080/count
 
 ### stringsvc3
 
+- add extra package
+
 ```sh
 go get github.com/streadway/handy/breaker
 go get github.com/afex/hystrix-go/hystrix
 go get golang.org/x/time/rate
 ```
 
-```sh
-go run 02.stringsvc3/*.go
+- run server and proxy
 
-curl -XPOST -d'{"s":"hello, world"}' localhost:8080/uppercase
-curl -XPOST -d'{"s":"hello, world"}' localhost:8080/count
+```sh
+go run 03.stringsvc3/*.go -listen=:8001 &
+go run 03.stringsvc3/*.go -listen=:8002 &
+go run 03.stringsvc3/*.go -listen=:8003 &
+go run 03.stringsvc3/*.go -listen=:8080 -proxy=localhost:8001,localhost:8002,localhost:8003
+```
+
+- run client
+
+```sh
+for s in foo bar baz ; do curl -d"{\"s\":\"$s\"}" localhost:8080/uppercase ; done
+for s in foo bar baz ; do curl -d"{\"s\":\"$s\"}" localhost:8080/count ; done
+curl localhost:8080/metrics
 ```
 
 ## addsvc
