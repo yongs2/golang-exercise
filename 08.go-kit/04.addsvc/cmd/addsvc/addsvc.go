@@ -34,11 +34,11 @@ import (
 	"sourcegraph.com/sourcegraph/appdash"
 	appdashot "sourcegraph.com/sourcegraph/appdash/opentracing"
 
+	addthrift "08.go-kit/04.addsvc/cmd/addsvc/thrift/gen-go/addsvc"
 	addpb "08.go-kit/04.addsvc/pb"
 	"08.go-kit/04.addsvc/pkg/addendpoint"
 	"08.go-kit/04.addsvc/pkg/addservice"
 	"08.go-kit/04.addsvc/pkg/addtransport"
-	addthrift "08.go-kit/04.addsvc/thrift/gen-go/addsvc"
 )
 
 func main() {
@@ -141,7 +141,7 @@ func main() {
 		endpoints      = addendpoint.New(service, logger, duration, tracer, zipkinTracer)
 		httpHandler    = addtransport.NewHTTPHandler(endpoints, tracer, zipkinTracer, logger)
 		grpcServer     = addtransport.NewGRPCServer(endpoints, tracer, zipkinTracer, logger)
-		thriftServer   = addtransport.NewTriftServer(endpoints)
+		thriftServer   = addtransport.NewThriftServer(endpoints)
 		jsonrpcHandler = addtransport.NewJSONRPCHandler(endpoints, logger)
 	)
 

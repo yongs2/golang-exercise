@@ -51,6 +51,17 @@ curl localhost:8080/metrics
 
 ## addsvc
 
+- [install apache-thrift](https://thrift.apache.org/)
+
+```sh
+apt-get -y install flex bison
+wget https://github.com/apache/thrift/archive/v0.13.0.tar.gz
+tar -zxvf v0.13.0.tar.gz
+cd thrift-0.13.0/
+./bootstrap.sh
+./configure  --without-qt4 --without-qt5 --without-c_glib --without-csharp --without-java --without-erlang --without-nodejs --without-lua --without-python --without-perl --without-php --without-php_extension --without-dart --without-ruby --without-haskell --without-rs --without-cl --without-haxe --without-dotnetcore --without-d
+```
+
 ## profilesvc
 
 ## shipping
