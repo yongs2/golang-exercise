@@ -62,6 +62,32 @@ cd thrift-0.13.0/
 ./configure  --without-qt4 --without-qt5 --without-c_glib --without-csharp --without-java --without-erlang --without-nodejs --without-lua --without-python --without-perl --without-php --without-php_extension --without-dart --without-ruby --without-haskell --without-rs --without-cl --without-haxe --without-dotnetcore --without-d
 ```
 
+- build
+
+```sh
+make pb thrift
+make
+```
+
+- run server.bin for test
+
+```sh
+./server.bin 
+```
+
+- run client.bin for test
+
+```sh
+./client.bin -http-addr=localhost:8081 -method=sum 1 2
+./client.bin -http-addr=localhost:8081 -method=concat 1 2
+./client.bin -grpc-addr=localhost:8082 -method=sum 1 2
+./client.bin -grpc-addr=localhost:8082 -method=concat 1 2
+./client.bin -thrift-addr=localhost:8083 -method=sum 1 2
+./client.bin -thrift-addr=localhost:8083 -method=concat 1 2
+./client.bin -jsonrpc-addr=localhost:8084 -method=sum 1 2
+./client.bin -jsonrpc-addr=localhost:8084 -method=concat 1 2
+```
+
 ## profilesvc
 
 ## shipping
