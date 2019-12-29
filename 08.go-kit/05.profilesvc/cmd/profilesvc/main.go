@@ -29,7 +29,7 @@ func main() {
 	var s profilesvc.Service
 	{
 		s = profilesvc.NewInmemService()
-		s = profilesvc.LoggingMiddleWare(logger)(s)
+		s = profilesvc.LoggingMiddleware(logger)(s)
 	}
 
 	var h http.Handler
