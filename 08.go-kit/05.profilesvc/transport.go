@@ -64,7 +64,7 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 		encodeResponse,
 		options...,
 	))
-	r.Methods("GET").Path("/profiles/{id}/addresses/${addressID}").Handler(httptransport.NewServer(
+	r.Methods("GET").Path("/profiles/{id}/addresses/{addressID}").Handler(httptransport.NewServer(
 		e.GetAddressEndpoint,
 		decodeGetAddressRequest,
 		encodeResponse,
@@ -76,7 +76,7 @@ func MakeHTTPHandler(s Service, logger log.Logger) http.Handler {
 		encodeResponse,
 		options...,
 	))
-	r.Methods("DELETE").Path("/profiles/{id}/addresses/${addressID}").Handler(httptransport.NewServer(
+	r.Methods("DELETE").Path("/profiles/{id}/addresses/{addressID}").Handler(httptransport.NewServer(
 		e.DeleteAddressEndpoint,
 		decodeDeleteAddressRequest,
 		encodeResponse,
@@ -178,7 +178,7 @@ func decodePostAddressRequest(_ context.Context, r *http.Request) (request inter
 	if err := json.NewDecoder(r.Body).Decode(&address); err != nil {
 		return nil, err
 	}
-	return postProfileRequest{
+	return postAddressRequest{
 		ProfileID: id,
 		Address:   address,
 	}, nil
@@ -202,42 +202,42 @@ func decodeDeleteAddressRequest(_ context.Context, r *http.Request) (request int
 
 func encodePostProfileRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	req.URL.Path = "/profiles/"
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodeGetProfileRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(getProfileRequest)
 	profileID := url.QueryEscape(r.ID)
 	req.URL.Path = "/profiles/" + profileID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodePutProfileRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(putProfileRequest)
 	profileID := url.QueryEscape(r.ID)
 	req.URL.Path = "/profiles/" + profileID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodePatchProfileRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(patchProfileRequest)
 	profileID := url.QueryEscape(r.ID)
 	req.URL.Path = "/profiles/" + profileID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodeDeleteProfileRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(deleteProfileRequest)
 	profileID := url.QueryEscape(r.ID)
 	req.URL.Path = "/profiles/" + profileID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodeGetAddressesRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(getAddressesRequest)
 	profileID := url.QueryEscape(r.ProfileID)
 	req.URL.Path = "/profiles/" + profileID + "/addresses/"
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodeGetAddressRequest(ctx context.Context, req *http.Request, request interface{}) error {
@@ -245,14 +245,14 @@ func encodeGetAddressRequest(ctx context.Context, req *http.Request, request int
 	profileID := url.QueryEscape(r.ProfileID)
 	addressID := url.QueryEscape(r.AddressID)
 	req.URL.Path = "/profiles/" + profileID + "/addresses/" + addressID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodePostAddressRequest(ctx context.Context, req *http.Request, request interface{}) error {
 	r := request.(postAddressRequest)
 	profileID := url.QueryEscape(r.ProfileID)
 	req.URL.Path = "/profiles/" + profileID + "/addresses/"
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func encodeDeleteAddressRequest(ctx context.Context, req *http.Request, request interface{}) error {
@@ -260,7 +260,7 @@ func encodeDeleteAddressRequest(ctx context.Context, req *http.Request, request 
 	profileID := url.QueryEscape(r.ProfileID)
 	addressID := url.QueryEscape(r.AddressID)
 	req.URL.Path = "/profiles/" + profileID + "/addresses/" + addressID
-	return encodeRequest(ctx, req, reqeust)
+	return encodeRequest(ctx, req, request)
 }
 
 func decodePostProfileResponse(_ context.Context, resp *http.Response) (interface{}, error) {

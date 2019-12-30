@@ -90,6 +90,22 @@ make
 
 ## profilesvc
 
+- run profilesvc
+
+```sh
+go run ./cmd/profilesvc/main.go
+```
+
+- create a profile
+
+```sh
+curl -d '{"id":"1234","Name":"Go Kit"}' -H "Content-Type: application/json" -X POST http://localhost:8080/profiles/
+curl localhost:8080/profiles/1234
+curl -d '{"id": "1", "location": "location1"}' -H "Content-Type: application/json" -X POST http://localhost:8080/profiles/1234/addresses/
+curl -X GET localhost:8080/profiles/1234/addresses/
+curl -X DELETE localhost:8080/profiles/1234/addresses/1
+```
+
 ## shipping
 
 ## apigateway
