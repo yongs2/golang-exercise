@@ -17,6 +17,13 @@ import (
 	kitprometheus "github.com/go-kit/kit/metrics/prometheus"
 
 	"08.go-kit/06.shipping/booking"
+	"08.go-kit/06.shipping/cargo"
+	//"08.go-kit/06.shipping/handling"
+	"08.go-kit/06.shipping/inmem"
+	//"08.go-kit/06.shipping/inspection"
+	"08.go-kit/06.shipping/location"
+	"08.go-kit/06.shipping/routing"
+	//"08.go-kit/06.shipping/tracking"
 )
 
 const (
