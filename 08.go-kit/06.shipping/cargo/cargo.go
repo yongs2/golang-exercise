@@ -21,7 +21,7 @@ type Cargo struct {
 }
 
 func (c *Cargo) SpecifyNewRoute(rs RouteSpecification) {
-	c.RouteSpecification = RouteSpecification
+	c.RouteSpecification = rs
 	c.Delivery = c.Delivery.UpdateOnRouting(c.RouteSpecification, c.Itinerary)
 }
 
@@ -67,7 +67,7 @@ type RouteSpecification struct {
 func (s RouteSpecification) IsSatisfiedBy(itinerary Itinerary) bool {
 	return itinerary.Legs != nil &&
 		s.Origin == itinerary.InitialDepartureLocation() &&
-		s.Destination == itinerary.FinalArriveLocation()
+		s.Destination == itinerary.FinalArrivalLocation()
 }
 
 type RoutingStatus int

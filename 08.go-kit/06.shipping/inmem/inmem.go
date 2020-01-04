@@ -92,7 +92,7 @@ func (r *voyageRepository) Find(voyageNumber voyage.Number) (*voyage.Voyage, err
 
 func NewVoyageRepository() voyage.Repository {
 	r := &voyageRepository{
-		voyages: make(map[voyage.Numer]*voyage.Voyage),
+		voyages: make(map[voyage.Number]*voyage.Voyage),
 	}
 
 	r.voyages[voyage.V100.Number] = voyage.V100
@@ -115,12 +115,12 @@ type handlingEventRepository struct {
 
 func (r *handlingEventRepository) Store(e cargo.HandlingEvent) {
 	r.mtx.Lock()
-	defer r.mtx.Unlokc()
+	defer r.mtx.Unlock()
 
 	if _, ok := r.events[e.TrackingID]; !ok {
 		r.events[e.TrackingID] = make([]cargo.HandlingEvent, 0)
 	}
-	r.events[e.TrackingID] = append(r.event[e.TrackingID], e)
+	r.events[e.TrackingID] = append(r.events[e.TrackingID], e)
 }
 
 func (r *handlingEventRepository) QueryHandlingHistory(id cargo.TrackingID) cargo.HandlingHistory {

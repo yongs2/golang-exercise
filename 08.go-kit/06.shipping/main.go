@@ -72,7 +72,7 @@ func main() {
 			Name:      "request_count",
 			Help:      "Number of request recevied.",
 		}, filedKeys),
-		kitprometheus.NewCounterFrom(stdprometheus.CounterOpts{
+		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 			Namespace: "api",
 			Subsystem: "booking_service",
 			Name:      "request_latency_microseconds",
@@ -123,20 +123,20 @@ func envString(env, fallback string) string {
 	return e
 }
 
-func storeTestData(r Cargo.Repository) {
+func storeTestData(r cargo.Repository) {
 	test1 := cargo.New("FTL456", cargo.RouteSpecification{
-		Origin:         location.AUML,
-		Destination:    location.SESTO,
-		ArriveDeadline: time.Now().AddDate(0, 0, 7),
+		Origin:          location.AUMEL,
+		Destination:     location.SESTO,
+		ArrivalDeadline: time.Now().AddDate(0, 0, 7),
 	})
 	if err := r.Store(test1); err != nil {
 		panic(err)
 	}
 
 	test2 := cargo.New("ABC123", cargo.RouteSpecification{
-		Origin:         location.SESTO,
-		Destination:    location.CNHKG,
-		ArriveDeadline: time.Now().AddDate(0, 0, 14),
+		Origin:          location.SESTO,
+		Destination:     location.CNHKG,
+		ArrivalDeadline: time.Now().AddDate(0, 0, 14),
 	})
 	if err := r.Store(test2); err != nil {
 		panic(err)

@@ -29,7 +29,7 @@ func (d Delivery) IsOnTrack() bool {
 	return d.RoutingStatus == Routed && !d.IsMisdirected
 }
 
-func DeriveDeliveryFrom(rs RouteSpecification, itinerary Itinerary, hisotry HandlingHistory) Delivery {
+func DeriveDeliveryFrom(rs RouteSpecification, itinerary Itinerary, history HandlingHistory) Delivery {
 	lastEvent, _ := history.MostRecentlyCompletedEvent()
 	return newDelivery(lastEvent, itinerary, rs)
 }
@@ -88,7 +88,7 @@ func calculateUnloadedAtDestination(event HandlingEvent, rs RouteSpecification) 
 }
 
 func calculateTransportStatus(event HandlingEvent) TransportStatus {
-	switch event {
+	switch event.Activity.Type {
 	case NotHandled:
 		return NotReceived
 	case Load:
@@ -116,7 +116,7 @@ func calculateNextExpectedActivity(d Delivery) HandlingActivity {
 
 	switch d.LastEvent.Activity.Type {
 	case NotHandled:
-		return HandlingActivity{Type: Recieve, Location: d.RouteSpecification.Origin}
+		return HandlingActivity{Type: Receive, Location: d.RouteSpecification.Origin}
 	case Receive:
 		l := d.Itinerary.Legs[0]
 		return HandlingActivity{Type: Load, Location: l.LoadLocation, VoyageNumber: l.VoyageNumber}

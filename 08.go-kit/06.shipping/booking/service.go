@@ -38,7 +38,7 @@ func (s *service) AssignCargoToRoute(id cargo.TrackingID, itinerary cargo.Itiner
 		return err
 	}
 
-	c.AssignCargoToRoute(itinerary)
+	c.AssignToRoute(itinerary)
 	return s.cargos.Store(c)
 }
 

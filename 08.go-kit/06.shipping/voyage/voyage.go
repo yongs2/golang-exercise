@@ -24,7 +24,7 @@ type Schedule struct {
 
 type CarrierMovement struct {
 	DepartureLocation location.UNLocode
-	ArriavelLocation  location.UNLocode
+	ArrivalLocation   location.UNLocode
 	DepartureTime     time.Time
 	ArrivalTime       time.Time
 }
