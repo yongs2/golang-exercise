@@ -107,5 +107,37 @@ curl -X DELETE localhost:8080/profiles/1234/addresses/1
 ```
 
 ## shipping
+- reference : [GoDDD](https://github.com/marcusolsson/goddd)
+- test booking
+  - Check out the sample cargos
+  ```sh
+  curl -X GET http://localhost:8080/booking/v1/cargos
+  ```
+
+  - Book new cargo
+  ```sh
+  curl -X POST -d '{"origin": "SESTO", "destination": "FIHEL", "arrival_deadline": "2016-03-21T19:50:24Z"}' -H "Content-Type: application/json" http://localhost:8080/booking/v1/cargos 
+  curl -X POST -d '{"origin": "SESTO", "destination": "CNHKG", "arrival_deadline": "2021-01-19T09:28:00Z"}' -H "Content-Type: application/json" http://localhost:8080/booking/v1/cargos
+  ```
+
+  - Get cargo ABC123
+  ```sh
+  curl -X GET http://localhost:8080/booking/v1/cargos/ABC123
+  ```
+
+  - Request possible routes for sample cargo ABC123
+  ```sh
+  curl -X GET http://localhost:8080/booking/v1/cargos/ABC123/request_routes
+  ```
+
+  - change destination
+  ```sh
+  curl -d '{}' -X POST http://localhost:8080/booking/v1/cargos/ABC123/change_destination
+  ```
+
+  - Get location code
+  ```sh
+  curl -X GET http://localhost:8080/booking/v1/locations
+  ```
 
 ## apigateway
