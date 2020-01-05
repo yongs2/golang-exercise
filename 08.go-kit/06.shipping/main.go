@@ -51,7 +51,7 @@ func main() {
 	var (
 		cargos         = inmem.NewCargoRepository()
 		locations      = inmem.NewLocationRepository()
-		voyages        = inmem.NewVoyageRepository()
+		//voyages        = inmem.NewVoyageRepository()
 		handlingEvents = inmem.NewHandlingEventRepository()
 	)
 
