@@ -18,9 +18,9 @@ import (
 
 	"08.go-kit/06.shipping/booking"
 	"08.go-kit/06.shipping/cargo"
-	//"08.go-kit/06.shipping/handling"
+	"08.go-kit/06.shipping/handling"
 	"08.go-kit/06.shipping/inmem"
-	//"08.go-kit/06.shipping/inspection"
+	"08.go-kit/06.shipping/inspection"
 	"08.go-kit/06.shipping/location"
 	"08.go-kit/06.shipping/routing"
 	//"08.go-kit/06.shipping/tracking"
@@ -51,13 +51,24 @@ func main() {
 	var (
 		cargos         = inmem.NewCargoRepository()
 		locations      = inmem.NewLocationRepository()
-		//voyages        = inmem.NewVoyageRepository()
+		voyages        = inmem.NewVoyageRepository()
 		handlingEvents = inmem.NewHandlingEventRepository()
+	)
+
+	var (
+		handlingEventFactory = cargo.HandlingEventFactory{
+			CargoRepository:    cargos,
+			VoyageRepository:   voyages,
+			LocationRepository: locations,
+		}
+		handlingEventHandler = handling.NewEventHandler(
+			inspection.NewService(cargos, handlingEvents, nil),
+		)
 	)
 
 	storeTestData(cargos)
 
-	filedKeys := []string{"method"}
+	fieldkeys := []string{"method"}
 
 	var rs routing.Service
 	rs = routing.NewProxyingMiddleware(ctx, *routingServiceURL)(rs)
@@ -71,20 +82,40 @@ func main() {
 			Subsystem: "booking_service",
 			Name:      "request_count",
 			Help:      "Number of request recevied.",
-		}, filedKeys),
+		}, fieldkeys),
 		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 			Namespace: "api",
 			Subsystem: "booking_service",
 			Name:      "request_latency_microseconds",
 			Help:      "Total duration of requests in microseconds.",
-		}, filedKeys),
+		}, fieldkeys),
 		bs,
+	)
+
+	var hs handling.Service
+	hs = handling.NewService(handlingEvents, handlingEventFactory, handlingEventHandler)
+	hs = handling.NewLoggingService(log.With(logger, "component", "handling"), hs)
+	hs = handling.NewInstrumentingService(
+		kitprometheus.NewCounterFrom(stdprometheus.CounterOpts{
+			Namespace: "api",
+			Subsystem: "handling_service",
+			Name:      "request_count",
+			Help:      "Number of requests received.",
+		}, fieldkeys),
+		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
+			Namespace: "api",
+			Subsystem: "handling_service",
+			Name:      "request_latency_microseconds",
+			Help:      "Total duration of requests in microseconds.",
+		}, fieldkeys),
+		hs,
 	)
 
 	httpLogger := log.With(logger, "component", "http")
 	mux := http.NewServeMux()
 
 	mux.Handle("/booking/v1/", booking.MakeHandler(bs, httpLogger))
+	mux.Handle("/handling/v1/", handling.MakeHandler(hs, httpLogger))
 
 	http.Handle("/", accessControl(mux))
 	http.Handle("/metrics", promhttp.Handler())

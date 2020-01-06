@@ -9,7 +9,7 @@ import (
 	"08.go-kit/06.shipping/routing"
 )
 
-var ErrInvalidArgument = errors.New("invalud argument")
+var ErrInvalidArgument = errors.New("invalid argument")
 
 type Service interface {
 	BookNewCargo(origin location.UNLocode, destination location.UNLocode, deadline time.Time) (cargo.TrackingID, error)

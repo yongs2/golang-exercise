@@ -4,7 +4,7 @@
 
 ## stringsvc
 
-### stringsvc1
+### [stringsvc1](https://github.com/go-kit/kit/tree/master/examples/stringsvc1)
 
 ```sh
 go run 01.stringsvc1/main.go
@@ -13,7 +13,7 @@ curl -XPOST -d'{"s":"hello, world"}' localhost:8080/uppercase
 curl -XPOST -d'{"s":"hello, world"}' localhost:8080/count
 ```
 
-### stringsvc2
+### [stringsvc2](https://github.com/go-kit/kit/tree/master/examples/stringsvc2)
 
 ```sh
 go run 02.stringsvc2/*.go
@@ -22,7 +22,7 @@ curl -XPOST -d'{"s":"hello, world"}' localhost:8080/uppercase
 curl -XPOST -d'{"s":"hello, world"}' localhost:8080/count
 ```
 
-### stringsvc3
+### [stringsvc3](https://github.com/go-kit/kit/tree/master/examples/stringsvc3)
 
 - add extra package
 
@@ -49,7 +49,7 @@ for s in foo bar baz ; do curl -d"{\"s\":\"$s\"}" localhost:8080/count ; done
 curl localhost:8080/metrics
 ```
 
-## addsvc
+## [addsvc](https://github.com/go-kit/kit/tree/master/examples/addsvc)
 
 - [install apache-thrift](https://thrift.apache.org/)
 
@@ -88,7 +88,7 @@ make
 ./client.bin -jsonrpc-addr=localhost:8084 -method=concat 1 2
 ```
 
-## profilesvc
+## [profilesvc](https://github.com/go-kit/kit/tree/master/examples/profilesvc)
 
 - run profilesvc
 
@@ -106,7 +106,7 @@ curl -X GET localhost:8080/profiles/1234/addresses/
 curl -X DELETE localhost:8080/profiles/1234/addresses/1
 ```
 
-## shipping
+## [shipping](https://github.com/go-kit/kit/tree/master/examples/shipping)
 - reference : [GoDDD](https://github.com/marcusolsson/goddd)
 - test booking
   - Check out the sample cargos
@@ -138,6 +138,11 @@ curl -X DELETE localhost:8080/profiles/1234/addresses/1
   - Get location code
   ```sh
   curl -X GET http://localhost:8080/booking/v1/locations
+  ```
+
+  - Register incident
+  ```sh
+  curl -d '{"completion_time":"2016-03-21T19:50:24Z", "tracking_id":"ABC123", "voyage":"V100", "location":"SESTO", "event_type":"Receive"}' -X POST http://localhost:8080/handling/v1/incidents
   ```
 
 ## apigateway
