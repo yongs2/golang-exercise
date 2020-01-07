@@ -23,7 +23,7 @@ import (
 	"08.go-kit/06.shipping/inspection"
 	"08.go-kit/06.shipping/location"
 	"08.go-kit/06.shipping/routing"
-	//"08.go-kit/06.shipping/tracking"
+	"08.go-kit/06.shipping/tracking"
 )
 
 const (
@@ -68,7 +68,7 @@ func main() {
 
 	storeTestData(cargos)
 
-	fieldkeys := []string{"method"}
+	fieldKeys := []string{"method"}
 
 	var rs routing.Service
 	rs = routing.NewProxyingMiddleware(ctx, *routingServiceURL)(rs)
@@ -82,14 +82,33 @@ func main() {
 			Subsystem: "booking_service",
 			Name:      "request_count",
 			Help:      "Number of request recevied.",
-		}, fieldkeys),
+		}, fieldKeys),
 		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 			Namespace: "api",
 			Subsystem: "booking_service",
 			Name:      "request_latency_microseconds",
 			Help:      "Total duration of requests in microseconds.",
-		}, fieldkeys),
+		}, fieldKeys),
 		bs,
+	)
+
+	var ts tracking.Service
+	ts = tracking.NewService(cargos, handlingEvents)
+	ts = tracking.NewLoggingService(log.With(logger, "component", "tracking"), ts)
+	ts = tracking.NewInstrumentingService(
+		kitprometheus.NewCounterFrom(stdprometheus.CounterOpts{
+			Namespace: "api",
+			Subsystem: "tracking_service",
+			Name:      "request_count",
+			Help:      "Number of requests received.",
+		}, fieldKeys),
+		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
+			Namespace: "api",
+			Subsystem: "tracking_service",
+			Name:      "request_latency_microseconds",
+			Help:      "Total duration of requests in microseconds.",
+		}, fieldKeys),
+		ts,
 	)
 
 	var hs handling.Service
@@ -101,13 +120,13 @@ func main() {
 			Subsystem: "handling_service",
 			Name:      "request_count",
 			Help:      "Number of requests received.",
-		}, fieldkeys),
+		}, fieldKeys),
 		kitprometheus.NewSummaryFrom(stdprometheus.SummaryOpts{
 			Namespace: "api",
 			Subsystem: "handling_service",
 			Name:      "request_latency_microseconds",
 			Help:      "Total duration of requests in microseconds.",
-		}, fieldkeys),
+		}, fieldKeys),
 		hs,
 	)
 
@@ -115,6 +134,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.Handle("/booking/v1/", booking.MakeHandler(bs, httpLogger))
+	mux.Handle("/tracking/v1/", tracking.MakeHandler(ts, httpLogger))
 	mux.Handle("/handling/v1/", handling.MakeHandler(hs, httpLogger))
 
 	http.Handle("/", accessControl(mux))
