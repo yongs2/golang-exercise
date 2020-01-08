@@ -145,4 +145,9 @@ curl -X DELETE localhost:8080/profiles/1234/addresses/1
   curl -d '{"completion_time":"2016-03-21T19:50:24Z", "tracking_id":"ABC123", "voyage":"V100", "location":"SESTO", "event_type":"Receive"}' -X POST http://localhost:8080/handling/v1/incidents
   ```
 
+  - tracking
+  ```sh
+  curl -X GET http://localhost:8080/tracking/v1/cargos/ABC123
+  ```
+
 ## apigateway
