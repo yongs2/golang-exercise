@@ -60,6 +60,7 @@ tar -zxvf v0.13.0.tar.gz
 cd thrift-0.13.0/
 ./bootstrap.sh
 ./configure  --without-qt4 --without-qt5 --without-c_glib --without-csharp --without-java --without-erlang --without-nodejs --without-lua --without-python --without-perl --without-php --without-php_extension --without-dart --without-ruby --without-haskell --without-rs --without-cl --without-haxe --without-dotnetcore --without-d
+make; make install
 ```
 
 - build
@@ -151,3 +152,8 @@ curl -X DELETE localhost:8080/profiles/1234/addresses/1
   ```
 
 ## apigateway
+
+- prepare
+```sh
+go get github.com/hashicorp/consul/api
+```
