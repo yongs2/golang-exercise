@@ -36,7 +36,7 @@ import (
 
 func main() {
 	var (
-		httpAddr     = flag.String("http.addr", ":8000", "Address for HTTP (JSON) server")
+		httpAddr     = flag.String("http.addr", ":8500", "Address for HTTP (JSON) server")
 		consulAddr   = flag.String("consul.addr", "", "Consul agent address")
 		retryMax     = flag.Int("retry.max", 3, "per-request retries to different instances")
 		retryTimeout = flag.Duration("retry.timeout", 500*time.Millisecond, "per-request timeout, including retries")
@@ -66,12 +66,11 @@ func main() {
 
 	tracer := stdopentracing.GlobalTracer() // no-op
 	zipkinTracer, _ := stdzipkin.NewTracer(nil, stdzipkin.WithNoopTracer(true))
-	//ctx := context.Background()
+	ctx := context.Background()
 	r := mux.NewRouter()
 
 	// addsvc
 	{
-		fmt.Println("---- addsvc")
 		var (
 			tags        = []string{}
 			passingOnly = true
@@ -79,32 +78,25 @@ func main() {
 			instancer   = consulsd.NewInstancer(client, logger, "addsvc", tags, passingOnly)
 		)
 		{
-			fmt.Println("---- addsvcFactory(MakeSumEndpoint)")
 			factory := addsvcFactory(addendpoint.MakeSumEndpoint, tracer, zipkinTracer, logger)
-			fmt.Println("factory=", factory)
 			endpointer := sd.NewEndpointer(instancer, factory, logger)
-			fmt.Println("endpointer=", endpointer)
 			balancer := lb.NewRoundRobin(endpointer)
-			fmt.Println("balancer=", balancer)
 			retry := lb.Retry(*retryMax, *retryTimeout, balancer)
-			//endpoints.SumEndpoint = retry
-			fmt.Println("retry=", retry)
+			endpoints.SumEndpoint = retry
 		}
-		/*{
-			fmt.Println("---- addsvcFactory(MakeConcatEndpoint)")
+		{
 			factory := addsvcFactory(addendpoint.MakeConcatEndpoint, tracer, zipkinTracer, logger)
 			endpointer := sd.NewEndpointer(instancer, factory, logger)
 			balancer := lb.NewRoundRobin(endpointer)
 			retry := lb.Retry(*retryMax, *retryTimeout, balancer)
 			endpoints.ConcatEndpoint = retry
-		}*/
+		}
 
 		r.PathPrefix("/addsvc").Handler(http.StripPrefix("/addsvc", addtransport.NewHTTPHandler(endpoints, tracer, zipkinTracer, logger)))
 	}
 
 	// stringsvc
-	/*{
-		fmt.Println("---- stringsvc")
+	{
 		var (
 			tags        = []string{}
 			passingOnly = true
@@ -129,9 +121,8 @@ func main() {
 
 		r.Handle("/stringsvc/uppercase", httptransport.NewServer(uppercase, decodeUppercaseRequest, encodeJSONResponse))
 		r.Handle("/stringsvc/count", httptransport.NewServer(count, decodeCountRequest, encodeJSONResponse))
-	}*/
+	}
 
-	fmt.Println("---- make chan")
 	errc := make(chan error)
 	go func() {
 		c := make(chan os.Signal)
@@ -153,7 +144,6 @@ func addsvcFactory(makeEndpoint func(addservice.Service) endpoint.Endpoint, trac
 		if err != nil {
 			return nil, nil, err
 		}
-		fmt.Println("--- addsvcFactory.func.conn=", conn)
 		service := addtransport.NewGRPCClient(conn, tracer, zipkinTracer, logger)
 		endpoint := makeEndpoint(service)
 
