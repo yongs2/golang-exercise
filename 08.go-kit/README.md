@@ -151,9 +151,52 @@ curl -X DELETE localhost:8080/profiles/1234/addresses/1
   curl -X GET http://localhost:8080/tracking/v1/cargos/ABC123
   ```
 
-## apigateway
+## [apigateway](https://github.com/go-kit/kit/tree/master/examples/apigateway)
 
 - prepare
 ```sh
 go get github.com/hashicorp/consul/api
+```
+
+### [usage of Go-Kit Api Gateway](https://medium.com/@jwenz723/go-kit-api-gateway-4bee401e77a2)
+
+1) run addsvc
+```sh
+cd ${GOPATH}/src/08.go-kit/04.addsvc;
+make pb thrift;
+cd ${GOPATH}/src/08.go-kit/04.addsvc/cmd/addsvc;
+go run addsvc.go -debug.addr :7080 -http-addr :7081 -grpc-addr :7082 -thrift-addr :7083 -jsonrpc-addr :7084
+curl -XPOST -d'{"a":"7","b":"4"}' http://localhost:7081/concat
+curl -XPOST -d'{"a":7,"b":4}' http://localhost:7081/sum
+```
+
+2) run stringsvc
+```sh
+cd ${GOPATH}/src/08.go-kit/03.stringsvc3;
+go run . -listen :8081
+curl -XPOST -d'{"s":"mytest"}' http://localhost:8081/count
+curl -XPOST -d'{"s":"mytest"}' http://localhost:8081/uppercase
+```
+
+3) run consul
+```sh
+cd $HOME; wget https://releases.hashicorp.com/consul/1.6.2/consul_1.6.2_linux_amd64.zip;
+unzip consul_1.6.2_linux_amd64.zip; cp consul /usr/local/bin/;
+
+cd ${GOPATH}/src/08.go-kit/07.apigateway;
+mkdir ./consul.d
+echo '{"service": {"name": "addsvc", "tags": [], "port": 7082}}' > ./consul.d/addsvc.json
+echo '{"service": {"name": "stringsvc", "tags": [], "port": 8081}}' > ./consul.d/stringsvc.json
+consul agent -dev -config-dir=./consul.d
+```
+
+4) starting api gateway
+```sh
+cd ${GOPATH}/src/08.go-kit/07.apigateway;
+go run main.go -consul.addr :8500
+
+curl -XPOST -d'{"a":"7","b":"4"}' http://localhost:8000/addsvc/concat
+curl -XPOST -d'{"a":7,"b":4}' http://localhost:8000/addsvc/sum
+curl -XPOST -d'{"s":"mytest"}' http://localhost:8000/stringsvc/count
+curl -XPOST -d'{"s":"mytest"}' http://localhost:8000/stringsvc/uppercase
 ```
