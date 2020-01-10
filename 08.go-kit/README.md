@@ -200,3 +200,19 @@ curl -XPOST -d'{"a":7,"b":4}' http://localhost:8000/addsvc/sum
 curl -XPOST -d'{"s":"mytest"}' http://localhost:8000/stringsvc/count
 curl -XPOST -d'{"s":"mytest"}' http://localhost:8000/stringsvc/uppercase
 ```
+
+## [Example : napodate](https://dev.to/napolux/how-to-write-a-microservice-in-go-with-go-kit-a66)
+
+- run napodate service
+```sh
+cd ${GOPATH}/src/08.go-kit/08.napodate/cmd;
+go run main.go
+```
+
+- test napodate service
+```sh
+curl http://localhost:8080/get
+curl http://localhost:8080/status
+curl -XPOST -d '{"date":"32/12/2020"}' http://localhost:8080/validate
+curl -XPOST -d '{"date":"12/12/2021"}' http://localhost:8080/validate
+```
