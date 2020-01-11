@@ -219,6 +219,7 @@ curl -XPOST -d '{"date":"12/12/2021"}' http://localhost:8080/validate
 
 ## [kitlog](https://opencensus.io/integrations/go_kit/)
 
+- [refer source](https://github.com/opencensus-integrations/go-kit-example)
 - install kitgen binaray
 ```sh
 cd ${GOPATH}/src/github.com/go-kit/kit/cmd/kitgen
@@ -232,4 +233,27 @@ kitgen -h
 cd ${GOPATH}/src/08.go-kit/09.kitloc;
 mkdir hello; cd hello
 kitgen ../service.go
+```
+
+- run zipkin server
+```sh
+docker run -d -p 9411:9411 openzipkin/zipkin
+```
+
+- run hello
+```sh
+go get go.opencensus.io
+go get contrib.go.opencensus.io/exporter/zipkin
+
+cd ${GOPATH}/src/08.go-kit/09.kitloc;
+go run cmd/hello/main.go
+```
+
+- test hello
+```sh
+export PORT=40775
+curl -X POST -d '{}' http://localhost:${PORT}/hello
+curl -X POST -d '{"FirstName":"John"}' http://localhost:${PORT}/hello
+curl -X POST -d '{"LastName":"Doe"}' http://localhost:${PORT}/hello
+curl -X POST -d '{"FirstName":"John","LastName":"Doe"}' http://localhost:${PORT}/hello
 ```
