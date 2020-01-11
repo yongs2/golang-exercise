@@ -216,3 +216,20 @@ curl http://localhost:8080/status
 curl -XPOST -d '{"date":"32/12/2020"}' http://localhost:8080/validate
 curl -XPOST -d '{"date":"12/12/2021"}' http://localhost:8080/validate
 ```
+
+## [kitlog](https://opencensus.io/integrations/go_kit/)
+
+- install kitgen binaray
+```sh
+cd ${GOPATH}/src/github.com/go-kit/kit/cmd/kitgen
+go get .
+go install
+kitgen -h
+```
+
+- autogenerate endpoints, http, service with kitgen
+```sh
+cd ${GOPATH}/src/08.go-kit/09.kitloc;
+mkdir hello; cd hello
+kitgen ../service.go
+```
