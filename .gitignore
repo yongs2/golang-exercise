@@ -17,3 +17,5 @@ github.com/
 google.golang.org/
 cloud.google.com/
 sourcegraph.com/
+contrib.go.opencensus.io/
+go.opencensus.io/
