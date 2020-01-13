@@ -257,3 +257,27 @@ curl -X POST -d '{"FirstName":"John"}' http://localhost:${PORT}/hello
 curl -X POST -d '{"LastName":"Doe"}' http://localhost:${PORT}/hello
 curl -X POST -d '{"FirstName":"John","LastName":"Doe"}' http://localhost:${PORT}/hello
 ```
+
+## [Micro-services Using Go-kit: REST Endpoint](https://www.ru-rocker.com/2017/02/17/micro-services-using-go-kit-http-endpoint/)
+
+- Endpoint URL Format : /lorem/{type}/{min}/{max}
+- prepare
+```sh
+go get github.com/go-kit/kit
+go get github.com/drhodes/golorem
+go get github.com/gorilla/mux
+```
+
+- run
+```sh
+cd ${GOPATH}/src/08.go-kit/10.lorem
+go run lorem.d/main.go 
+```
+
+- test
+```sh
+curl -X POST http://localhost:8080/lorem/word/1/50
+curl -X POST http://localhost:8080/lorem/sentence/1/50
+curl -X POST http://localhost:8080/lorem/paragraph/1/50
+curl -X POST http://localhost:8080/lorem/nomention/1/50
+```
