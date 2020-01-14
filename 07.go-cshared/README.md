@@ -48,3 +48,7 @@ ls -la libgoutil/
 cd example_c
 make
 ```
+
+## 03.Using C Libraries From Go
+
+- [blog post](https://www.thegoldfish.org/2019/04/using-c-libraries-from-go/)
