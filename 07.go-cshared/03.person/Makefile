@@ -1,21 +1,16 @@
 #!MAKEFILE
 
-RM 		= /bin/rm -rf
-RMDIR 	= /bin/rmdir
+all : lib bin
 
-EXP_DIR	= libperson
-SRCS 	= person.c
-EXEC 	= ${EXP_DIR}/libperson.so
-OPTS 	= -Wall -g -shared -fPIC
+lib :
+	make -f Makefile_lib.mk
 
-all : dir ${EXEC}
+bin :
+	make -f Makefile_bin.mk
 
-dir :
-	@if [ ! -f ${EXP_DIR} ] ; then mkdir -p ${EXP_DIR}; fi
-
-${EXEC}: 
-	gcc -o ${EXEC} ${OPTS} ${SRCS}
+run:
+	make -f Makefile_bin.mk run
 
 clean:
-	${RM} ${EXEC}
-	${RMDIR} ${EXP_DIR}
+	make -f Makefile_bin.mk clean
+	make -f Makefile_lib.mk clean
