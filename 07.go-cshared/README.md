@@ -52,3 +52,20 @@ make
 ## 03.Using C Libraries From Go
 
 - [blog post](https://www.thegoldfish.org/2019/04/using-c-libraries-from-go/)
+- make so lib
+
+```sh
+gcc -o libperson.so -Wall -g -shared -fPIC person.c
+```
+
+- make binary
+
+```sh
+gcc -o hello -L. -lperson hello.c
+```
+
+- run example
+```sh
+make; make run
+make clean;
+```
