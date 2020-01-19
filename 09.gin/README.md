@@ -29,3 +29,17 @@ curl -X PATCH localhost:8080/somePatch
 curl -X HEAD localhost:8080/someHead
 curl -X OPTIONS localhost:8080/someOptions
 ```
+
+### 03.Parameters
+
+- Parameters in path
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 02.Router;
+go run example.go
+
+curl -X GET localhost:8080/user/john
+curl -X GET localhost:8080/user/john/run
+curl -X POST localhost:8080/user/john/run
+```
