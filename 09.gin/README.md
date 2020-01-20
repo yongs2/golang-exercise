@@ -55,3 +55,15 @@ go run example.go
 
 curl -X GET "http://localhost:8080/welcome?firstname=Jane&lastname=Doe"
 ```
+
+### 05.Multipart
+
+- Multipart/Urlencoded Form
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 05.Multipart
+go run example.go
+
+curl --form message="hello world" --form nick="john" http://localhost:8080/form_post
+```
