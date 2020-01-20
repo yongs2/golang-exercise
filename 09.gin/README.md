@@ -67,3 +67,15 @@ go run example.go
 
 curl --form message="hello world" --form nick="john" http://localhost:8080/form_post
 ```
+
+### 06.PostForm
+
+- query + post form
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 06.PostForm
+go run example.go
+
+curl --form message="hello world" --form name="john" "http://localhost:8080/post?id=1001&page=1"
+```
