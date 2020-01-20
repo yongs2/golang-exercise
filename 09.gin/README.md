@@ -36,10 +36,22 @@ curl -X OPTIONS localhost:8080/someOptions
 - run example
 ```sh
 go get github.com/gin-gonic/gin
-cd 02.Router;
+cd 03.Parameters
 go run example.go
 
 curl -X GET localhost:8080/user/john
 curl -X GET localhost:8080/user/john/run
 curl -X POST localhost:8080/user/john/run
+```
+
+### 04.QueryString
+
+- QueryString parameters
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 04.QueryString;
+go run example.go
+
+curl -X GET "http://localhost:8080/welcome?firstname=Jane&lastname=Doe"
 ```
