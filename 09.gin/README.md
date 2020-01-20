@@ -79,3 +79,15 @@ go run example.go
 
 curl --form message="hello world" --form name="john" "http://localhost:8080/post?id=1001&page=1"
 ```
+
+### 07.Map
+
+- Map as querystring or postform parameters
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 07.Map
+go run example.go
+
+curl -d "names[first]=thinkerou&names[second]=tianou" -X POST "http://localhost:8080/post?ids[a]=1234&ids[b]=hello"
+```
