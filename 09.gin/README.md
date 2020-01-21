@@ -91,3 +91,16 @@ go run example.go
 
 curl -d "names[first]=thinkerou&names[second]=tianou" -X POST "http://localhost:8080/post?ids[a]=1234&ids[b]=hello"
 ```
+
+### 08.UploadFiles
+
+- Single file
+```sh
+go get github.com/gin-gonic/gin
+cd 08.UploadFiles
+go run singlefile.go
+
+curl -X POST http://localhost:8080/upload \
+  -F "file=@/go/src/README.md" \
+  -H "Content-Type: multipart/form-data"
+```
