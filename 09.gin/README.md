@@ -116,3 +116,16 @@ curl -X POST http://localhost:8080/upload \
   -F "upload[]=@/go/src/LICENSE" \
   -H "Content-Type: multipart/form-data"
 ```
+
+### 09.GroupingRoutes
+
+- Grouping Routes
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 09.GroupingRoutes
+go run example.go
+
+curl -d "body" -X POST "http://localhost:8080/v1/login"
+curl -d "body" -X POST "http://localhost:8080/v2/login"
+```
