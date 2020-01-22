@@ -94,7 +94,7 @@ curl -d "names[first]=thinkerou&names[second]=tianou" -X POST "http://localhost:
 
 ### 08.UploadFiles
 
-- Single file
+#### 1) Single file
 ```sh
 go get github.com/gin-gonic/gin
 cd 08.UploadFiles
@@ -102,5 +102,17 @@ go run singlefile.go
 
 curl -X POST http://localhost:8080/upload \
   -F "file=@/go/src/README.md" \
+  -H "Content-Type: multipart/form-data"
+```
+
+#### 2) Multiple files
+```sh
+go get github.com/gin-gonic/gin
+cd 08.UploadFiles
+go run multiplefiles.go
+
+curl -X POST http://localhost:8080/upload \
+  -F "upload[]=@/go/src/README.md" \
+  -F "upload[]=@/go/src/LICENSE" \
   -H "Content-Type: multipart/form-data"
 ```
