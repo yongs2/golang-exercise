@@ -129,3 +129,19 @@ go run example.go
 curl -d "body" -X POST "http://localhost:8080/v1/login"
 curl -d "body" -X POST "http://localhost:8080/v2/login"
 ```
+
+### 10.UsingMiddleware
+
+- Using middleware
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 10.UsingMiddleware
+go run example.go
+
+curl -X GET "http://localhost:8080/benchmark"
+curl -d "body" -X POST "http://localhost:8080/login"
+curl -d "body" -X POST "http://localhost:8080/submit"
+curl -d "body" -X POST "http://localhost:8080/read"
+curl -X GET "http://localhost:8080/testing/analytics"
+```
