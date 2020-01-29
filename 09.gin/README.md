@@ -157,3 +157,15 @@ go run example.go
 
 curl -X GET "http://localhost:8080/ping"
 ```
+
+### 12.customlog
+
+- custom log format
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 12.customlog
+go run example.go
+
+curl -X GET "http://localhost:8080/ping"
+```
