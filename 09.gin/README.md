@@ -145,3 +145,15 @@ curl -d "body" -X POST "http://localhost:8080/submit"
 curl -d "body" -X POST "http://localhost:8080/read"
 curl -X GET "http://localhost:8080/testing/analytics"
 ```
+
+### 11.log
+
+- write log
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 11.log
+go run example.go
+
+curl -X GET "http://localhost:8080/ping"
+```
