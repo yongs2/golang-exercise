@@ -169,3 +169,22 @@ go run example.go
 
 curl -X GET "http://localhost:8080/ping"
 ```
+
+### 13.ModelBinding
+
+- Model binding and validation
+- run example
+```sh
+go get github.com/gin-gonic/gin
+cd 13.ModelBinding
+go run example.go
+
+curl -v -d '{"user" : "manu", "password" : "123"}' -H 'content-type: application/json' -X POST "http://localhost:8080/loginJSON"
+curl -v -d '{"user" : "manu"}' -H 'content-type: application/json' -X POST "http://localhost:8080/loginJSON"
+curl -v -d '{"user" : "manu", "password" : "012"}' -H 'content-type: application/json' -X POST "http://localhost:8080/loginJSON"
+
+curl -v -d '<?xml version="1.0" encoding="UTF-8"?><root><user>manu</user><password>123</password></root>' -H 'content-type: application/xml' -X POST "http://localhost:8080/loginXML"
+
+curl -v -d 'user=manu&password=123' -X POST "http://localhost:8080/loginForm"
+curl -v -X POST "http://localhost:8080/loginForm?user=manu&password=123"
+```
