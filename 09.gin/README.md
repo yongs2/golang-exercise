@@ -188,3 +188,17 @@ curl -v -d '<?xml version="1.0" encoding="UTF-8"?><root><user>manu</user><passwo
 curl -v -d 'user=manu&password=123' -X POST "http://localhost:8080/loginForm"
 curl -v -X POST "http://localhost:8080/loginForm?user=manu&password=123"
 ```
+
+### 14.CustomValidator
+
+- register custom validators
+- run example
+```sh
+go get github.com/gin-gonic/gin
+go get github.com/go-playground/validator
+cd 14.CustomValidator
+go run example.go
+
+curl -v -X GET "http://localhost:8080/bookable?check_in=2018-04-16&check_out=2018-04-17"
+curl -v -X GET "http://localhost:8080/bookable?check_in=2018-04-16&check_out=2018-03-17"
+```
