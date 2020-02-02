@@ -237,3 +237,10 @@ go run BindHeader.go
 
 curl -v -H "rate:300" -H "domain:music" -X GET "http://localhost:8080"
 ```
+
+- run example to bind Multipart/Urlencode
+```sh
+go run BindMultipart
+
+curl -X POST -v --form name=user --form "avatar=@./README.md" http://localhost:8080/profile
+```
