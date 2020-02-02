@@ -230,3 +230,10 @@ go run BindUri.go
 curl -v -X GET "http://localhost:8080/thinkerou/987fbc97-4bed-5078-9f07-9141ba07c9f3"
 curl -v -X GET "http://localhost:8080/thinkerou/not-uuid"
 ```
+
+- run example to Bind Header
+```sh
+go run BindHeader.go
+
+curl -v -H "rate:300" -H "domain:music" -X GET "http://localhost:8080"
+```

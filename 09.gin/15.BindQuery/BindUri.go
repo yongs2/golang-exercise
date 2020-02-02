@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -15,10 +17,10 @@ func main() {
 	router.GET("/:name/:id", func(c *gin.Context) {
 		var person Person
 		if err := c.ShouldBindUri(&person); err != nil {
-			c.JSON(400, gin.H{"msg": err})
+			c.JSON(http.StatusBadRequest, gin.H{"msg": err})
 			return
 		}
-		c.JSON(200, gin.H{"name": person.Name, "uuid": person.ID})
+		c.JSON(http.StatusOK, gin.H{"name": person.Name, "uuid": person.ID})
 	})
 	router.Run(":8080")
 }
