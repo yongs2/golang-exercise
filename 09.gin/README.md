@@ -202,3 +202,14 @@ go run example.go
 curl -v -X GET "http://localhost:8080/bookable?check_in=2018-04-16&check_out=2018-04-17"
 curl -v -X GET "http://localhost:8080/bookable?check_in=2018-04-16&check_out=2018-03-17"
 ```
+
+### 15.BindQuery
+- run example for Only Bind Query String
+```sh
+go get github.com/gin-gonic/gin
+cd 15.BindQuery
+go run OnlyBindQuery.go
+
+curl -X GET "http://localhost:8080/testing?name=eason&address=xyz"
+curl -X POST "http://localhost:8080/testing?name=eason&address=xyz" --data 'name=ignore&address=ignore' -H "Content-Type:application/x-www-form-urlencoded"
+```
