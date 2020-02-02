@@ -213,3 +213,10 @@ go run OnlyBindQuery.go
 curl -X GET "http://localhost:8080/testing?name=eason&address=xyz"
 curl -X POST "http://localhost:8080/testing?name=eason&address=xyz" --data 'name=ignore&address=ignore' -H "Content-Type:application/x-www-form-urlencoded"
 ```
+
+- run example to Bind Query String or Post Data
+```sh
+curl -X GET "http://localhost:8080/testing?name=appleboy&address=xyz&birthday=1992-03-15&createTime=1562400033000000123&unixTime=1562400033"
+curl -X POST "http://localhost:8080/testing?name=appleboy&address=xyz&birthday=1992-03-15&createTime=1562400033000000123&unixTime=1562400033"
+curl -v -d '{"name" : "appleboy", "address" : "xyz", "birthday" : "1992-03-15", "createTime" : 1562400033000000123, "unixTime" : 1562400033 }' -H 'content-type: application/json' -X POST "http://localhost:8080/testing"
+```
