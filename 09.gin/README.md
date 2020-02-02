@@ -216,7 +216,17 @@ curl -X POST "http://localhost:8080/testing?name=eason&address=xyz" --data 'name
 
 - run example to Bind Query String or Post Data
 ```sh
+go run BindQueryString.go
+
 curl -X GET "http://localhost:8080/testing?name=appleboy&address=xyz&birthday=1992-03-15&createTime=1562400033000000123&unixTime=1562400033"
 curl -X POST "http://localhost:8080/testing?name=appleboy&address=xyz&birthday=1992-03-15&createTime=1562400033000000123&unixTime=1562400033"
 curl -v -d '{"name" : "appleboy", "address" : "xyz", "birthday" : "1992-03-15", "createTime" : 1562400033000000123, "unixTime" : 1562400033 }' -H 'content-type: application/json' -X POST "http://localhost:8080/testing"
+```
+
+- run example to Bind Uri
+```sh
+go run BindUri.go
+
+curl -v -X GET "http://localhost:8080/thinkerou/987fbc97-4bed-5078-9f07-9141ba07c9f3"
+curl -v -X GET "http://localhost:8080/thinkerou/not-uuid"
 ```
