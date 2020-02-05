@@ -259,3 +259,10 @@ curl -v -X GET "http://localhost:8080/someXML"
 curl -v -X GET "http://localhost:8080/someYAML"
 curl -v -X GET "http://localhost:8080/someProtoBuf"
 ```
+
+- run example for SecureJSON
+```sh
+go run 16.ProtoBuf/securejson.go
+
+curl -v -X GET "http://localhost:8080/someJSON"
+```
