@@ -12,7 +12,7 @@ func main() {
 	router.GET("/someJSON", func(c *gin.Context) {
 		data := gin.H{
 			"lang": "go헬로우",
-			"tag" : "<br>",
+			"tag":  "<br>",
 		}
 		c.AsciiJSON(http.StatusOK, data)
 	})

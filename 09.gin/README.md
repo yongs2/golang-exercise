@@ -280,3 +280,11 @@ go run 16.ProtoBuf/asciijson.go
 
 curl -v -X GET "http://localhost:8080/someJSON"
 ```
+
+- run example for PureJSON
+```sh
+go run 16.ProtoBuf/purejson.go
+
+curl -v -X GET "http://localhost:8080/json"
+curl -v -X GET "http://localhost:8080/purejson"
+```
