@@ -244,3 +244,18 @@ go run BindMultipart
 
 curl -X POST -v --form name=user --form "avatar=@./README.md" http://localhost:8080/profile
 ```
+
+### 16.ProtoBuf
+
+- run example for XML, JSON, YAML and ProtoBuf rendering
+```sh
+go get github.com/gin-gonic/gin
+cd testdata; make ; cd ..;
+go run 16.ProtoBuf/protobuf.go
+
+curl -v -X GET "http://localhost:8080/someJSON"
+curl -v -X GET "http://localhost:8080/moreJSON"
+curl -v -X GET "http://localhost:8080/someXML"
+curl -v -X GET "http://localhost:8080/someYAML"
+curl -v -X GET "http://localhost:8080/someProtoBuf"
+```
