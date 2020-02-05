@@ -273,3 +273,10 @@ go run 16.ProtoBuf/jsonp.go
 
 curl -v -X GET "http://localhost:8080/JSONP?callback=x"
 ```
+
+- run example for AsciiJSON
+```sh
+go run 16.ProtoBuf/asciijson.go
+
+curl -v -X GET "http://localhost:8080/someJSON"
+```
