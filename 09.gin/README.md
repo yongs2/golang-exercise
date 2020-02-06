@@ -299,3 +299,11 @@ go run 17.Serving/staticfiles.go
 curl -v -X GET "http://localhost:8080/assets/test.txt"
 curl -v -X GET "http://localhost:8080/more_static/test.txt"
 ```
+
+- run example to serving data from reader
+```sh
+go get github.com/gin-gonic/gin
+go run 17.Serving/dataFromReader.go
+
+curl -v -X GET "http://localhost:8080/someDataFromReader" --output gopher.png
+```
