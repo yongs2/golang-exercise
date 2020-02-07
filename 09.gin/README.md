@@ -307,3 +307,15 @@ go run 17.Serving/dataFromReader.go
 
 curl -v -X GET "http://localhost:8080/someDataFromReader" --output gopher.png
 ```
+
+### 18.Rendering
+
+- run example to using LoadHTMLGlob
+```sh
+go run 18.Rendering/loadhtml.go
+
+curl -v -X GET "http://localhost:8080/index"
+```
+
+Refer : 
+- [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
