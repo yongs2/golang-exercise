@@ -325,5 +325,12 @@ curl -v -X GET "http://localhost:8080/posts/index"
 curl -v -X GET "http://localhost:8080/users/index"
 ```
 
+- run example to Using Custom Template Funcs
+```sh
+go run 18.Rendering/customtempl.go
+
+curl -v -X GET "http://localhost:8080/raw"
+```
+
 Refer : 
 - [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
