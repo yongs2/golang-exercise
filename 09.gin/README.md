@@ -317,5 +317,13 @@ go run 18.Rendering/loadhtml.go
 curl -v -X GET "http://localhost:8080/index"
 ```
 
+- run example to Using templates with same name in different directories
+```sh
+go run 18.Rendering/loadhtml.go
+
+curl -v -X GET "http://localhost:8080/posts/index"
+curl -v -X GET "http://localhost:8080/users/index"
+```
+
 Refer : 
 - [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
