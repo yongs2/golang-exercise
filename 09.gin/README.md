@@ -332,5 +332,13 @@ go run 18.Rendering/customtempl.go
 curl -v -X GET "http://localhost:8080/raw"
 ```
 
-Refer : 
-- [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
+## 19.multitemplate
+
+- run simple example using multitemplate
+```sh
+go get github.com/gin-contrib/multitemplate
+go run 19.multitemplate
+
+curl -v -X GET "http://localhost:8080/"
+curl -v -X GET "http://localhost:8080/article"
+```

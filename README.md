@@ -47,3 +47,26 @@ go build hello.go
 ```sh
 /Users/<user>/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/imageConfigs/
 ```
+
+## Refer
+- [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
+
+- [free5GC Stage 2](https://bitbucket.org/free5GC/free5gc-stage-2/)
+- [Docker-free5gc](https://github.com/abousselmi/docker-free5gc)
+- [OpenAPI Generator](https://openapi-generator.tech/)
+  - [dockerfile](https://hub.docker.com/r/openapitools/openapi-generator/dockerfile)
+```sh
+git clone https://github.com/jdegre/5GC_APIs;
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go -o /local/out/go
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go-server -o /local/out/go
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go -o /local/out/go
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go-server -o /local/out/go
+
+docker run --rm -v $PWD:/local \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -it --name openapi-generator-cli openapitools/openapi-generator-cli /bin/bash
+```
