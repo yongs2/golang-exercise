@@ -51,22 +51,57 @@ go build hello.go
 ## Refer
 - [A command-line benchmarking tool](https://github.com/sharkdp/hyperfine)
 
+- [NB-IoT NIDD via SCEF](http://www.definitionnetworks.com/3gpp-nidd-via-scef-nb-iot/)
+- [Figure 4.6. IoT Architectures with EPC and 5GC.](https://www.5gamericas.org/wp-content/uploads/2019/07/5G_Americas_White_Paper_on_5G_IOT_FINAL_7.16.pdf) : T8 (SCS/AS - SCEF) vs N33 (AF - NEF)
+
+- [3GPP Documentation](https://github.com/emanuelfreitas/3gpp-documentation)
+
 - [free5GC Stage 2](https://bitbucket.org/free5GC/free5gc-stage-2/)
 - [Docker-free5gc](https://github.com/abousselmi/docker-free5gc)
+
+- [OpenAPI.Tools](https://openapi.tools/)
 - [OpenAPI Generator](https://openapi-generator.tech/)
   - [dockerfile](https://hub.docker.com/r/openapitools/openapi-generator/dockerfile)
 ```sh
 git clone https://github.com/jdegre/5GC_APIs;
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go -o /local/out/go
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go -o /local/out/go/t8-client
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go-server -o /local/out/go
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go-server -o /local/out/go/t8-server
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go -o /local/out/go
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29122_NIDD.yaml -g go-gin-server -o /local/out/go/t8-gin-server
 
-docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go-server -o /local/out/go
+docker run --rm --privileged \
+    -v $PWD/out/go/t8-server:/go/src/ \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -it --name t8-server golang-grpc /bin/bash
+
+mkdir -p /go/src/github.com/GIT_USER_ID/GIT_REPO_ID/
+ln -s /go/src/go /go/src/github.com/GIT_USER_ID/GIT_REPO_ID/go
+
+CID=`docker ps -f name=t8-server -q`
+GEN_IP=`docker inspect --format '{{.NetworkSettings.IPAddress}}' ${CID}`
+export GEN_IP=172.17.0.3
+curl -i -s -v -X GET --header 'Content-Type: application/json' --header 'Accept: application/json' \
+-d '{"scsAsId": "scsAsId001"}' \
+http://${GEN_IP}:8080/3gpp-nidd/v1/scsAsId001/configurations
+
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go -o /local/out/go/niddconf-client
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go-server -o /local/out/go/niddconf-server
+
+docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i /local/TS29522_NIDDConfigurationTrigger.yaml -g go-gin-server -o /local/out/go/niddconf-gin-server
 
 docker run --rm -v $PWD:/local \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -it --name openapi-generator-cli openapitools/openapi-generator-cli /bin/bash
 ```
+
+- Finite State Machine for go
+  - [Programming business processes in Golang](https://medium.com/swlh/programming-business-processes-in-golang-f3612108d16b)
+  - [Developing a statemachine in golang](https://www.codingdream.com/index.php/developing-a-statemachine-in-golang)
+  - [State Design pattern in Go](https://golangbyexample.com/state-design-pattern-go/)
+  - [Finite State Machine for Go](https://github.com/looplab/fsm) : 17 Jan 2019, Star:926, Fork:139
+  - [Finite state machine for Go](https://github.com/bykof/stateful) : 31 Jul 2019, Star:114, Fork:3
+  - [Finite State Machine for Go inspired by Akka FSM](https://github.com/dyrkin/fsm) : 17 days ago, Star:45, Fork:4
