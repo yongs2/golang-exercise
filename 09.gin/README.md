@@ -337,8 +337,17 @@ curl -v -X GET "http://localhost:8080/raw"
 - run simple example using multitemplate
 ```sh
 go get github.com/gin-contrib/multitemplate
-go run 19.multitemplate
+go run 19.multitemplate/simple.go
 
 curl -v -X GET "http://localhost:8080/"
 curl -v -X GET "http://localhost:8080/article"
+```
+
+## 20.Redirect
+
+- run example to HTTP redirect
+```sh
+go run 20.redirect/example.go
+
+curl -v -iL -X GET "http://localhost:8080/test"
 ```
