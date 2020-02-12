@@ -350,4 +350,6 @@ curl -v -X GET "http://localhost:8080/article"
 go run 20.redirect/example.go
 
 curl -v -iL -X GET "http://localhost:8080/test"
+curl -v -iL -X GET "http://localhost:8080/test1"
+curl -v -iL -X GET "http://localhost:8080/test2"
 ```
