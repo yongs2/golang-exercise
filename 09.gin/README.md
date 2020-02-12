@@ -353,3 +353,12 @@ curl -v -iL -X GET "http://localhost:8080/test"
 curl -v -iL -X GET "http://localhost:8080/test1"
 curl -v -iL -X GET "http://localhost:8080/test2"
 ```
+
+## 21.Middleware
+
+- run example to custom middleware
+```sh
+go run 21.middleware/custom.go
+
+curl -v -X GET "http://localhost:8080/test"
+```
