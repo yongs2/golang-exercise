@@ -369,3 +369,11 @@ go run 21.middleware/basicauth.go
 
 curl -u foo:bar -v -X GET "http://localhost:8080/admin/secrets"
 ```
+
+- run example to using goroutines inside a middleware
+```sh
+go run 21.middleware/goroutines.go
+
+curl -v -X GET "http://localhost:8080/long_async"
+curl -v -X GET "http://localhost:8080/long_sync"
+```
