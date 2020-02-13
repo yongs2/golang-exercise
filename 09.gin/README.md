@@ -362,3 +362,10 @@ go run 21.middleware/custom.go
 
 curl -v -X GET "http://localhost:8080/test"
 ```
+
+- run example to using basicAuth middleware
+```sh
+go run 21.middleware/basicauth.go
+
+curl -u foo:bar -v -X GET "http://localhost:8080/admin/secrets"
+```
