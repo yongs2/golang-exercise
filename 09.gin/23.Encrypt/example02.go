@@ -17,9 +17,13 @@ func main() {
 	})
 
 	m := autocert.Manager{
-		Prompt:     autocert.AcceptTOS,
-		HostPolicy: autocert.HostWhitelist("127-0-0-1.sslip.io", "172-17-0-2.sslip.io"),
-		Cache:      autocert.DirCache("/var/www/.cache"),
+		Prompt: autocert.AcceptTOS,
+		HostPolicy: autocert.HostWhitelist(
+			"127-0-0-1.sslip.io",
+			"172-17-0-2.sslip.io",
+			"172-17-0-2.nip.io",
+		),
+		Cache: autocert.DirCache("/var/www/.cache"),
 	}
 
 	log.Fatal(autotls.RunWithManager(router, &m))
