@@ -332,7 +332,7 @@ go run 18.Rendering/customtempl.go
 curl -v -X GET "http://localhost:8080/raw"
 ```
 
-## 19.multitemplate
+### 19.multitemplate
 
 - run simple example using multitemplate
 ```sh
@@ -343,7 +343,7 @@ curl -v -X GET "http://localhost:8080/"
 curl -v -X GET "http://localhost:8080/article"
 ```
 
-## 20.Redirect
+### 20.Redirect
 
 - run example to HTTP redirect
 ```sh
@@ -354,7 +354,7 @@ curl -v -iL -X GET "http://localhost:8080/test1"
 curl -v -iL -X GET "http://localhost:8080/test2"
 ```
 
-## 21.Middleware
+### 21.Middleware
 
 - run example to custom middleware
 ```sh
@@ -376,4 +376,13 @@ go run 21.middleware/goroutines.go
 
 curl -v -X GET "http://localhost:8080/long_async"
 curl -v -X GET "http://localhost:8080/long_sync"
+```
+
+### 22.CustomConfig
+
+- run example to using custom HTTP configuration
+```sh
+go run 22.customconfig/example.go
+
+curl -v -X GET "http://localhost:8080/"
 ```
