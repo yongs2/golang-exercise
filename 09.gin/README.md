@@ -386,3 +386,14 @@ go run 22.customconfig/example.go
 
 curl -v -X GET "http://localhost:8080/"
 ```
+
+### 23.Encrypt
+
+- run example for 1-line LetsEncrypt HTTPS Server
+```sh
+go get github.com/gin-gonic/autotls
+go run 23.Encrypt/example01.go
+
+curl -v -X GET "https://127-0-0-1.sslip.io/ping"
+curl -v -X GET "https://172-17-0-2.sslip.io/ping"
+```
