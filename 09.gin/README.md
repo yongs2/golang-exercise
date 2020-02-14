@@ -397,3 +397,11 @@ go run 23.Encrypt/example01.go
 curl -v -X GET "https://127-0-0-1.sslip.io/ping"
 curl -v -X GET "https://172-17-0-2.sslip.io/ping"
 ```
+
+- run example for custom autocert manager.
+```sh
+go run 23.Encrypt/example02.go
+
+curl -v -X GET "https://127-0-0-1.sslip.io/ping"
+curl -v -X GET "https://172-17-0-2.sslip.io/ping"
+```
