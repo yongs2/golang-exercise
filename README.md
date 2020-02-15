@@ -58,10 +58,12 @@ go build hello.go
 
 - [free5GC Stage 2](https://bitbucket.org/free5GC/free5gc-stage-2/)
 - [Docker-free5gc](https://github.com/abousselmi/docker-free5gc)
+- [free5gc-nssf](https://github.com/stevenchiu30801/free5gc-nssf)
 
 - [OpenAPI.Tools](https://openapi.tools/)
 - [OpenAPI Generator](https://openapi-generator.tech/)
   - [dockerfile](https://hub.docker.com/r/openapitools/openapi-generator/dockerfile)
+
 ```sh
 git clone https://github.com/jdegre/5GC_APIs;
 
@@ -96,6 +98,19 @@ docker run --rm -v ${PWD}:/local openapitools/openapi-generator-cli generate -i 
 docker run --rm -v $PWD:/local \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -it --name openapi-generator-cli openapitools/openapi-generator-cli /bin/bash
+
+cd /opt/openapi-generator/modules/openapi-generator-cli/target/; java -jar openapi-generator-cli.jar version
+
+wget https://github.com/stevenchiu30801/free5gc-nssf/raw/master/openapi/openapi-generator-cli.jar 
+mv openapi-generator-cli.jar openapi-generator-cli-4.0.0-SNAPSHOT.jar
+java -jar openapi-generator-cli-4.0.0-SNAPSHOT.jar version
+
+git clone https://github.com/OpenAPITools/openapi-generator
+docker build -t openapi-generator-cli -f Dockerfile .
+
+git clone https://github.com/openapitools/openapi-generator
+cd openapi-generator
+./run-in-docker.sh mvn package
 ```
 
 - Finite State Machine for go
