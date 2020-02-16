@@ -16,9 +16,11 @@
 
 ### 1.2 scenario
 
+- [mermaid live editor](https://mermaid-js.github.io/mermaid-live-editor)
+
 ```mermaid
 sequenceDiagram
-	participant client1
+  participant client1
   participant client2
   participant server
   participant redis
