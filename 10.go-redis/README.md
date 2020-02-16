@@ -1,7 +1,11 @@
 # [go-redis](https://github.com/go-redis/redis)
+
 - https://github.com/gomodule/redigo
 
 ## 1. Reference
+
+### 1.1 reference link
+
 - [Dockerfile for Redis Cluster (redis 3.0+)](https://github.com/Grokzen/docker-redis-cluster)
 - [Redis #.8 Docker를 이용한 Redis cluster 구축 (ver. 5.0.5-buster)](https://rastalion.me/archives/843)
 - [[Redis] 클러스터를 걸어놓고 expire 이벤트를 받을때 문제점.](http://egloos.zum.com/scblood/v/7441973)
@@ -9,6 +13,27 @@
 - [Docker기반 Redis 구축하기](https://jaehun2841.github.io/2018/12/03/2018-12-03-docker-10/)
 - [Basic Redis Examples with Go](https://medium.com/@gilcrest_65433/basic-redis-examples-with-go-a3348a12878e)
 - [Getting Started with Redis and Go - Tutorial](https://tutorialedge.net/golang/go-redis-tutorial/)
+
+### 1.2 scenario
+
+```mermaid
+sequenceDiagram
+	participant client1
+  participant client2
+  participant server
+  participant redis
+  client1->>server : regi
+  server->redis : read client1
+  client1->>server : req1
+  server->>redis : save1
+  redis->>server : timeout1
+  server->>server : delete
+  client1->>server : req2
+  server->>redis : save2
+  client2->>server : regi
+  server->redis : read client2
+  server->>client2 : rpt2
+```
 
 ## 2. run redis
 
