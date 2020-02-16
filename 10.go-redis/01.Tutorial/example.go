@@ -19,6 +19,21 @@ func main() {
 		DB: 0,
 	})
 
+	// ping, pong
 	pong, err := client.Ping().Result()
 	fmt.Println(pong, err)
+
+	// adding values to redis
+	err = client.Set("name", "Elliot", 0).Err()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Setting, Err=", err)
+
+	// getting values
+	val, err := client.Get("name").Result()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Getting, val=", val)
 }

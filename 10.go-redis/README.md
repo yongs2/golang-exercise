@@ -35,7 +35,8 @@ Redis server v=5.0.7 sha=00000000:0 malloc=jemalloc-5.1.0 bits=64 build=5f6bfe2b
 
   - redis set key expire
     ```sh
-    redis-cli set a 123 ex 4
+    CONFIG SET notify-keyspace-events KEA
+    redis-cli set a 123 ex 4get 
     ```
 ## 3. Examples
 
@@ -44,6 +45,7 @@ Redis server v=5.0.7 sha=00000000:0 malloc=jemalloc-5.1.0 bits=64 build=5f6bfe2b
 ```sh
 export REDIS_HOST=172.17.0.3
 export REDIS_PORT=6379
+redis-cli --csv PSUBSCRIBE '__key*__:*'
 ```
 
 ### 01.Tutorial
@@ -52,5 +54,4 @@ export REDIS_PORT=6379
 ```sh
 go get github.com/go-redis/redis
 go run 01.Tutorial/example.go
-
 ```
