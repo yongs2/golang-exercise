@@ -406,3 +406,14 @@ curl -v -X GET "https://127-0-0-1.sslip.io/ping"
 curl -v -X GET "https://172-17-0-2.sslip.io/ping"
 curl -v -X GET "https://172-17-0-2.nip.io/ping"
 ```
+
+### 24.multiple
+
+- run example to run multiple service using Gin
+```sh
+go get golang.org/x/sync/errgroup
+go run 24.multiple/example.go
+
+curl -v -X GET "http://127.0.0.1:8080"
+curl -v -X GET "http://127.0.0.1:8081"
+```
