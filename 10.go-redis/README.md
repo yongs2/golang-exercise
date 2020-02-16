@@ -38,7 +38,7 @@ Redis server v=5.0.7 sha=00000000:0 malloc=jemalloc-5.1.0 bits=64 build=5f6bfe2b
     CONFIG SET notify-keyspace-events KEA
     redis-cli set a 123 ex 4get 
     ```
-## 3. Examples
+## 3. [Examples](https://godoc.org/github.com/go-redis/redis#pkg-examples)
 
 - pre-environment values
 
@@ -68,4 +68,11 @@ go run 02.client/example.go
 - run example to call BLPop
 ```sh
 go run 03.blpop/example.go
+```
+
+### 04.incr
+
+- run example to call Incr
+```sh
+go run 04.incr/example.go
 ```
