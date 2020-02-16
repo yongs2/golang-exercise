@@ -83,3 +83,10 @@ go run 04.incr/example.go
 ```sh
 go run 05.pipeline/example.go
 ```
+
+### 06.pipelined
+
+- run example to call Pipelined
+```sh
+go run 06.pipelined/example.go
+```
