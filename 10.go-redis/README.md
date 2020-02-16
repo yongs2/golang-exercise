@@ -55,3 +55,10 @@ redis-cli --csv PSUBSCRIBE '__key*__:*'
 go get github.com/go-redis/redis
 go run 01.Tutorial/example.go
 ```
+
+### 02.client
+
+- run example
+```sh
+go run 02.client/example.go
+```
