@@ -76,3 +76,10 @@ go run 03.blpop/example.go
 ```sh
 go run 04.incr/example.go
 ```
+
+### 05.pipeline
+
+- run example to call Pipeline
+```sh
+go run 05.pipeline/example.go
+```
