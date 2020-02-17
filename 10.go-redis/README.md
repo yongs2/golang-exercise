@@ -117,3 +117,17 @@ go run 05.pipeline/example.go
 ```sh
 go run 06.pipelined/example.go
 ```
+
+### 07.scan
+
+- run example to using scan
+```sh
+go run 07.scan/example.go
+```
+
+### 08.set
+
+- run example to using set and expire
+```sh
+go run 08.set/example.go
+```
