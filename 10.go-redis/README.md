@@ -145,3 +145,10 @@ go run 09.txpipeline/example.go
 ```sh
 go run 10.txpipelined/example.go
 ```
+
+### 11.watch
+
+- run example to using Watch
+```sh
+go run 11.watch/example.go
+```
