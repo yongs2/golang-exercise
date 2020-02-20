@@ -138,3 +138,10 @@ go run 08.set/example.go
 ```sh
 go run 09.txpipeline/example.go
 ```
+
+### 10.txpipelined
+
+- run example to using TxPipelined
+```sh
+go run 10.txpipelined/example.go
+```
