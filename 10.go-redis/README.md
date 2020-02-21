@@ -152,3 +152,10 @@ go run 10.txpipelined/example.go
 ```sh
 go run 11.watch/example.go
 ```
+
+### 12.conn
+
+- run example to using conn
+```sh
+go run 12.conn/example.go
+```
