@@ -159,3 +159,15 @@ go run 11.watch/example.go
 ```sh
 go run 12.conn/example.go
 ```
+
+### 13.cluster
+
+- [config redis-cluster](https://rastalion.me/archives/843)
+```sh
+./docker_redis_cluster.sh start
+./docker_redis_cluster.sh create
+
+docker run -i --rm redis:latest redis-cli -h 172.17.0.3 cluster nodes
+
+./docker_redis_cluster.sh stop
+```
