@@ -20,9 +20,9 @@ func main() {
 	})
 	client.Ping()
 	fmt.Println("Connect.Since=", time.Since(now))
-	
+
 	// wait
-	time.Sleep(2*time.Second)
+	time.Sleep(2 * time.Second)
 
 	client.FlushDB()
 	now = time.Now()
@@ -52,5 +52,5 @@ func main() {
 	}
 	fmt.Println("Scan.Since=", time.Since(now))
 	fmt.Printf("found %d keys\n", n)
-	time.Sleep(10*time.Second)
+	time.Sleep(10 * time.Second)
 }

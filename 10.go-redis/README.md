@@ -189,3 +189,11 @@ go run 13.cluster/example.go
   - [Redis Master-slave, Cluster](https://ssup2.github.io/theory_analysis/Redis_Master_Slave_Cluster/)
   - [레디스 운영 잘하는 법](https://sehajyang.github.io/2019/12/11/how-to-operate-redis/)
   - [우아한 레디스](https://ict-nroo.tistory.com/133)
+
+### 14.parseurl
+
+- add example to using url to connect to redis
+```sh
+export REDIS_URL="redis://:password@172.17.0.3:6379/1"
+go run 14.parseurl/example.go
+```

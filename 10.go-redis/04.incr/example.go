@@ -20,8 +20,8 @@ func main() {
 	})
 	client.Ping()
 	fmt.Println("Connect.Since=", time.Since(now))
-	
-	time.Sleep(2*time.Second)
+
+	time.Sleep(2 * time.Second)
 	now = time.Now()
 	for i := 0; i < 10; i++ {
 		now1 := time.Now()
@@ -32,5 +32,5 @@ func main() {
 		fmt.Println("Incr=", result, "Since=", time.Since(now1))
 	}
 	fmt.Println("End.Since=", time.Since(now))
-	time.Sleep(10*time.Second)
+	time.Sleep(10 * time.Second)
 }

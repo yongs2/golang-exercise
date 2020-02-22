@@ -25,7 +25,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 
 	client.FlushDB()
-	
+
 	now = time.Now()
 	var incr *redis.IntCmd
 	_, err := client.TxPipelined(func(pipe redis.Pipeliner) error {

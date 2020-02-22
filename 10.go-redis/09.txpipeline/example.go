@@ -30,7 +30,7 @@ func main() {
 	pipe := client.TxPipeline()
 	incr := pipe.Incr("tx_pipeline_counter")
 	pipe.Expire("tx_pipeline_counter", time.Minute)
-	
+
 	/*
 		MULTI
 		INCR tx_pipeline_counter

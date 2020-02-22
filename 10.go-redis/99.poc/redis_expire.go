@@ -23,10 +23,10 @@ func main() {
 	client.Ping()
 
 	now := time.Now()
-	SetTimer(client, 100)	// 10 일때에는 정상 동작
+	SetTimer(client, 100) // 10 일때에는 정상 동작
 	fmt.Println("End.Since=", time.Since(now))
 
-	time.Sleep(time.Duration(max + 20) * time.Second)	// Monitoring 이벤트 종료를 위해 대기 중
+	time.Sleep(time.Duration(max+20) * time.Second) // Monitoring 이벤트 종료를 위해 대기 중
 	fmt.Println("Done...")
 }
 
@@ -99,9 +99,9 @@ func Monitoring() {
 		fmt.Sscanf(msg.Payload, "TM-%03d-%14s-%03d", &nIndex, &timeStr, &nExpire)
 		eventTime, _ = time.Parse("20060102150405", timeStr)
 		eventTime = eventTime.Add(time.Duration(nExpire) * time.Second)
-		
-		// "Channel=", msg.Channel, 
-		fmt.Println(now.Format("2006/01/02 15:04:05"), "Payload=", msg.Payload, 
+
+		// "Channel=", msg.Channel,
+		fmt.Println(now.Format("2006/01/02 15:04:05"), "Payload=", msg.Payload,
 			"Expire=", eventTime.Format("2006/01/02 15:04:05"), "diff=", now.Sub(eventTime))
 	}
 }

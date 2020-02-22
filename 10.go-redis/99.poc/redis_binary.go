@@ -21,24 +21,24 @@ func main() {
 	client := GetRedisClient()
 
 	now := time.Now()
-	for i:=0; i<10; i++ {
+	for i := 0; i < 10; i++ {
 		RPushBinary(client, key, data)
 	}
 	fmt.Println("End.Since=", time.Since(now))
 
 	var nLen int = 0
 	var filename string
-	for i:=0; i<100; i++ {
+	for i := 0; i < 100; i++ {
 		data, err = LPopBinary(client, key)
 		if err != nil {
 			fmt.Println("LPopBinary.Err=", err.Error())
-			break;
+			break
 		}
 		filename = fmt.Sprintf("%s-%03d.jpg", key, i)
 		nLen, err = WriteBinary(filename, data)
 		if err != nil {
 			fmt.Println("WriteBinary.Err=", err.Error())
-			break;
+			break
 		}
 		fmt.Println("IDX=", i, "Binary=", len(data), "Write=", nLen)
 	}
@@ -62,14 +62,14 @@ func WriteBinary(filename string, data []byte) (int, error) {
 }
 
 func ReadBinary(filename string) ([]byte, error) {
-	const maxBytes = 40*1024
+	const maxBytes = 40 * 1024
 	var minSize int = 0
 
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	stat, err := file.Stat()
 	if err != nil {
 		return nil, err
