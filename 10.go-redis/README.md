@@ -211,3 +211,10 @@ go run 15.addhook/example.go
 ```sh
 go run 16.pubsub/example.go
 ```
+
+### 17.pubsub2
+
+- run example to using pubsub.ReceiveTimeout
+```sh
+go run 17.pubsub2/example.go
+```
