@@ -171,3 +171,21 @@ docker run -i --rm redis:latest redis-cli -h 172.17.0.3 cluster nodes
 
 ./docker_redis_cluster.sh stop
 ```
+
+- run example to using cluster
+```sh
+export REDIS_CLUSTER1=172.17.0.3:6379
+export REDIS_CLUSTER2=172.17.0.4:6380
+export REDIS_CLUSTER3=172.17.0.5:6381
+
+go run 13.cluster/example.go
+```
+
+- redis-masster-2 를 강제로 종료시키면 해당 node에서 처리되는 데이터에 접근 불가
+- CLUSTERDOWN The cluster is down 로 표시됨
+- 관련 내용 참조
+  - [[REDIS CLUSTER] FAILOVER 테스트](https://hakurei.tistory.com/130)
+  - [Redis – cluster](https://daddyprogrammer.org/post/1601/redis-cluster/)
+  - [Redis Master-slave, Cluster](https://ssup2.github.io/theory_analysis/Redis_Master_Slave_Cluster/)
+  - [레디스 운영 잘하는 법](https://sehajyang.github.io/2019/12/11/how-to-operate-redis/)
+  - [우아한 레디스](https://ict-nroo.tistory.com/133)
