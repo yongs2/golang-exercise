@@ -225,3 +225,10 @@ go run 17.pubsub2/example.go
 ```sh
 go run 18.scancmd/example.go
 ```
+
+### 19.script
+
+- run example to using script
+```sh
+go run 19.script/example.go
+```
