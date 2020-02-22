@@ -10,7 +10,7 @@ redis_cluster_run()
         echo $name, $port
         docker run --rm \
             -v /var/run/docker.sock:/var/run/docker.sock \
-            -p ${port}:${port} \
+            -p ${port}:6379 \
             -d --name ${name} redis:latest \
             redis-server --port ${port} --cluster-enabled yes --cluster-config-file node.conf --cluster-node-timeout 5000 --bind 0.0.0.0
     done
@@ -32,7 +32,7 @@ redis_cluster_create()
         IP=`docker inspect -f \
             '{{(index .NetworkSettings.Networks "bridge").IPAddress}}' \
             ${name}`
-        PORT=`docker port ${name}|cut -d'/' -f1`
+        PORT=`docker port ${name} | cut -d ':' -f2`
         IPS="${IPS} ${IP}:${PORT}"
     done
     echo "IPS=$IPS"
