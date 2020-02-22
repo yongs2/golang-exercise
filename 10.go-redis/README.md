@@ -232,3 +232,10 @@ go run 18.scancmd/example.go
 ```sh
 go run 19.script/example.go
 ```
+
+### 20.custom
+
+- run example to using custom command
+```sh
+go run 20.custom/example.go
+```
