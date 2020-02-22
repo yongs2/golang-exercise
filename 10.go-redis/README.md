@@ -192,8 +192,15 @@ go run 13.cluster/example.go
 
 ### 14.parseurl
 
-- add example to using url to connect to redis
+- run example to using url to connect to redis
 ```sh
 export REDIS_URL="redis://:password@172.17.0.3:6379/1"
 go run 14.parseurl/example.go
+```
+
+### 15.addhook
+
+- run exmaple to using AddHook
+```sh
+go run 15.addhook/example.go
 ```
