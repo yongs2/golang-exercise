@@ -204,3 +204,10 @@ go run 14.parseurl/example.go
 ```sh
 go run 15.addhook/example.go
 ```
+
+### 16.pubsub
+
+- run example to using publish and subscribe
+```sh
+go run 16.pubsub/example.go
+```
