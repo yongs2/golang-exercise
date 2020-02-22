@@ -218,3 +218,10 @@ go run 16.pubsub/example.go
 ```sh
 go run 17.pubsub2/example.go
 ```
+
+### 18.scancmd
+
+- run example to using ScanCmd.Iterator
+```sh
+go run 18.scancmd/example.go
+```

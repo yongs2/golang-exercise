@@ -32,7 +32,7 @@ func main() {
 	ch := pubsub.Channel()
 
 	var msg string
-	for i:=0; i<10; i++ {
+	for i := 0; i < 10; i++ {
 		msg = fmt.Sprintf("hello-%02d", i)
 		err = client.Publish("mychannel1", msg).Err()
 		if err != nil {
