@@ -239,3 +239,11 @@ go run 19.script/example.go
 ```sh
 go run 20.custom/example.go
 ```
+
+### 21.redis-rate
+
+- run example to using redis-rate
+```sh
+go get github.com/go-redis/redis_rate
+go run 21.redis-rate/example.go
+```
