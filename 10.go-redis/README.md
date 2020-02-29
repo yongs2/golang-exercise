@@ -259,3 +259,9 @@ go run 21.redis-rate/example_bohov.go
 go get github.com/teambition/ratelimiter-go
 go run 21.redis-rate/example_ratelimiter.go
 ```
+
+- run example of Distributed rate-limit library based on Redis
+```sh
+go get github.com/vearne/ratelimit
+go run 21.redis-rate/exmaple_ratelimit.go
+```
