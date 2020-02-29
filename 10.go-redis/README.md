@@ -253,3 +253,9 @@ go run 21.redis-rate/example.go
 go get https://github.com/bohov/rate
 go run 21.redis-rate/example_bohov.go
 ```
+
+- run example using ratelimiter-go 
+```sh
+go get github.com/teambition/ratelimiter-go
+go run 21.redis-rate/example_ratelimiter.go
+```

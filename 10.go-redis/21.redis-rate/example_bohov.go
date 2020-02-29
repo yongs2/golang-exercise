@@ -24,7 +24,7 @@ func main() {
 		// 10 requests in 1 seconds
 		res := limiter.Allow("project:123", 10, 1*time.Second)
 		fmt.Println(time.Now().Format("15:04:05.999"), "limiter=", res)
-		time.Sleep(10*time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
 	fmt.Println("End.Since=", time.Since(now))
 }

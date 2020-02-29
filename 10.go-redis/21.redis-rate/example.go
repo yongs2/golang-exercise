@@ -32,9 +32,9 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(time.Now().Format("15:04:05.999"), "limiter=", res.Allowed, res.Remaining, 
+		fmt.Println(time.Now().Format("15:04:05.999"), "limiter=", res.Allowed, res.Remaining,
 			"ResetAfter:", res.ResetAfter, "RetryAfter:", res.RetryAfter)
-		time.Sleep(10*time.Millisecond)
+		time.Sleep(10 * time.Millisecond)
 	}
 	fmt.Println("End.Since=", time.Since(now))
 }
