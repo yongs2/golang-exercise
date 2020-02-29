@@ -247,3 +247,9 @@ go run 20.custom/example.go
 go get github.com/go-redis/redis_rate
 go run 21.redis-rate/example.go
 ```
+
+- run example of Redis rate limiter using bohov/rate
+```sh
+go get https://github.com/bohov/rate
+go run 21.redis-rate/example_bohov.go
+```
