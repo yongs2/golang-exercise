@@ -265,3 +265,12 @@ go run 21.redis-rate/example_ratelimiter.go
 go get github.com/vearne/ratelimit
 go run 21.redis-rate/exmaple_ratelimit.go
 ```
+
+### 22.fsm (finite state machine)
+
+- run example of using github.com/looplab/fsm
+
+```sh
+go get github.com/looplab/fsm
+go run 22.fsm/example_looplab.go
+```
