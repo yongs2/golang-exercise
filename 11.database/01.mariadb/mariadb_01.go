@@ -9,10 +9,13 @@ import (
 )
 
 func main() {
+	dbUser := os.Getenv("MARIADB_USER")
+	dbPwd := os.Getenv("MARIADB_PWD")
 	dbAddr := os.Getenv("MARIADB_HOST") + ":" + os.Getenv("MARIADB_PORT")
-	fmt.Println("MARIADB=", dbAddr)
+	dbName := os.Getenv("MARIADB_NAME")
+	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s)/%s", dbUser, dbPwd, dbAddr, dbName)
 
-	db, err := sql.Open("mysql", fmt.Sprintf("root:root@tcp(%s)/testdb", dbAddr))
+	db, err := sql.Open("mysql", dataSourceName)
 	if err != nil {
 		panic(err)
 	}
