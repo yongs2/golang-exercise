@@ -274,3 +274,10 @@ go run 21.redis-rate/exmaple_ratelimit.go
 go get github.com/looplab/fsm
 go run 22.fsm/example_looplab.go
 ```
+
+- run example og using github.com/ryanfaerman/fsm
+
+```sh
+go get github.com/ryanfaerman/fsm
+go run 22.fsm/example_ryanfaerman.go
+```
