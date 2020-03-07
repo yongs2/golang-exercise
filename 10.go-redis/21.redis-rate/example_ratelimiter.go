@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"time"
+	"log"
+	"sync"
 
 	"github.com/go-redis/redis"
 	ratelimiter "github.com/teambition/ratelimiter-go"
@@ -26,8 +28,10 @@ func (c *redisClient) RateScriptLoad(script string) (string, error) {
 }
 
 func main() {
+	var wg sync.WaitGroup
+
 	redisAddr := os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT")
-	fmt.Println("REDIS=", redisAddr)
+	log.Println("REDIS=", redisAddr)
 
 	now := time.Now()
 	client := redis.NewClient(&redis.Options{
@@ -36,7 +40,7 @@ func main() {
 		DB:       0,
 	})
 	client.Ping()
-	fmt.Println("Connect.Since=", time.Since(now))
+	log.Println("Connect.Since=", time.Since(now))
 
 	now = time.Now()
 	limiter := ratelimiter.New(ratelimiter.Options{
@@ -45,14 +49,25 @@ func main() {
 		Client:   &redisClient{client},
 	})
 
-	for i := 0; i < 100; i++ {
-		res, err := limiter.Get("project:123")
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(time.Now().Format("15:04:05.999"), "limiter=", res.Total, res.Remaining,
-			"Duration:", res.Duration, "Reset:", res.Reset)
-		time.Sleep(10 * time.Millisecond)
+	keys := []string{"key001", "key002"}
+	for _, key := range keys {
+		wg.Add(1)
+		go func(keyVal string) {
+			defer wg.Done()
+			
+			for i := 0; i < 100; i++ {
+				res, err := limiter.Get(keyVal)
+				if err != nil {
+					panic(err)
+				}
+				fmt.Println(time.Now().Format("15:04:05.999"), keyVal, "limiter=", res.Total, res.Remaining,
+					"Duration:", res.Duration, "Reset:", res.Reset)
+				time.Sleep(10 * time.Millisecond)
+			}
+			log.Println("End.Since=", time.Since(now))
+		}(key)
 	}
-	fmt.Println("End.Since=", time.Since(now))
+
+	log.Println("Wait....", time.Since(now))
+	wg.Wait()
 }
