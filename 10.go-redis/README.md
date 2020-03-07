@@ -281,3 +281,10 @@ go run 22.fsm/example_looplab.go
 go get github.com/ryanfaerman/fsm
 go run 22.fsm/example_ryanfaerman.go
 ```
+
+- run example og using github.com/bykof/stateful
+
+```sh
+go get github.com/bykof/stateful
+go run 22.fsm/example_bykof.go
+```

@@ -62,7 +62,7 @@ func main() {
 			fmt.Println(err)
 		}
 	}
-	
+
 	fsm1 := fsm.NewFSM(
 		"E_FS_IDLE",
 		fsm.Events{
@@ -88,19 +88,19 @@ func main() {
 
 			// MO
 			{Name: "EVT_ODR", Src: []string{"E_FS_IDLE"}, Dst: "E_FS_OPEN"},
-			{Name: "MO-Open", Src: []string{"E_FS_OPEN"}, Dst: "E_FS_MO_OPEN"},			
+			{Name: "MO-Open", Src: []string{"E_FS_OPEN"}, Dst: "E_FS_MO_OPEN"},
 			{Name: "EVT_MO-NOTI", Src: []string{"E_FS_MO_OPEN"}, Dst: "E_FS_MO_SUCCESS"},
-			{Name: "EVT_MO-NOTI-TIMEOUT", Src: []string{"E_FS_MO_OPEN"}, Dst: "E_FS_MO_RETRY"},			
+			{Name: "EVT_MO-NOTI-TIMEOUT", Src: []string{"E_FS_MO_OPEN"}, Dst: "E_FS_MO_RETRY"},
 			{Name: "EVT_MO-RETRY", Src: []string{"E_FS_MO_RETRY"}, Dst: "E_FS_MO_OPEN"},
 			{Name: "Check-Fail", Src: []string{"E_FS_OPEN", "E_FS_MO_OPEN", "E_FS_MO_RETRY"}, Dst: "E_FS_MO_FAILURE"},
 			{Name: "Close", Src: []string{"E_FS_MO_SUCCESS", "E_FS_MO_FAILURE"}, Dst: "E_FS_CLOSE"},
 			{Name: "Idle", Src: []string{"E_FS_CLOSE"}, Dst: "E_FS_IDLE"},
 		},
 		fsm.Callbacks{
-			"leave_state":  func(e *fsm.Event) {
+			"leave_state": func(e *fsm.Event) {
 				fmt.Printf("%s >> leaveState.src=%s, dst=%s\n", time.Now().Format("15:04:05.999"), e.Src, e.Dst)
 			},
-			"enter_state":  func(e *fsm.Event) {
+			"enter_state": func(e *fsm.Event) {
 				fmt.Printf("%s >> enterState.src=%s\n", time.Now().Format("15:04:05.999"), e.Src)
 			},
 		},

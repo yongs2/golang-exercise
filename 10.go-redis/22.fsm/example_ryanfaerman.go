@@ -14,14 +14,14 @@ type Thing struct {
 }
 
 func (t *Thing) CurrentState() fsm.State { return t.State }
-func (t *Thing) SetState(s fsm.State) { t.State = s }
+func (t *Thing) SetState(s fsm.State)    { t.State = s }
 func (t *Thing) Apply(r *fsm.Ruleset) *fsm.Machine {
-    if t.machine == nil {
-        t.machine = &fsm.Machine{Subject: t}
-    }
+	if t.machine == nil {
+		t.machine = &fsm.Machine{Subject: t}
+	}
 
-    t.machine.Rules = r
-    return t.machine
+	t.machine.Rules = r
+	return t.machine
 }
 
 func main() {
