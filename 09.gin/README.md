@@ -425,3 +425,14 @@ curl -v -X GET "http://127.0.0.1:8081"
 ```sh
 go run 25.graceful/example.go
 ```
+
+### 26.formdata
+
+- run example to Bind form-data request with custom struct
+```sh
+go run 26.formdata/example.go
+
+curl -v -X GET "http://localhost:8080/getb?field_a=hello&field_b=world"
+curl -v -X GET "http://localhost:8080/getc?field_a=hello&field_c=world"
+curl -v -X GET "http://localhost:8080/getd?field_x=hello&field_d=world"
+```
