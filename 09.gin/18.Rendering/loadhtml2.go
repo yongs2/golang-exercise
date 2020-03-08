@@ -11,12 +11,12 @@ func main() {
 	router.LoadHTMLGlob("templates/**/*")
 	router.GET("/posts/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "posts/index.tmpl", gin.H{
-			"title" : "Posts",
+			"title": "Posts",
 		})
 	})
 	router.GET("/users/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "users/index.tmpl", gin.H{
-			"title" : "Users",
+			"title": "Users",
 		})
 	})
 	router.Run(":8080")

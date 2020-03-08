@@ -29,7 +29,7 @@ func main() {
 
 		reqBody := GetBody(c)
 		fmt.Printf("Body=[%s]\n", reqBody)
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody)))	// Write body back
+		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody))) // Write body back
 
 		if err := c.ShouldBindJSON(&json); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -49,7 +49,7 @@ func main() {
 
 		reqBody := GetBody(c)
 		fmt.Printf("Body=[%s]\n", reqBody)
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody)))	// Write body back
+		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody))) // Write body back
 
 		if err := c.ShouldBindXML(&xml); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -70,7 +70,7 @@ func main() {
 
 		reqBody := GetBody(c)
 		fmt.Printf("Body=[%s]\n", reqBody)
-		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody)))	// Write body back
+		c.Request.Body = ioutil.NopCloser(bytes.NewBuffer([]byte(reqBody))) // Write body back
 
 		if err := c.ShouldBind(&form); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

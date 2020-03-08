@@ -18,8 +18,8 @@ func main() {
 		router.HandleContext(c)
 	})
 
-	router.GET("/test2", func(c * gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"hello" : "world"})
+	router.GET("/test2", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"hello": "world"})
 	})
 
 	router.Run(":8080")

@@ -417,3 +417,11 @@ go run 24.multiple/example.go
 curl -v -X GET "http://127.0.0.1:8080"
 curl -v -X GET "http://127.0.0.1:8081"
 ```
+
+### 25.graceful
+
+- run example to stop graceful
+
+```sh
+go run 25.graceful/example.go
+```

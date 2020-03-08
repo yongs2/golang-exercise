@@ -13,7 +13,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		time.Sleep(5 * time.Second)
 
-		c.JSON(http.StatusOK, gin.H{"status" : c.Request.URL.Path})
+		c.JSON(http.StatusOK, gin.H{"status": c.Request.URL.Path})
 	})
 
 	s := &http.Server{

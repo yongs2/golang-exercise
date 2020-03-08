@@ -11,7 +11,7 @@ func main() {
 	router.LoadHTMLGlob("templates/*")
 	router.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title" : "Main website",
+			"title": "Main website",
 		})
 	})
 	router.Run(":8080")
