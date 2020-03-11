@@ -17,3 +17,11 @@ cd 01.abstract && go run .
 ```sh
 cd 02.builder && go run .
 ```
+
+### 03.factory
+
+- [Factory pattern](https://golangbyexample.com/golang-factory-design-pattern/)
+
+```sh
+cd 03.factory && go run .
+```
