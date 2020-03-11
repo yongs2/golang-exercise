@@ -9,3 +9,11 @@
 ```sh
 cd 01.abstract && go run .
 ```
+
+### 02.builder
+
+- [Builder pattern](https://golangbyexample.com/builder-pattern-golang/)
+
+```sh
+cd 02.builder && go run .
+```
