@@ -25,3 +25,11 @@ cd 02.builder && go run .
 ```sh
 cd 03.factory && go run .
 ```
+
+### 04.object
+
+- [Object Pool Pattern](https://golangbyexample.com/golang-object-pool/)
+
+```sh
+cd 04.object && go run .
+```
