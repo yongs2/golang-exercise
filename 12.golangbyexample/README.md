@@ -33,3 +33,11 @@ cd 03.factory && go run .
 ```sh
 cd 04.object && go run .
 ```
+
+### 05.prototype
+
+- [Prototype Pattern](https://golangbyexample.com/prototype-pattern-go/)
+
+```sh
+cd 05.prototype && go run .
+```
