@@ -49,3 +49,11 @@ cd 05.prototype && go run .
 ```sh
 cd 06.singleton && go run .
 ```
+
+### 07.chain
+
+- [Chain of Responsibility Design Pattern](https://golangbyexample.com/chain-of-responsibility-design-pattern-in-golang/)
+
+```sh
+cd 07.chain && go run .
+```
