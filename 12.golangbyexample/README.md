@@ -41,3 +41,11 @@ cd 04.object && go run .
 ```sh
 cd 05.prototype && go run .
 ```
+
+### 06.singleton
+
+- [Silgleton pattern](https://golangbyexample.com/singleton-design-pattern-go/)
+
+```sh
+cd 06.singleton && go run .
+```
