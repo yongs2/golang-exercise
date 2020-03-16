@@ -65,3 +65,11 @@ cd 07.chain && go run .
 ```sh
 cd 08.command && go run .
 ```
+
+### 09.iterator
+
+- [Iterator Design Pattern](https://golangbyexample.com/go-iterator-design-pattern/)
+
+```sh
+cd 09.iterator && go run .
+```
