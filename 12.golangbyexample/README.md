@@ -57,3 +57,11 @@ cd 06.singleton && go run .
 ```sh
 cd 07.chain && go run .
 ```
+
+### 08.command
+
+- [Command design pattern](https://golangbyexample.com/command-design-pattern-in-golang/)
+
+```sh
+cd 08.command && go run .
+```

@@ -16,7 +16,7 @@ func main() {
 		log.Fatalf("Init Pool Error: %s", err)
 	}
 	log.Printf("initPool=C[%v], pool.A[%v]\n", pool.capacity, len(pool.active))
-	
+
 	conn1, err := pool.loan()
 	if err != nil {
 		log.Fatalf("Pool Loan Error: %s", err)
