@@ -73,3 +73,11 @@ cd 08.command && go run .
 ```sh
 cd 09.iterator && go run .
 ```
+
+### 10.mediator
+
+- [Mediator design pattern](https://golangbyexample.com/mediator-design-pattern-golang/)
+
+```sh
+cd 10.mediator && go run .
+```
