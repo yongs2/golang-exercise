@@ -97,3 +97,11 @@ cd 11.memento && go run .
 ```sh
 cd 12.null && go run .
 ```
+
+### 13.observer
+
+- [Observer design pattern](https://golangbyexample.com/observer-design-pattern-golang/)
+
+```sh
+cd 13.observer && go run .
+```
