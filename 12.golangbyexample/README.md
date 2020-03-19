@@ -89,3 +89,11 @@ cd 10.mediator && go run .
 ```sh
 cd 11.memento && go run .
 ```
+
+### 12.null
+
+- [Null object design pattern](https://golangbyexample.com/null-object-design-pattern-golang/)
+
+```sh
+cd 12.null && go run .
+```
