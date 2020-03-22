@@ -121,3 +121,11 @@ cd 14.state && go run .
 ```sh
 cd 15.strategy && go run .
 ```
+
+### 16.template
+
+- [Template Method Design Pattern](https://golangbyexample.com/template-method-design-pattern-golang/)
+
+```sh
+cd 16.template && go run .
+```
