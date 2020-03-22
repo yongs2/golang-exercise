@@ -113,3 +113,11 @@ cd 13.observer && go run .
 ```sh
 cd 14.state && go run .
 ```
+
+### 15.strategy
+
+- [Strategy design pattern](https://golangbyexample.com/strategy-design-pattern-golang/)
+
+```sh
+cd 15.strategy && go run .
+```
