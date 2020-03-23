@@ -137,3 +137,11 @@ cd 16.template && go run .
 ```sh
 cd 17.visitor && go run .
 ```
+
+### 18.adapter
+
+- [Adapter design pattern](https://golangbyexample.com/adapter-design-pattern-go/)
+
+```sh
+cd 18.adapter && go run .
+```
