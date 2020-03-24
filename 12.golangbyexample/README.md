@@ -145,3 +145,11 @@ cd 17.visitor && go run .
 ```sh
 cd 18.adapter && go run .
 ```
+
+### 19.bridge
+
+- [Bridge design pattern](https://golangbyexample.com/bridge-design-pattern-in-go/)
+
+```sh
+cd 19.bridge && go run .
+```
