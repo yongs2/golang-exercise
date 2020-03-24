@@ -153,3 +153,11 @@ cd 18.adapter && go run .
 ```sh
 cd 19.bridge && go run .
 ```
+
+### 20.composite
+
+- [Composite design pattern](https://golangbyexample.com/composite-design-pattern-golang/)
+
+```sh
+cd 20.composite && go run .
+```
