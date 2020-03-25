@@ -161,3 +161,11 @@ cd 19.bridge && go run .
 ```sh
 cd 20.composite && go run .
 ```
+
+### 21.facade
+
+- [Facade design pattern](https://golangbyexample.com/facade-design-pattern-in-golang/)
+
+```sh
+cd 21.facade && go run .
+```
