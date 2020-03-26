@@ -169,3 +169,11 @@ cd 20.composite && go run .
 ```sh
 cd 21.facade && go run .
 ```
+
+### 22.flyweight
+
+- [flyweight design pattern](https://golangbyexample.com/flyweight-design-pattern-golang/)
+
+```sh
+cd 22.flyweight && go run .
+```
