@@ -177,3 +177,11 @@ cd 21.facade && go run .
 ```sh
 cd 22.flyweight && go run .
 ```
+
+### 23.proxy
+
+- [proxy design pattern](https://golangbyexample.com/proxy-design-pattern-in-golang/)
+
+```sh
+cd 23.proxy && go run .
+```
