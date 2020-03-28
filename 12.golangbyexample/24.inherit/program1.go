@@ -4,37 +4,53 @@ import (
 	"fmt"
 )
 
-type iBase interface {
+type iBase1 interface {
 	say()
 }
 
-type base struct {
-	color string
-	clear func()
+type iBase2 interface {
+	walk()
 }
 
-func (b *base) say() {
-	b.clear()
+type base1 struct {
+	color string
+}
+
+func (b *base1) say() {
+	fmt.Println("Hi from say function")
+}
+
+type base2 struct {
+}
+
+func (b *base2) walk() {
+	fmt.Println("Hi from walk function")
 }
 
 type child struct {
-	base
+	base1
+	base2
 	style string
 }
 
-func check(b iBase) {
+func check1(b iBase1) {
 	b.say()
 }
 
+func check2(b iBase2) {
+	b.walk()
+}
+
 func main() {
-	base := base{color: "Red",
-		clear: func() {
-			fmt.Println("Clear from base's function")
-		}}
+	base1 := base1{color: "Red"}
+	base2 := base2{}
 	child := &child{
-		base:  base,
+		base1: base1,
+		base2: base2,
 		style: "somestyle",
 	}
 	child.say()
-	fmt.Println("The color is " + child.color)
+	child.walk()
+	check1(child)
+	check2(child)
 }
