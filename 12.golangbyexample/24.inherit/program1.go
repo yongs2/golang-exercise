@@ -4,6 +4,10 @@ import (
 	"fmt"
 )
 
+type iBase interface {
+	say()
+}
+
 type base struct {
 	color string
 }
@@ -17,7 +21,7 @@ type child struct {
 	style string
 }
 
-func check(b base) {
+func check(b iBase) {
 	b.say()
 }
 
