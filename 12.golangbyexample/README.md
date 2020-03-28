@@ -185,3 +185,11 @@ cd 22.flyweight && go run .
 ```sh
 cd 23.proxy && go run .
 ```
+
+### 24.inherit
+
+- [OOP: Inheritance](https://golangbyexample.com/oop-inheritance-golang-complete/)
+
+```sh
+cd 24.inherit && go run .
+```
