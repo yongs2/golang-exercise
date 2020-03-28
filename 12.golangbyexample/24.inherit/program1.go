@@ -17,6 +17,10 @@ type child struct {
 	style string
 }
 
+func check(b base) {
+	b.say()
+}
+
 func main() {
 	base := base{color: "Red"}
 	child := &child{
@@ -25,4 +29,5 @@ func main() {
 	}
 	child.say()
 	fmt.Println("The color is " + child.color)
+	check(child)
 }
