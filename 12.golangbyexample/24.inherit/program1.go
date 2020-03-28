@@ -13,12 +13,20 @@ type base struct {
 }
 
 func (b *base) say() {
-	fmt.Println("Hi from say function")
+	b.clear()
+}
+
+func (b *base) clear() {
+	fmt.Println("Clear from base's function")
 }
 
 type child struct {
 	base
 	style string
+}
+
+func (b *child) clear() {
+    fmt.Println("Clear from child's function")
 }
 
 func check(b iBase) {
@@ -33,5 +41,4 @@ func main() {
 	}
 	child.say()
 	fmt.Println("The color is " + child.color)
-	check(child)
 }
