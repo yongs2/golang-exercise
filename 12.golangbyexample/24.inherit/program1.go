@@ -10,14 +10,11 @@ type iBase interface {
 
 type base struct {
 	color string
+	clear func()
 }
 
 func (b *base) say() {
 	b.clear()
-}
-
-func (b *base) clear() {
-	fmt.Println("Clear from base's function")
 }
 
 type child struct {
@@ -25,16 +22,15 @@ type child struct {
 	style string
 }
 
-func (b *child) clear() {
-    fmt.Println("Clear from child's function")
-}
-
 func check(b iBase) {
 	b.say()
 }
 
 func main() {
-	base := base{color: "Red"}
+	base := base{color: "Red",
+		clear: func() {
+			fmt.Println("Clear from base's function")
+		}}
 	child := &child{
 		base:  base,
 		style: "somestyle",
