@@ -48,9 +48,9 @@ func main() {
 		income:        2000,
 	}
 	usaTax := &usaTax{
-        taxPercentage: 40,
-        income:        500,
-    }
+		taxPercentage: 40,
+		income:        500,
+	}
 
 	taxSystems := []taxSystem{indianTax, singaporeTax, usaTax}
 	totalTax := calculateTotalTax(taxSystems)

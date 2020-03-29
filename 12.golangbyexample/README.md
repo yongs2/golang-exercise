@@ -208,3 +208,8 @@ cd 25.polymorphism && go run exaxmple.go
 cd 25.polymorphism && go run exaxmple_tax.go
 ```
 
+- [Function/Method overloading](https://golangbyexample.com/function-method-overloading-golang/)
+
+```sh
+cd 25.polymorphism && go run exaxmple_overloading.go
+```
