@@ -193,3 +193,11 @@ cd 23.proxy && go run .
 ```sh
 cd 24.inherit && go run .
 ```
+
+### 25.polymorphism
+
+- [OOP: Polymorphism](https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/)
+
+```sh
+cd 25.polymorphism && go run .
+```
