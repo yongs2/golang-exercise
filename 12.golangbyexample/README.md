@@ -199,5 +199,12 @@ cd 24.inherit && go run .
 - [OOP: Polymorphism](https://golangbyexample.com/oop-polymorphism-in-go-complete-guide/)
 
 ```sh
-cd 25.polymorphism && go run .
+cd 25.polymorphism && go run exaxmple.go
 ```
+
+- [Runtime Polymorphism](https://golangbyexample.com/runtime-polymorphism-go/)
+
+```sh
+cd 25.polymorphism && go run exaxmple_tax.go
+```
+
