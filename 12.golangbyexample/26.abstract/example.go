@@ -11,10 +11,12 @@ type iAlpha interface {
 
 type alpha struct {
 	name string
+	work func()
 }
 
 func (a *alpha) common() {
 	fmt.Println("common called")
+	a.work()
 }
 
 type beta struct {
@@ -24,7 +26,6 @@ type beta struct {
 func (b *beta) work() {
 	fmt.Println("work called")
 	fmt.Printf("name is %s\n", b.name)
-	b.common()
 }
 
 func main() {
@@ -34,5 +35,6 @@ func main() {
 	b := &beta{
 		alpha: a,
 	}
-	b.work()
+	b.alpha.work = b.work
+	b.common()
 }
