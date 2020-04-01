@@ -6,17 +6,16 @@ import (
 
 type iAlpha interface {
 	work()
-	common()
+	common(iAlpha)
 }
 
 type alpha struct {
 	name string
-	work func()
 }
 
-func (a *alpha) common() {
-	fmt.Println("common called")
-	a.work()
+func (a *alpha) common(i iAlpha) {
+	fmt.Println("a.common called, name=", a.name)
+	i.work()
 }
 
 type beta struct {
@@ -24,8 +23,8 @@ type beta struct {
 }
 
 func (b *beta) work() {
-	fmt.Println("work called")
-	fmt.Printf("name is %s\n", b.name)
+	fmt.Println("b.work called")
+	fmt.Printf("b.name is %s\n", b.name)
 }
 
 func main() {
@@ -35,6 +34,5 @@ func main() {
 	b := &beta{
 		alpha: a,
 	}
-	b.alpha.work = b.work
-	b.common()
+	b.common(b)
 }
