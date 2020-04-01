@@ -213,3 +213,11 @@ cd 25.polymorphism && go run exaxmple_tax.go
 ```sh
 cd 25.polymorphism && go run exaxmple_overloading.go
 ```
+
+### 26.abstract
+
+- [Abstract class](https://golangbyexample.com/go-abstract-class/)
+
+```sh
+cd 26.abstract && go run example.go
+```
