@@ -229,3 +229,13 @@ cd 26.abstract && go run example.go
 ```sh
 cd 27.encapsulation && go run example.go
 ```
+
+### 28.ProtocolBuffer
+
+- [Protocol Buffers](https://golangbyexample.com/protocol-buffers-go/)
+
+```sh
+cd 28.ProtocolBuffer
+protoc -I ./ --go_out=./ ./person/person.proto
+go run main.go
+```
