@@ -221,3 +221,11 @@ cd 25.polymorphism && go run exaxmple_overloading.go
 ```sh
 cd 26.abstract && go run example.go
 ```
+
+### 27.Encapsulation
+
+- [Encapsulation](https://golangbyexample.com/encapsulation-in-go/)
+
+```sh
+cd 27.encapsulation && go run example.go
+```
