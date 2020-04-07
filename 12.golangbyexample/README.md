@@ -239,3 +239,15 @@ cd 28.ProtocolBuffer
 protoc -I ./ --go_out=./ ./person/person.proto
 go run main.go
 ```
+
+### 29.readfiles
+
+- [Read a large file word by word](https://golangbyexample.com/read-large-file-word-by-word-go)
+- [Read a large file line by line](https://golangbyexample.com/read-large-file-line-by-line-go/)
+
+```sh
+cd 29.readfiles
+go run word.go
+go run line.go
+```
+
