@@ -251,3 +251,12 @@ go run word.go
 go run line.go
 ```
 
+### 30.writefiles
+
+- [write to a file](https://golangbyexample.com/write-to-a-file-go/)
+- [append to a file](https://golangbyexample.com/append-file-golang)
+
+```sh
+cd 30.writefiles && go run write.go
+cd 30.writefiles && go run writeFile.go
+```
