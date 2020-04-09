@@ -240,6 +240,7 @@ protoc -I ./ --go_out=./ ./person/person.proto
 go run main.go
 ```
 
+## Files
 ### 29.readfiles
 
 - [Read a large file word by word](https://golangbyexample.com/read-large-file-word-by-word-go)
@@ -259,4 +260,14 @@ go run line.go
 ```sh
 cd 30.writefiles && go run write.go
 cd 30.writefiles && go run writeFile.go
+```
+
+### 31.deletefile
+
+- [Delete a file](https://golangbyexample.com/delete-file-go/)
+- [Delete a folder](https://golangbyexample.com/delete-folder-go/)
+
+```sh
+cd 31.deletefile && touch sample.txt; go run del_file.go
+cd 31.deletefile && mkdir sample && go run del_folder.go
 ```
