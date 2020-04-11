@@ -271,3 +271,11 @@ cd 30.writefiles && go run writeFile.go
 cd 31.deletefile && touch sample.txt; go run del_file.go
 cd 31.deletefile && mkdir sample && go run del_folder.go
 ```
+
+### 32.updatefile
+
+- [Change the modified/updated time and access time of a file](https://golangbyexample.com/change-updated-time-file-go/)
+
+```sh
+cd 32.updatefile && touch sample.txt; go run update_file.go
+```
