@@ -279,3 +279,11 @@ cd 31.deletefile && mkdir sample && go run del_folder.go
 ```sh
 cd 32.updatefile && touch sample.txt; go run update_file.go
 ```
+
+### 33.genericfile
+
+- [Check if a file is a directory in Go](33.genericfile/checkfile.go)
+- [Create an empty file in Go](33.genericfile/create_empty_file.go)
+- [Iterate over a directory tree ](33.genericfile/iterate.go)
+- [Touch a file in Go](33.genericfile/touch_file.go)
+- [Move file from one location to another]()
