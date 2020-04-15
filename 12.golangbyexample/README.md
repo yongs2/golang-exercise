@@ -287,3 +287,7 @@ cd 32.updatefile && touch sample.txt; go run update_file.go
 - [Iterate over a directory tree ](33.genericfile/iterate.go)
 - [Touch a file in Go](33.genericfile/touch_file.go)
 - [Move file from one location to another]()
+
+### 34.time
+
+- [time and date in Go](https://golangbyexample.com/all-about-time-and-date-golang/)
