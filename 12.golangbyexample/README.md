@@ -291,3 +291,7 @@ cd 32.updatefile && touch sample.txt; go run update_file.go
 ### 34.time
 
 - [time and date in Go](https://golangbyexample.com/all-about-time-and-date-golang/)
+
+### 35.os
+
+- [Execute shell file](https://golangbyexample.com/execute-shell-file-golang/)
