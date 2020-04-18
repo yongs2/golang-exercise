@@ -295,3 +295,7 @@ cd 32.updatefile && touch sample.txt; go run update_file.go
 ### 35.os
 
 - [Execute shell file](https://golangbyexample.com/execute-shell-file-golang/)
+
+### 36.array
+
+- [Check if an item exists in a slice](https://golangbyexample.com/item-exists-slice-golang/)
