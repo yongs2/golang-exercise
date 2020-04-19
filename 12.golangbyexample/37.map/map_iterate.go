@@ -6,9 +6,9 @@ import (
 )
 
 func main() {
-	sample := map[string]string {
-		"a" : "x",
-		"b" : "y",
+	sample := map[string]string{
+		"a": "x",
+		"b": "y",
 	}
 
 	// Iterating over all keys and values
@@ -24,7 +24,7 @@ func main() {
 		log.Printf("Keys: %s\n", k)
 	}
 	log.Printf("Elapsed: %v\n", time.Since(start))
-	
+
 	// Iterating over only keys
 	result := ""
 	start = time.Now()

@@ -303,3 +303,18 @@ cd 32.updatefile && touch sample.txt; go run update_file.go
 ### 37.map
 
 - [Different ways of iterating over a map](https://golangbyexample.com/different-ways-iterating-over-map-go/)
+
+### 38.query_params
+
+- [net/http package get Query Params](https://golangbyexample.com/net-http-package-get-query-params-golang/)
+
+```sh
+curl -v "http://localhost:8080/products1?filters=red&filters=color&filters=price&filters=brand"
+curl -v "http://localhost:8080/products1?filters=color"
+
+curl -v "http://localhost:8080/products2?filters=red&filters=color&filters=price&filters=brand"
+
+curl -v "http://localhost:8080/products3?filters=red&filters=color&filters=price&filters=brand"
+
+curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price&filters=brand"
+```
