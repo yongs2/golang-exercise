@@ -299,3 +299,7 @@ cd 32.updatefile && touch sample.txt; go run update_file.go
 ### 36.array
 
 - [Check if an item exists in a slice](https://golangbyexample.com/item-exists-slice-golang/)
+
+### 37.map
+
+- [Different ways of iterating over a map](https://golangbyexample.com/different-ways-iterating-over-map-go/)
