@@ -21,7 +21,7 @@ func main() {
 func getProducts1(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	filters, present := query["filters"]
-	log.Printf("getProducts1.fileters=[%+v],present[%+v]\n", len(filters), present)
+	//log.Printf("getProducts1.fileters=[%+v],present[%+v]\n", len(filters), present)
 	if !present || len(filters) == 0 {
 		log.Println("filters not present")
 	}
@@ -32,7 +32,7 @@ func getProducts1(w http.ResponseWriter, r *http.Request) {
 func getProducts2(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	filters := query.Get("filters")
-	log.Printf("getProducts2.fileters=[%+v]\n", filters)
+	//log.Printf("getProducts2.fileters=[%+v]\n", filters)
 	w.WriteHeader(200)
 	w.Write([]byte(filters))
 }
@@ -40,7 +40,7 @@ func getProducts2(w http.ResponseWriter, r *http.Request) {
 func getProducts3(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	filters, present := r.Form["filters"]
-	log.Printf("getProducts3.fileters=[%+v],present[%+v]\n", len(filters), present)
+	//log.Printf("getProducts3.fileters=[%+v],present[%+v]\n", len(filters), present)
 	if !present || len(filters) == 0 {
 		log.Println("filters not present")
 	}
@@ -50,7 +50,7 @@ func getProducts3(w http.ResponseWriter, r *http.Request) {
 
 func getProducts4(w http.ResponseWriter, r *http.Request) {
 	filters := r.FormValue("filters")
-	log.Printf("getProducts4.fileters=[%+v]\n", filters)
+	//log.Printf("getProducts4.fileters=[%+v]\n", filters)
 	w.WriteHeader(200)
 	w.Write([]byte(filters))
 }
