@@ -322,3 +322,7 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 39.queue
 
 - [queue](https://golangbyexample.com/queue-in-golang/)
+
+### 40.stack
+
+- [Stack](https://golangbyexample.com/stack-in-golang/)
