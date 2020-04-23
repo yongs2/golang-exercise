@@ -326,3 +326,7 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 40.stack
 
 - [Stack](https://golangbyexample.com/stack-in-golang/)
+
+### 41.set
+
+- [Set implementation](https://golangbyexample.com/set-implementation-in-golang/)
