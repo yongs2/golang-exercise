@@ -330,3 +330,7 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 41.set
 
 - [Set implementation](https://golangbyexample.com/set-implementation-in-golang/)
+
+### 42.linkedlist
+
+- [Linked List](https://golangbyexample.com/singly-linked-list-in-golang/)
