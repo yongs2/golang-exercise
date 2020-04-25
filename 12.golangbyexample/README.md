@@ -334,3 +334,8 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 42.linkedlist
 
 - [Linked List](https://golangbyexample.com/singly-linked-list-in-golang/)
+
+### 43.binarysearch
+
+- [Binary Search tree](https://golangbyexample.com/binary-search-tree-in-go/)
+- [Iterative Binary Search Tree](https://golangbyexample.com/iterative-binary-search-tree-go/)
