@@ -339,3 +339,7 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 
 - [Binary Search tree](https://golangbyexample.com/binary-search-tree-in-go/)
 - [Iterative Binary Search Tree](https://golangbyexample.com/iterative-binary-search-tree-go/)
+
+### 44.heap
+
+- [Heap](https://golangbyexample.com/heap-in-golang/)
