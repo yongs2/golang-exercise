@@ -347,3 +347,7 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 45.trie
 
 - [Trie Implementation](https://golangbyexample.com/trie-implementation-in-go/)
+
+### 46.sort
+
+- [Heap sort](https://golangbyexample.com/heapsort-in-golang/)
