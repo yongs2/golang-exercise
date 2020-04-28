@@ -351,3 +351,15 @@ curl -v "http://localhost:8080/products4?filters=red&filters=color&filters=price
 ### 46.sort
 
 - [Heap sort](https://golangbyexample.com/heapsort-in-golang/)
+
+### 47.network
+
+- [Validate an IP address](https://golangbyexample.com/validate-an-ip-address-in-go)
+- [Check if an IP address is IPV4 or IPV6](https://golangbyexample.com/check-ip-address-is-ipv4-or-ipv6-go/)
+- [Get the IP address from an incoming HTTP request](https://golangbyexample.com/golang-ip-address-http-request/)
+
+```sh
+curl -v -X GET http://172.17.0.2:8080/getIp
+curl -v -H "X-REAL-IP: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
+curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
+```
