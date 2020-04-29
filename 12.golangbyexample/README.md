@@ -363,3 +363,7 @@ curl -v -X GET http://172.17.0.2:8080/getIp
 curl -v -H "X-REAL-IP: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 ```
+
+### 48.logger
+
+- [Go Logger Rotate](https://golangbyexample.com/go-logger-rotation/)
