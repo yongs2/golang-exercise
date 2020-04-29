@@ -46,6 +46,7 @@ func getIP(r *http.Request) (string, error) {
 	//Get IP from RemoteAddr
 	ip, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
+		fmt.Printf("SplitHostPort(%v).Err=[%v]\n", r.RemoteAddr, err)
 		return "", err
 	}
 	netIP = net.ParseIP(ip)
