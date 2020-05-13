@@ -371,3 +371,8 @@ curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 ### 49.channel
 
 - [channel as function argument](https://golangbyexample.com/channel-function-argument-go/)
+
+### 50.goroutine
+
+- [Get number of currently running/active goroutines](https://golangbyexample.com/number-currently-running-active-goroutines/)
+- [Wait for all Go routines to finish execution](https://golangbyexample.com/wait-all-goroutines-go/)
