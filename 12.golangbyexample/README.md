@@ -367,3 +367,7 @@ curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 ### 48.logger
 
 - [Go Logger Rotate](https://golangbyexample.com/go-logger-rotation/)
+
+### 49.channel
+
+- [channel as function argument](https://golangbyexample.com/channel-function-argument-go/)
