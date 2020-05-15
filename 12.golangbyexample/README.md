@@ -376,3 +376,5 @@ curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 
 - [Get number of currently running/active goroutines](https://golangbyexample.com/number-currently-running-active-goroutines/)
 - [Wait for all Go routines to finish execution](https://golangbyexample.com/wait-all-goroutines-go/)
+
+### 51.datatypes
