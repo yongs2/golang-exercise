@@ -378,3 +378,5 @@ curl -v -H "X-FORWARDED-FOR: 172.17.0.2" -X GET http://172.17.0.2:8080/getIp
 - [Wait for all Go routines to finish execution](https://golangbyexample.com/wait-all-goroutines-go/)
 
 ### 51.datatypes
+
+- [All data types](https://golangbyexample.com/all-data-types-in-golang-with-examples/)
