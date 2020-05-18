@@ -110,7 +110,7 @@ func (s *square) area() int {
 
 func Interface() {
 	var s shape
-	s = &square{ side: 4}
+	s = &square{side: 4}
 	log.Printf("Interface.%s: area:%v\n", "s", s.area())
 }
 
