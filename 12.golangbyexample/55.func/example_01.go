@@ -15,6 +15,10 @@ func main() {
 	example_VariadicFuncSameType()
 	example_VariadicFuncDifferentType()
 	example_Person()
+	example_Anonymous()
+	example_HighOrder()
+	example_UserDefine()
+	example_MultipleReturn()
 }
 
 func example_immediately() {
@@ -170,4 +174,49 @@ func addPerson(args ...interface{}) error {
 	}
 	log.Printf("Person struct is %+v\n", p)
 	return nil
+}
+
+func example_Anonymous() {
+	res := max(2, 3)
+	log.Printf("max(2,3)=%v", res)
+
+	func() {
+		log.Printf("From anonymous function")
+	}()
+}
+
+var max = func(a, b int) int {
+	if a >= b {
+		return a
+	}
+	return b
+}
+
+func example_HighOrder() {
+	areaF := getAreaFunc()
+	print2(3, 4, areaF)
+}
+
+func print2(x, y int, area func(int, int) int) {
+	log.Printf("Area is: %d\n", area(x, y))
+}
+
+type area1 func(int, int) int
+
+func example_UserDefine() {
+	var areaF area1 = func(a, b int) int {
+		return a * b
+	}
+	print2(2, 3, areaF)
+}
+
+func example_MultipleReturn() {
+	sum, avg := sum_avg(2, 4)
+	log.Printf("sum=%v, avg=%v", sum, avg)
+}
+
+func sum_avg(a, b int) (int, int) {
+	sum := a + b
+	avg := (a + b) / 2
+	return sum, avg
 }
