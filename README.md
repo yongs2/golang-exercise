@@ -120,3 +120,15 @@ cd openapi-generator
   - [Finite State Machine for Go](https://github.com/looplab/fsm) : 17 Jan 2019, Star:926, Fork:139
   - [Finite state machine for Go](https://github.com/bykof/stateful) : 31 Jul 2019, Star:114, Fork:3
   - [Finite State Machine for Go inspired by Akka FSM](https://github.com/dyrkin/fsm) : 17 days ago, Star:45, Fork:4
+
+### [Go Report Card](https://github.com/gojp/goreportcard)
+
+- install
+
+```sh
+go get github.com/gojp/goreportcard
+cd $GOPATH/src/github.com/gojp/goreportcard
+make install
+go get github.com/gojp/goreportcard/cmd/goreportcard-cli
+goreportcard-cli -v
+```
