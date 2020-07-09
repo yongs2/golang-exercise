@@ -16,8 +16,9 @@ import (
  * 모든 금액은 천 단위 구분자인 콤마가 표시돼있고 금액단위인 원
  */
 
-var koreanNum = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구", "십"}
-var koreanVal = []string{"", "십", "백", "천", "만", "십만", "백만", "천만", "억", "십억", "백억", "천억", "조", "십조", "백조", "천조"}
+var koreanNum = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"}
+var koreanVal = []string{"", "십", "백", "천"}
+var koreanDan = []string{"", "만", "억", "조"}
 
 func ConvertKoreanNumerals(inputNum string) (korean string) {
 	korean = ""
@@ -26,41 +27,54 @@ func ConvertKoreanNumerals(inputNum string) (korean string) {
 	if len(digitStr) < 2 {
 		return ""
 	}
-	log.Printf("digitStr[%v]=[%v]\n", len(digitStr), digitStr[0])
+	//log.Printf("digitStr[%v]=[%v]\n", len(digitStr), digitStr[0])
 	idx := 0
 	numIdx := 0
+	valIdx := 0
+	danIdx := 0
+	insertDanIdx := 0
 	bNotOne := false
 	for i := len(digitStr[0]) - 1; i >= 0; i-- {
+		bNotOne = false
 		if digitStr[0][i] == ',' {
 			continue
 		}
 		numIdx = int(digitStr[0][i] - '0')
-
 		if numIdx == 0 {
 
 		} else {
 			if numIdx == 1 { // 일
-				if idx > 0 && idx < 5 {
+				if idx > 0 && idx < 4 {
 					bNotOne = true
 				}
 			}
+			valIdx = idx % 4
+			danIdx = idx / 4
 
-			if (idxs+1)%4 == 0 {
-				korean += " "
+			if idx != 0 && valIdx == 0 {
+				if len(korean) > 0 {
+					korean = " " + korean
+				}
 			}
-			if bNotOne == true {
-				korean = koreanVal[idx] + korean
-			} else {
-				korean = koreanNum[numIdx] + koreanVal[idx] + korean
+			//log.Printf("korean[%v], numIdx[%v],dan[%v],val[%v],idx[%v]\n", korean, numIdx, danIdx, valIdx, idx)
+			if danIdx != insertDanIdx {
+				korean = koreanDan[danIdx] + korean
 			}
-
-			//log.Printf("korean[%v], numIdx[%v],val[%v]\n", korean, numIdx, idx)
+			korean = koreanVal[valIdx] + korean
+			if bNotOne == false {
+				korean = koreanNum[numIdx] + korean
+			}
+			insertDanIdx = danIdx
 		}
-
 		idx++
-		//log.Printf("digit[%v]=[%c]\n", i, digitStr[0][i])
+		//log.Printf("korean[%v], bNotOne[%v]\n", korean, bNotOne)
+	}
+
+	if valIdx >= 1 && valIdx <= 4 || danIdx == 1 { // "일만" 인 경우는 일 제거
+		korean = strings.TrimLeft(korean, "일")
 	}
 
 	korean = korean + "원"
+	log.Printf("korean[%v]\n", korean)
 	return
 }
