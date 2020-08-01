@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 var (
@@ -82,6 +83,7 @@ func getPrime(n int) int {
 	var num int = 3
 	var sqrtNum int = 0
 
+	now := time.Now()
 	for len(primeList) < n {
 		sqrtNum = Sqrt(num)
 		for i := 0; i < len(primeList); i++ {
@@ -99,5 +101,7 @@ func getPrime(n int) int {
 		}
 		num = num + 2
 	}
-	return primeList[n-1]
+	result := primeList[n-1]
+	fmt.Printf("the %dth prime number is: %d, elapsed[%v]\n", n, result, time.Since(now))
+	return result
 }
