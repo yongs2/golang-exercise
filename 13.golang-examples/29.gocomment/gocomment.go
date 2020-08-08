@@ -16,12 +16,6 @@ func main() {
 		var output string
 		var i int
 
-		dateOut, err := exec.Command("/usr/local/go/bin/go build /go/src/01.hello/hello.go").Output()
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println("> date:", string(dateOut))
-
 		input := os.Args[1]
 		gosrcs, _ := ioutil.ReadFile(input)
 		gosrc := string(gosrcs)
