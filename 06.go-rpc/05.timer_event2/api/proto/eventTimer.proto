@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.timer.event";
+option java_outer_classname = "EventTimerProto";
+
+option go_package = "06.go-rpc/05.timer_event2/api/proto";
+
+package grpceventtimer;
+
+service EventTimer {
+    rpc TimerEvent(stream TimerMsg) returns (stream TimerMsg) {}
+}
+
+message TimerCreateRequest {
+    string CallbackUri  = 1;
+    string SetTime = 2;
+    int32 ExpireSec = 3;
+    string Data = 4;
+    int32 RepeatCount = 5;
+}
+
+message TimerCreateResponse {
+    string CallbackUri  = 1;
+    string SetTime = 2;
+    int32 ExpireSec = 3;
+    string Data = 4;
+    int32 RepeatCount = 5;
+    string TimerId = 6; // CMD_CREATED, CMD_DELETE, CMD_EVENT
+}
+
+message TimerDeleteRequest {
+    string TimerId = 1; // CMD_CREATED, CMD_DELETE
+}
+
+message TimerDeleteResponse {
+    string result = 1;
+}
+
+message TimerEventReport {
+    string CallbackUri  = 1;
+    string SetTime = 2;
+    int32 ExpireSec = 3;
+    string Data = 4;
+    int32 RepeatCount = 5;
+    string TimerId = 6; // CMD_CREATED, CMD_DELETE, CMD_EVENT
+    string EventTime = 7; // CMD_EVENT
+}
+
+// Refer to https://github.com/jerray/chatroom-grpc-example/pb
+message TimerMsg {
+    oneof command {
+        TimerCreateRequest createReq = 1;
+        TimerCreateResponse createRsp = 2;
+        TimerDeleteRequest deleteReq = 3;
+        TimerDeleteResponse deleteRsp = 4;
+        TimerEventReport eventRpt = 5;
+    }
+}
