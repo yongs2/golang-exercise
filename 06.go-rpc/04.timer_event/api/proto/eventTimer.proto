@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.timer.event";
+option java_outer_classname = "EventTimerProto";
+
+option go_package = "06.go-rpc/04.timer_event/api/proto";
+
+package grpceventtimer;
+
+service EventTimer {
+    rpc Create(TimerCreateRequest) returns (TimerCreateResponse) {}
+    rpc Delete(TimerDeleteRequest) returns (TimerDeleteResponse) {}
+}
+
+message TimerCreateRequest {
+    string CallbackUri  = 1;
+    string SetTime = 2;
+    int32 ExpireSec = 3;
+    string Data = 4;
+    int32 RepeatCount = 5;
+}
+
+message TimerCreateResponse {
+    string CallbackUri  = 1;
+    string SetTime = 2;
+    int32 ExpireSec = 3;
+    string Data = 4;
+    int32 RepeatCount = 5;
+    string TimerId = 6; // CMD_CREATED, CMD_DELETE, CMD_EVENT
+}
+
+message TimerDeleteRequest {
+    string TimerId = 1; // CMD_CREATED, CMD_DELETE
+}
+
+message TimerDeleteResponse {
+    string result = 1;
+}
