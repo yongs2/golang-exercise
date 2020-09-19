@@ -61,12 +61,15 @@ func runTimerEvent(client pb.EventTimerClient) {
 		for {
 			in, err := stream.Recv()
 			if err == io.EOF {
+				log.Printf("read EOF : %v\n", err)
 				// read done.
 				close(waitc)
 				return
 			}
 			if err != nil {
-				log.Fatalf("Failed to receive a note : %v", err)
+				log.Printf("Failed to receive a msg : %v\n", err)
+				close(waitc)
+				return
 			}
 
 			log.Printf("Got message %s\n", in)
@@ -90,6 +93,9 @@ func runTimerEvent(client pb.EventTimerClient) {
 		log.Fatalf("Failed to send a timerMsg: %v", err)
 	}
 
+	time.Sleep(time.Duration(10) * time.Second)
+
+	log.Printf("client.CloseSend().....\n")
 	stream.CloseSend()
 	<-waitc
 }

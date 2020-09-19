@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net"
+	"time"
 
 	pb "06.go-rpc/05.timer_event2/api/proto"
 
@@ -49,7 +50,24 @@ func (s *eventTimerServer) TimerEvent(svr pb.EventTimer_TimerEventServer) error 
 			log.Printf("receive error %v", err)
 			continue
 		}
-		log.Printf(">>> RecvMsg=[%v]\n", msg)
+		log.Printf(">>> RecvMsg=[%v], Command[%v]\n", msg, msg.GetCommand())
+		if createReq := msg.GetCreateReq(); createReq != nil {
+			createRsp := &pb.TimerMsg{
+				Command: &pb.TimerMsg_CreateRsp{
+					CreateRsp: &pb.TimerCreateResponse{
+						CallbackUri: createReq.CallbackUri,
+						SetTime:     time.Now().Format(time.RFC3339),
+						ExpireSec:   createReq.ExpireSec,
+						Data:        createReq.Data,
+						RepeatCount: createReq.RepeatCount,
+						TimerId:     "TimerId-0001",
+					},
+				},
+			}
+			if err := svr.Send(createRsp); err != nil {
+				log.Fatalf("Failed to send a timerMsg: %v", err)
+			}
+		}
 	}
 	log.Printf("<< Stop Server.TimerEvent\n")
 	return nil
