@@ -17,6 +17,7 @@ type EvTimerClient struct {
 	Cli    pb.EventTimerClient
 	stream pb.EventTimer_TimerEventClient
 
+	onConnectFn          func()
 	onCreateResponseFn   func(*pb.TimerCreateResponse)
 	onDeleteResponseFn   func(*pb.TimerDeleteResponse)
 	onTimerEventReportFn func(*pb.TimerEventReport)
@@ -24,6 +25,10 @@ type EvTimerClient struct {
 
 func NewEvTimerClient() (*EvTimerClient, error) {
 	return &EvTimerClient{}, nil
+}
+
+func (c *EvTimerClient) SetConnectCallback(cb func()) {
+	c.onConnectFn = cb
 }
 
 func (c *EvTimerClient) SetCreateResponseCallback(cb func(*pb.TimerCreateResponse)) {
@@ -75,6 +80,10 @@ func (c *EvTimerClient) Run(ctx context.Context) (err error) {
 	if err != nil {
 		log.Printf("%v.TimerEvent(_) = _, %v", c.stream, err)
 		return err
+	}
+
+	if c.onConnectFn != nil {
+		c.onConnectFn()
 	}
 
 	for {

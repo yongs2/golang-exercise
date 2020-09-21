@@ -52,13 +52,17 @@ func main() {
 		log.Fatalf("failed to dial:%v", err)
 	}
 
+	evtTimerClient.SetConnectCallback(OnConnect)
 	evtTimerClient.SetCreateResponseCallback(OnCreateResponse)
 	evtTimerClient.SetDeleteResponseCallback(OnDeleteResponse)
 	evtTimerClient.SetTimerEventReportCallback(OnTimerEventReport)
 
 	go evtTimerClient.Run(context.Background())
-	time.Sleep(time.Duration(1) * time.Second)
 
+	time.Sleep(time.Duration(10) * time.Second)
+}
+
+func OnConnect() {
 	createReq := pb.TimerCreateRequest{
 		CallbackUri: "callback-0001",
 		SetTime:     time.Now().Format(time.RFC3339),
@@ -66,10 +70,8 @@ func main() {
 		Data:        "datadata",
 		RepeatCount: -1,
 	}
-	err = evtTimerClient.Create(&createReq)
+	err := evtTimerClient.Create(&createReq)
 	log.Printf("evtTimerClient.Create(%v).Err[%v]\n", createReq.CallbackUri, err)
-
-	time.Sleep(time.Duration(10) * time.Second)
 }
 
 func OnCreateResponse(msg *pb.TimerCreateResponse) {
