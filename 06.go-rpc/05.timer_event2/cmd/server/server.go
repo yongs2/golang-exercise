@@ -67,6 +67,19 @@ func (s *eventTimerServer) TimerEvent(svr pb.EventTimer_TimerEventServer) error 
 			if err := svr.Send(createRsp); err != nil {
 				log.Fatalf("Failed to send a timerMsg: %v", err)
 			}
+			log.Printf(">>>> Send.createRsp..........\n")
+		} else if deleteReq := msg.GetDeleteReq(); deleteReq != nil {
+			deleteRsp := &pb.TimerMsg{
+				Command: &pb.TimerMsg_DeleteRsp{
+					DeleteRsp: &pb.TimerDeleteResponse{
+						Result: "Success",
+					},
+				},
+			}
+			if err := svr.Send(deleteRsp); err != nil {
+				log.Fatalf("Failed to send a timerMsg: %v", err)
+			}
+			log.Printf(">>>> Send.deleteRsp..........\n")
 		}
 	}
 	log.Printf("<< Stop Server.TimerEvent\n")
