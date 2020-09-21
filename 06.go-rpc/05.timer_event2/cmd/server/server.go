@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"time"
 
 	pb "06.go-rpc/05.timer_event2/api/proto"
+	"06.go-rpc/05.timer_event2/evtserver"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -21,75 +21,6 @@ var (
 	certFile = flag.String("cert_file", "", "The TLS cert file")
 	keyFile  = flag.String("key_file", "", "The TLS key file")
 )
-
-type eventTimerServer struct {
-	pb.UnimplementedEventTimerServer
-}
-
-func (s *eventTimerServer) TimerEvent(svr pb.EventTimer_TimerEventServer) error {
-	log.Printf(">> Start Server.TimerEvent\n")
-
-	ctx := svr.Context()
-	for {
-		// exit if context is done
-		// or continue
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		default:
-		}
-
-		// receive data from stream
-		msg, err := svr.Recv()
-		if err == io.EOF {
-			// return will close stream from server side
-			log.Println("exit")
-			return nil
-		}
-		if err != nil {
-			log.Printf("receive error %v", err)
-			continue
-		}
-		log.Printf(">>> RecvMsg=[%v], Command[%v]\n", msg, msg.GetCommand())
-		if createReq := msg.GetCreateReq(); createReq != nil {
-			createRsp := &pb.TimerMsg{
-				Command: &pb.TimerMsg_CreateRsp{
-					CreateRsp: &pb.TimerCreateResponse{
-						CallbackUri: createReq.CallbackUri,
-						SetTime:     time.Now().Format(time.RFC3339),
-						ExpireSec:   createReq.ExpireSec,
-						Data:        createReq.Data,
-						RepeatCount: createReq.RepeatCount,
-						TimerId:     "TimerId-0001",
-					},
-				},
-			}
-			if err := svr.Send(createRsp); err != nil {
-				log.Fatalf("Failed to send a timerMsg: %v", err)
-			}
-			log.Printf(">>>> Send.createRsp..........\n")
-		} else if deleteReq := msg.GetDeleteReq(); deleteReq != nil {
-			deleteRsp := &pb.TimerMsg{
-				Command: &pb.TimerMsg_DeleteRsp{
-					DeleteRsp: &pb.TimerDeleteResponse{
-						Result: "Success",
-					},
-				},
-			}
-			if err := svr.Send(deleteRsp); err != nil {
-				log.Fatalf("Failed to send a timerMsg: %v", err)
-			}
-			log.Printf(">>>> Send.deleteRsp..........\n")
-		}
-	}
-	log.Printf("<< Stop Server.TimerEvent\n")
-	return nil
-}
-
-func newServer() *eventTimerServer {
-	s := &eventTimerServer{}
-	return s
-}
 
 func main() {
 	flag.Parse()
@@ -113,7 +44,64 @@ func main() {
 		}
 		opts = []grpc.ServerOption{grpc.Creds(creds)}
 	}
-	grpcServer := grpc.NewServer(opts...)
-	pb.RegisterEventTimerServer(grpcServer, newServer())
-	grpcServer.Serve(lis)
+
+	evtTimerServer, err := evtserver.NewEvTimerServer(opts)
+	if err != nil {
+		log.Fatalf("failed to NewEvTimerServer:%v", err)
+	}
+
+	evtTimerServer.SetConnectCallback(OnConnect)
+	evtTimerServer.SetCreateRequestCallback(OnCreateRequest)
+	evtTimerServer.SetDeleteRequestCallback(OnDeleteRequest)
+
+	if err = evtTimerServer.Listen(lis); err != nil {
+		panic(err)
+	}
+}
+
+func OnConnect(stream pb.EventTimer_TimerEventServer) {
+	log.Printf("OnConnect.Stream[%v]\n", stream)
+}
+
+func OnCreateRequest(stream pb.EventTimer_TimerEventServer, msg *pb.TimerCreateRequest) {
+	if msg == nil {
+		log.Printf("CreateRequest> msg is nil\n")
+		return
+	}
+
+	log.Printf("CreateRequest.CallbackUri=[%v]\n", msg.GetCallbackUri())
+	createRsp := &pb.TimerMsg{
+		Command: &pb.TimerMsg_CreateRsp{
+			CreateRsp: &pb.TimerCreateResponse{
+				CallbackUri: msg.CallbackUri,
+				SetTime:     time.Now().Format(time.RFC3339),
+				ExpireSec:   msg.ExpireSec,
+				Data:        msg.Data,
+				RepeatCount: msg.RepeatCount,
+				TimerId:     "TimerId-0001",
+			},
+		},
+	}
+	if err := stream.Send(createRsp); err != nil {
+		log.Fatalf("Failed to send a timerMsg: %v", err)
+	}
+}
+
+func OnDeleteRequest(stream pb.EventTimer_TimerEventServer, msg *pb.TimerDeleteRequest) {
+	if msg == nil {
+		log.Printf("DeleteRequest> msg is nil\n")
+		return
+	}
+
+	log.Printf("DeleteRequest.TimerId=[%v]\n", msg.GetTimerId())
+	deleteRsp := &pb.TimerMsg{
+		Command: &pb.TimerMsg_DeleteRsp{
+			DeleteRsp: &pb.TimerDeleteResponse{
+				Result: "Success",
+			},
+		},
+	}
+	if err := stream.Send(deleteRsp); err != nil {
+		log.Fatalf("Failed to send a timerMsg: %v", err)
+	}
 }

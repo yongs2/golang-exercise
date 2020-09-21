@@ -8,7 +8,6 @@ import (
 
 	pb "06.go-rpc/05.timer_event2/api/proto"
 
-	// "golang.org/x/xerrors"
 	"google.golang.org/grpc"
 )
 
