@@ -51,6 +51,7 @@ func main() {
 	}
 
 	evtTimerServer.SetConnectCallback(OnConnect)
+	evtTimerServer.SetDisconnectCallback(OnDisconnect)
 	evtTimerServer.SetCreateRequestCallback(OnCreateRequest)
 	evtTimerServer.SetDeleteRequestCallback(OnDeleteRequest)
 
@@ -60,7 +61,13 @@ func main() {
 }
 
 func OnConnect(stream pb.EventTimer_TimerEventServer) {
-	log.Printf("OnConnect.Stream[%v]\n", stream)
+	serverTransportStream := grpc.ServerTransportStreamFromContext(stream.Context())
+	log.Printf("OnConnect.Stream[%v],Method[%v]\n", stream, serverTransportStream.Method())
+}
+
+func OnDisconnect(stream pb.EventTimer_TimerEventServer) {
+	serverTransportStream := grpc.ServerTransportStreamFromContext(stream.Context())
+	log.Printf("OnDisconnect.Stream[%v],Method[%v]\n", stream, serverTransportStream.Method())
 }
 
 func OnCreateRequest(stream pb.EventTimer_TimerEventServer, msg *pb.TimerCreateRequest) {
@@ -70,6 +77,7 @@ func OnCreateRequest(stream pb.EventTimer_TimerEventServer, msg *pb.TimerCreateR
 	}
 
 	log.Printf("CreateRequest.CallbackUri=[%v]\n", msg.GetCallbackUri())
+
 	createRsp := &pb.TimerMsg{
 		Command: &pb.TimerMsg_CreateRsp{
 			CreateRsp: &pb.TimerCreateResponse{
@@ -94,6 +102,7 @@ func OnDeleteRequest(stream pb.EventTimer_TimerEventServer, msg *pb.TimerDeleteR
 	}
 
 	log.Printf("DeleteRequest.TimerId=[%v]\n", msg.GetTimerId())
+
 	deleteRsp := &pb.TimerMsg{
 		Command: &pb.TimerMsg_DeleteRsp{
 			DeleteRsp: &pb.TimerDeleteResponse{

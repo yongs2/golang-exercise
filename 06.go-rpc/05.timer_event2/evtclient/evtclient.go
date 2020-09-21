@@ -9,6 +9,7 @@ import (
 	pb "06.go-rpc/05.timer_event2/api/proto"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 )
 
 type EvTimerClient struct {
@@ -74,7 +75,10 @@ func (c *EvTimerClient) Close() error {
 	return err
 }
 
-func (c *EvTimerClient) Run(ctx context.Context) (err error) {
+func (c *EvTimerClient) Run(ctx1 context.Context) (err error) {
+	md := metadata.Pairs("AppId", "TM2C")
+	ctx := metadata.NewOutgoingContext(ctx1, md)
+
 	c.stream, err = c.Cli.TimerEvent(ctx)
 	if err != nil {
 		log.Printf("%v.TimerEvent(_) = _, %v", c.stream, err)
@@ -100,7 +104,12 @@ func (c *EvTimerClient) Run(ctx context.Context) (err error) {
 			break
 		}
 
-		log.Printf("Got message [%v]\n", in.GetCommand())
+		rspHeader, err := c.stream.Header()
+		if err != nil {
+			log.Printf("failed to get header from stream: %v\n", err)
+		}
+
+		log.Printf("Got rspHeader[%v], message[%v]\n", rspHeader, in.GetCommand())
 
 		if msg := in.GetCreateRsp(); msg != nil {
 			if c.onCreateResponseFn != nil {
