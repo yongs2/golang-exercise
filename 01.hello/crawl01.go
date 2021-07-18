@@ -25,7 +25,7 @@ func Crawl(url string, depth int, fetcher Fetcher) {
 		return
 	}
 
-	fmt.Printf("[ %d ] url[%s], fetchedUrls[%g]\n", depth, url, fetchedUrls[url])
+	fmt.Printf("[ %d ] url[%s], fetchedUrls[%v]\n", depth, url, fetchedUrls[url])
 	if ok := fetchedUrls[url]; !ok {
 		fetchedUrls[url] = true
 		body, urls, err := fetcher.Fetch(url)
