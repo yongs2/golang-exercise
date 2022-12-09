@@ -17,7 +17,6 @@ type Link struct {
 }
 
 func NewLink(to string) *Link {
-
 	l := &Link{
 		EchoAttempts: 0,
 	}
@@ -25,16 +24,38 @@ func NewLink(to string) *Link {
 	l.FSM = fsm.NewFSM(
 		"disconnected",
 		fsm.Events{
-			{Name: "connect", Src: []string{"disconnected"}, Dst: "connected"},
-			{Name: "disconnect", Src: []string{"connected", "up"}, Dst: "disconnected"},
-			{Name: "echo", Src: []string{"connected"}, Dst: "up"},
+			{
+				Name: "connect",
+				Src:  []string{"disconnected"},
+				Dst:  "connected",
+			},
+			{
+				Name: "disconnect",
+				Src:  []string{"connected", "up"},
+				Dst:  "disconnected",
+			},
+			{
+				Name: "echo",
+				Src:  []string{"connected"},
+				Dst:  "up",
+			},
 		},
 		fsm.Callbacks{
-			"enter_state": func(e *fsm.Event) { l.enterState(e) },
-			"leave_state": func(e *fsm.Event) { l.leaveState(e) },
-			"before_echo": func(e *fsm.Event) { l.validateEchoAttempts(e) },
-			"after_echo":  func(e *fsm.Event) { l.printEchoAttempts(e) },
-			"after_event": func(e *fsm.Event) { l.afterEvent(e) },
+			"enter_state": func(e *fsm.Event) {
+				l.enterState(e)
+			},
+			"leave_state": func(e *fsm.Event) {
+				l.leaveState(e)
+			},
+			"before_echo": func(e *fsm.Event) {
+				l.validateEchoAttempts(e)
+			},
+			"after_echo": func(e *fsm.Event) {
+				l.printEchoAttempts(e)
+			},
+			"after_event": func(e *fsm.Event) {
+				l.afterEvent(e)
+			},
 		},
 	)
 
